@@ -3,7 +3,7 @@ import ProductsGrid from '../../components/ProductsGrid';
 import Checkout from '../../components/Checkout';
 import styles from '../../styles/Home.module.css';
 
-export default function () {
+export default function PointOfSale() {
   return (
     <div className={styles.container}>
       <div className={styles.leftSide}>
