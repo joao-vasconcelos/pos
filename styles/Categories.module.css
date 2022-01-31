@@ -1,0 +1,17 @@
+.container {
+  background-color: yellow;
+  display: grid;
+  place-items: stretch;
+  place-content: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.category {
+  background-color: white;
+  border: 2px solid black;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
