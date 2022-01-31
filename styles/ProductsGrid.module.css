@@ -1,8 +1,7 @@
 .container {
-  background-color: pink;
   display: grid;
   place-items: stretch;
   place-content: stretch;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 5px;
+  gap: 15px;
 }
