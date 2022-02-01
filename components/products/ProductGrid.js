@@ -1,5 +1,5 @@
 import ProductCard from './ProductCard';
-import styles from '../styles/ProductsGrid.module.css';
+import styles from './ProductsGrid.module.css';
 
 import useSWR from 'swr';
 

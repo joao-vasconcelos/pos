@@ -1,19 +1,19 @@
-import Link from 'next/link';
+import FolderGrid from '../components/folders/FolderGrid';
+import ProductGrid from '../components/products/ProductGrid';
+import Checkout from '../components/checkout/Checkout';
+
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+export default function PointOfSale() {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <div className={styles.grid}>
-          <Link href='/pos'>
-            <a className={styles.card}>
-              <h2>Register Home &rarr;</h2>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </a>
-          </Link>
-        </div>
-      </main>
+    <div className={styles.container} onLoad={() => setData(JSON.parse(POSData))}>
+      <div className={styles.leftSide}>
+        <FolderGrid />
+        <ProductGrid />
+      </div>
+      <div className={styles.rightSide}>
+        <Checkout />
+      </div>
     </div>
   );
 }

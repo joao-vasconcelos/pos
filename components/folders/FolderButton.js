@@ -1,7 +1,7 @@
 import cn from 'classnames';
-import styles from '../styles/CategoryButton.module.css';
+import styles from './CategoryButton.module.css';
 
-export default function Categories({ title = 'untitled', active = false }) {
+export default function FolderGrid({ title = 'untitled', active = false }) {
   return (
     <div
       className={cn({
