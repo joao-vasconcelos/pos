@@ -1,12 +1,17 @@
+import useSWR from 'swr';
+
 import FolderGrid from '../components/folders/FolderGrid';
 import ProductGrid from '../components/products/ProductGrid';
 import Checkout from '../components/checkout/Checkout';
 
+import Loading from '../components/loading/Loading';
+
 import styles from '../styles/Home.module.css';
 
 export default function PointOfSale() {
-  return (
-    <div className={styles.container} onLoad={() => setData(JSON.parse(POSData))}>
+  const { data } = useSWR('/api/data');
+  return data ? (
+    <div className={styles.container}>
       <div className={styles.leftSide}>
         <FolderGrid />
         <ProductGrid />
@@ -15,5 +20,7 @@ export default function PointOfSale() {
         <Checkout />
       </div>
     </div>
+  ) : (
+    <Loading />
   );
 }

@@ -1,3 +1,5 @@
+import Loading from '../loading/Loading';
+
 import ProductCard from './ProductCard';
 import styles from './ProductsGrid.module.css';
 
@@ -8,7 +10,7 @@ export default function ProductsGrid() {
 
   return (
     <div className={styles.container}>
-      {data ? data.categories[0].products.map(({ id, title }) => <ProductCard key={id} title={title} />) : 'Loading...'}
+      {data ? data.categories[0].products.map(({ id, title }) => <ProductCard key={id} title={title} />) : <Loading />}
     </div>
   );
 }
