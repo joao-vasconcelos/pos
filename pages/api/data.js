@@ -1,7 +1,7 @@
-import projects from '../../data.json';
+import posConfiguration from '../../data.json';
 
 export default function (req, res) {
   setTimeout(() => {
-    res.json(projects);
+    res.json(posConfiguration);
   }, 500);
 }
