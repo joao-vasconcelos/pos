@@ -1,3 +1,9 @@
+.emptySlot {
+  background-color: var(--gray-light);
+  height: 110px;
+  border-radius: 3px;
+}
+
 .container {
   background-color: #ffffff;
   height: 110px;

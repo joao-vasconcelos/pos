@@ -7,6 +7,8 @@ import styles from './Categories.module.css';
 export default function Categories() {
   const { data } = useSWR('/api/data');
   return (
-    <div className={styles.container}>{data ? data.categories.map(({ id, title }) => <FolderButton key={id} title={title} />) : <Loading />}</div>
+    <div className={styles.container}>
+      {data ? data.folders.map(({ position, title }) => <FolderButton key={position} position={position} title={title} />) : <Loading />}
+    </div>
   );
 }

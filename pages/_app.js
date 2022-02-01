@@ -5,11 +5,15 @@ import BrowserConfig from '../components/browserConfig/BrowserConfig';
 
 import '../styles/globals.css';
 
+import GlobalProvider from '../utils/global-context';
+
 function MyApp({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher: fetch, refreshInterval: 1000 }}>
-      <BrowserConfig />
-      <Component {...pageProps} />;
+      <GlobalProvider>
+        <BrowserConfig />
+        <Component {...pageProps} />;
+      </GlobalProvider>
     </SWRConfig>
   );
 }

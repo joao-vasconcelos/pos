@@ -1,67 +1,64 @@
 {
-  "categories": [
+  "folders": [
     {
-      "id": "287dasd2",
       "title": "Cafetaria",
-      "position": 1,
-      "products": [
+      "position": 0,
+      "slots": [
+        { "position": 0, "product": null },
         {
-          "id": "duifyhsdi",
-          "title": "Café",
-          "image": "https://hgsdfyusdgusdgyf.com",
-          "variations": [
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 }
-          ]
+          "position": 1,
+          "product": {
+            "id": "duifyhsd2682i",
+            "title": "Abatanado",
+            "image": "https://hgsdfyusdgusdgyf.com",
+            "variations": [
+              { "title": "Expresso", "price": 1 },
+              { "title": "Expresso", "price": 1 },
+              { "title": "Expresso", "price": 1 },
+              { "title": "Expresso", "price": 1 }
+            ]
+          }
         },
-        {
-          "id": "duifyhsdsadfsfsdi",
-          "title": "Galão",
-          "image": "https://hgsdfyusdgusdgyf.com",
-          "variations": [
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 }
-          ]
-        },
-        {
-          "id": "duifyhsd2682i",
-          "title": "Abatanado",
-          "image": "https://hgsdfyusdgusdgyf.com",
-          "variations": [
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 },
-            { "title": "Expresso", "price": 1 }
-          ]
-        }
+        { "position": 2, "product": null },
+        { "position": 3, "product": null },
+        { "position": 4, "product": null },
+        { "position": 5, "product": null },
+        { "position": 6, "product": null },
+        { "position": 7, "product": null },
+        { "position": 8, "product": null },
+        { "position": 9, "product": null }
       ]
     },
     {
-      "id": "28e472",
-      "title": "Padaria",
-      "position": 1,
-      "products": [
-        {
-          "title": "Café",
-          "image": "https://hgsdfyusdgusdgyf.com",
-          "variations": [{ "title": "Expresso", "price": 1 }]
-        }
-      ]
-    },
-    {
-      "id": "sdfds216737",
       "title": "Pastelaria",
       "position": 1,
-      "products": [
+      "slots": [
+        { "position": 0, "product": null },
         {
-          "title": "Café",
-          "image": "https://hgsdfyusdgusdgyf.com",
-          "variations": [{ "title": "Expresso", "price": 1 }]
-        }
+          "position": 1,
+          "product": null
+        },
+        { "position": 2, "product": null },
+        {
+          "position": 3,
+          "product": {
+            "id": "duifyhsd2682i",
+            "title": "Bolo do Dia",
+            "image": "https://hgsdfyusdgusdgyf.com",
+            "variations": [
+              { "title": "Expresso", "price": 1 },
+              { "title": "Expresso", "price": 1 },
+              { "title": "Expresso", "price": 1 },
+              { "title": "Expresso", "price": 1 }
+            ]
+          }
+        },
+        { "position": 4, "product": null },
+        { "position": 5, "product": null },
+        { "position": 6, "product": null },
+        { "position": 7, "product": null },
+        { "position": 8, "product": null },
+        { "position": 9, "product": null }
       ]
     }
   ]
