@@ -1,20 +1,12 @@
 import { SWRConfig } from 'swr';
-import fetch from '../hooks/fetch.js';
+import fetch from '../libs/fetch.js';
 
 import Head from 'next/head';
 import '../styles/globals.css';
 
-import { useState } from 'react';
-import GlobalContext from '../utils/global-context';
-
-import allPOSData from '../utils/data.json';
-
 function MyApp({ Component, pageProps }) {
-  // const [state, setState] = useState(allPOSData);
-
   return (
     <SWRConfig value={{ fetcher: fetch, refreshInterval: 1000 }}>
-      {/* <GlobalContext.Provider value={state}> */}
       <Head>
         <title>Register</title>
         <meta name='apple-mobile-web-app-title' content='Register' />
@@ -30,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#ff0000' />
         <link rel='stylesheet' href='https://use.typekit.net/tto7hgg.css' />
       </Head>
-      <Component {...pageProps} />;{/* </GlobalContext.Provider> */}
+      <Component {...pageProps} />;
     </SWRConfig>
   );
 }

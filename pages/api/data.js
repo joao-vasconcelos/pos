@@ -1,4 +1,4 @@
-import projects from '../../utils/data.json';
+import projects from '../../data.json';
 
 export default function (req, res) {
   setTimeout(() => {
