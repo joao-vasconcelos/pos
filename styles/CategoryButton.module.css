@@ -1,0 +1,20 @@
+.categoryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  color: var(--black);
+  border: 2px solid var(--gray-medium);
+  height: 40px;
+  text-transform: uppercase;
+  font-weight: var(--font-bold);
+  font-size: 14px;
+  padding: 5px 20px;
+}
+
+.selected {
+  color: var(--white);
+  background-color: var(--theme-fill);
+  border-color: var(--theme-border);
+  box-shadow: 0 1px 3px 0 var(--effect-shadow);
+}

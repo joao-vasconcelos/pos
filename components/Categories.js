@@ -1,17 +1,16 @@
+import { useContext } from 'react';
+import GlobalContext from '../utils/global-context';
+
+import useSWR from 'swr';
+
+import CategoryButton from './CategoryButton';
 import styles from '../styles/Categories.module.css';
 
 export default function Categories() {
+  const { data } = useSWR('/api/data');
+  console.log('hey', data);
+  // const posData = useContext(GlobalContext);
   return (
-    <div className={styles.container}>
-      <div className={styles.category}>Type 1</div>
-      <div className={styles.category}>Type 2</div>
-      <div className={styles.category}>Type 3</div>
-      <div className={styles.category}>Type 1</div>
-      <div className={styles.category}>Type 2</div>
-      <div className={styles.category}>Type 3</div>
-      <div className={styles.category}>Type 1</div>
-      <div className={styles.category}>Type 2</div>
-      <div className={styles.category}>Type 3</div>
-    </div>
+    <div className={styles.container}>{data ? data.categories.map(({ id, title }) => <CategoryButton key={id} title={title} />) : 'Loading...'}</div>
   );
 }
