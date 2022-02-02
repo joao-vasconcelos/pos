@@ -1,0 +1,15 @@
+.container {
+  background-color: var(--white);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-medium);
+}
+
+.currentUserName {
+  color: var(--theme-fill);
+  font-weight: var(--font-medium);
+  font-size: 14px;
+  text-transform: uppercase;
+}

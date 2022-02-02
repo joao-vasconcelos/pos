@@ -6,11 +6,13 @@
 
 .leftSide {
   width: 70%;
+  height: 100%;
   float: left;
   padding-right: 20px;
 }
 
 .rightSide {
   width: 30%;
+  height: 100%;
   float: right;
 }

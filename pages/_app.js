@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
     <SWRConfig value={{ fetcher: fetch, refreshInterval: 1000 }}>
       <GlobalProvider>
         <BrowserConfig />
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </GlobalProvider>
     </SWRConfig>
   );

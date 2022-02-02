@@ -1,0 +1,15 @@
+.button {
+  width: 100%;
+  padding: 15px 5px;
+  background-color: var(--theme-fill);
+  border: 2px solid var(--theme-border);
+  border-radius: var(--radius-medium);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  box-shadow: var(--effect-shadow);
+}

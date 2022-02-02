@@ -16,5 +16,5 @@
   color: var(--white);
   background-color: var(--theme-fill);
   border-color: var(--theme-border);
-  box-shadow: 0 1px 3px 0 var(--effect-shadow);
+  box-shadow: var(--effect-shadow);
 }

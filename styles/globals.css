@@ -12,9 +12,6 @@
   --gray-dark: #5a5a5a;
   --black: #000000;
 
-  /* Effects */
-  --effect-shadow: rgba(0, 0, 0, 0.15);
-
   /* Status Indicators */
   --status-ok-fill: #00c864;
   --status-ok-border: #2b352f;
@@ -23,17 +20,31 @@
   --status-danger-fill: #e63200;
   --status-danger-border: #960000;
 
+  /* Effects */
+  --effect-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --effect-shadow-pronounced: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --radius-small: 3px;
+  --radius-medium: 5px;
+  --radius-large: 15px;
+
   /* Font Weights */
-  --font-regular: 400;
+  --font-regular: 500;
   --font-medium: 600;
   --font-bold: 700;
 }
 
 html,
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
   font-family: work-sans, sans-serif;
+}
+
+p {
+  margin: 0;
 }
 
 a {
