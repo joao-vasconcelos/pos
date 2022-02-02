@@ -1,21 +1,22 @@
 {
   "folders": [
     {
-      "title": "JOAAAAO",
+      "title": "Cafetaria",
       "position": 0,
       "slots": [
         { "position": 0, "product": null },
         {
           "position": 1,
           "product": {
-            "id": "duifyhsd2682i",
-            "title": "Abatanado",
+            "id": "p001",
+            "title": "Café",
             "image": "https://hgsdfyusdgusdgyf.com",
+            "description": "Este produto deve ser servido bem quente numa chávena cheia.",
             "variations": [
-              { "title": "Expresso", "price": 1 },
-              { "title": "Expresso", "price": 1 },
-              { "title": "Expresso", "price": 1 },
-              { "title": "Expresso", "price": 1 }
+              { "id": "p001v001", "title": "Expresso", "price": 0.5 },
+              { "id": "p001v002", "title": "Descafeinado", "price": 0.5 },
+              { "id": "p001v003", "title": "Carioca", "price": 0.45 },
+              { "id": "p001v004", "title": "Garoto", "price": 0.55 }
             ]
           }
         },
@@ -42,15 +43,10 @@
         {
           "position": 3,
           "product": {
-            "id": "duifyhsd2682i",
+            "id": "p008",
             "title": "Bolo do Dia",
             "image": "https://hgsdfyusdgusdgyf.com",
-            "variations": [
-              { "title": "Expresso", "price": 1 },
-              { "title": "Expresso", "price": 1 },
-              { "title": "Expresso", "price": 1 },
-              { "title": "Expresso", "price": 1 }
-            ]
+            "variations": [{ "id": "p008v001", "title": "de Ananás", "price": 2.5 }]
           }
         },
         { "position": 4, "product": null },
@@ -61,5 +57,16 @@
         { "position": 9, "product": null }
       ]
     }
+  ],
+  "discounts": [
+    {
+      "id": "d001",
+      "title": "Holiday Promo",
+      "description": "-0.5€ from any order",
+      "rules": [["p001v001", "p001v002"], ["p008v001"]],
+      "amount": 0.5
+    },
+    { "id": "d002", "title": "Summer Discount", "description": "-0.5€ from any order", "rules": [], "amount": 0.5 },
+    { "id": "d003", "title": "Winter Vibes", "description": "-0.5€ from any order", "rules": [], "amount": 0.5 }
   ]
 }

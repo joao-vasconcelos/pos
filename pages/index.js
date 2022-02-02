@@ -8,8 +8,7 @@ import Loading from '../components/loading/Loading';
 
 import styles from '../styles/Home.module.css';
 
-import { useContext } from 'react';
-import { GlobalContext } from '../utils/global-context';
+import Overlay from '../components/overlay/Overlay';
 
 export default function PointOfSale() {
   const { data } = useSWR('/api/data');
@@ -23,6 +22,7 @@ export default function PointOfSale() {
       <div className={styles.rightSide}>
         <Checkout />
       </div>
+      <Overlay visible={true} component={<Checkout />} />
     </div>
   ) : (
     <Loading />

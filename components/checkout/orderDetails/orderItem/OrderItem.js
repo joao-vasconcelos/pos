@@ -5,12 +5,12 @@ export default function OrderItem({ item }) {
     <div className={styles.container}>
       <div className={styles.row}>
         <p className={styles.productTitle}>{item.productTitle}</p>
-        <p className={styles.rowTotal}>{item.lineTotal}€</p>
+        <p className={styles.rowTotal}>{item.lineTotal.toFixed(2)}€</p>
       </div>
       <div className={styles.row}>
         <p className={styles.productVariationTitle}>{item.variationTitle}</p>
         <p className={styles.qtyTimesUnitPrice}>
-          {item.qty} x {item.unitPrice}€
+          {item.qty} x {item.unitPrice.toFixed(2)}€
         </p>
       </div>
     </div>

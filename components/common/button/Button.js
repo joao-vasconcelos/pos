@@ -8,8 +8,9 @@ export default function Button({ label = 'Button', type = 'primary', action }) {
         [styles.button]: true,
         [styles.primary]: type == 'primary',
         [styles.muted]: type == 'muted',
+        [styles.disabled]: type == 'disabled',
       })}
-      onClick={action}
+      onClick={type == 'disabled' ? null : action}
     >
       {label}
     </div>

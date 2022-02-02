@@ -2,7 +2,8 @@ import styles from './ProductSlot.module.css';
 
 import { useContext } from 'react';
 import { GlobalContext } from '../../utils/global-context';
-import addToCurrentOrder from '../../utils/orderManager';
+import addItemToCurrentOrder from '../../utils/orderManager';
+import VariationSelector from './variationSelector/VariationSelector';
 
 export default function ProductSlot({ product }) {
   //
@@ -13,10 +14,11 @@ export default function ProductSlot({ product }) {
 
   // ------------------
 
-  const { currentOrder } = useContext(GlobalContext);
+  const { currentOrder, overlay } = useContext(GlobalContext);
 
   function handleClick() {
-    currentOrder.update(addToCurrentOrder(currentOrder.items, product));
+    overlay.setComponent(<VariationSelector product={product} />);
+    // currentOrder.update(addItemToCurrentOrder(currentOrder.items, product));
   }
 
   // If product is set
