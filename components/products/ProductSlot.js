@@ -7,14 +7,14 @@ import VariationSelector from './variationSelector/VariationSelector';
 
 export default function ProductSlot({ product }) {
   //
+  const { currentOrder, overlay } = useContext(GlobalContext);
+
   // If no product is present
   if (!product) {
     return <div className={styles.emptySlot}></div>;
   }
 
   // ------------------
-
-  const { currentOrder, overlay } = useContext(GlobalContext);
 
   function handleClick() {
     overlay.setComponent(<VariationSelector product={product} />);
