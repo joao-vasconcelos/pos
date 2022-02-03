@@ -9,7 +9,6 @@
 
 .title,
 .description {
-  color: var(--black);
   text-transform: uppercase;
 }
 
@@ -22,4 +21,5 @@
 .description {
   font-weight: var(--font-medium);
   font-size: 12px;
+  opacity: 0.8;
 }

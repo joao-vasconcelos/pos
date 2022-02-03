@@ -2,7 +2,6 @@ import styles from './VariationSelector.module.css';
 
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../utils/global-context';
-import orderManager from '../../../utils/orderManager';
 
 import Pannel from '../../common/pannel/Pannel';
 import VariationButton from '../variationButton/VariationButton';
