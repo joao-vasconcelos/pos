@@ -1,9 +1,9 @@
-import _ from 'lodash';
+import _, { runInContext } from 'lodash';
 
 function addProductVariationToCurrentOrder(currentOrderItems, product, variation, qty = 1) {
   //
   const newItem = {
-    id: Math.random,
+    id: variation.id,
     productTitle: product.title,
     variationTitle: variation.title,
     qty: qty,
@@ -13,7 +13,7 @@ function addProductVariationToCurrentOrder(currentOrderItems, product, variation
 
   const isDuplicate = _.findIndex(currentOrderItems, (line) => {
     // Check if product and variation exists in the order already
-    if (line.productTitle == product.title && line.variationTitle == variation.title) return true;
+    if (line.id == variation.id) return true;
   });
 
   if (isDuplicate < 0) {
@@ -42,8 +42,12 @@ function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
   });
 
   // Check discounts
-  console.log('No discounts yet');
-  let discounts = 1;
+  let discounts = 0;
+  // console.log(currentOrderDiscounts);
+  currentOrderDiscounts.forEach((discount) => {
+    // console.log(discount.amount);
+    discounts += discount.amount;
+  });
 
   // Calculate Final Amount
   let total = subtotal - discounts;
@@ -56,22 +60,67 @@ function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
   };
 }
 
-function checkIfDiscountApplies(currentOrderItems, discount) {
+function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
   //
-  // Subtotal
 
-  let applies = false;
-
-  discount.rules.forEach((setOfProductsItMustContain) => {
-    setOfProductsItMustContain.forEach((product) => {
-      // check
-    });
+  let expandedOrderItems = [];
+  currentOrderItems.forEach((line) => {
+    for (let index = 0; index < line.qty; index++) {
+      expandedOrderItems.push(line);
+    }
   });
+
+  let validDiscounts = [];
+
+  let loop = expandedOrderItems.length + 1;
+
+  while (loop) {
+    discounts.forEach((discount) => {
+      if (discount.rules.length) {
+        //
+        let testResultsForEachANDRule = [];
+
+        discount.rules.forEach((setOfProductVariationsThisOrderMustContain) => {
+          let testResultsForEachORRule = [];
+          setOfProductVariationsThisOrderMustContain.forEach((variationId) => {
+            //
+            // Check if the current variationId matches any of the order items
+            const result = _.find(expandedOrderItems, (item) => {
+              return item.id == variationId;
+            });
+
+            testResultsForEachORRule.push(result);
+          });
+          testResultsForEachANDRule.push(testResultsForEachORRule);
+        });
+
+        // Return true if every element of array is true
+        let discountApplies = testResultsForEachANDRule.every((ANDrule) => {
+          return ANDrule.some((ORrule) => {
+            return ORrule;
+          });
+        });
+
+        if (discountApplies) {
+          testResultsForEachANDRule.forEach((ANDrule) => {
+            const index = _.indexOf(expandedOrderItems, _.compact(ANDrule)[0]);
+            if (index > -1) expandedOrderItems.splice(index, 1); // 2nd parameter means remove one item only
+          });
+          validDiscounts.push(discount);
+        }
+        //
+      }
+    });
+
+    loop--;
+  }
+
+  return validDiscounts;
 }
 
 export default {
   addProductVariationToCurrentOrder,
   removeItemFromCurrentOrder,
   calculateOrderTotals,
-  checkIfDiscountApplies,
+  getValidDiscountsForCurrentOrder,
 };

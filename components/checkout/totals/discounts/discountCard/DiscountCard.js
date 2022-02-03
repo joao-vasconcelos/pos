@@ -1,13 +1,14 @@
 import styles from './DiscountCard.module.css';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../../../../utils/global-context';
 
 export default function DiscountCard({ discount }) {
-  //
-  const { currentOrder } = useContext(GlobalContext);
+  // const { currentOrder } = useContext(GlobalContext);
 
-  currentOrder.checkIfDiscountApplies(discount);
+  // useEffect(() => {
+  //   currentOrder.addDiscountToOrder(discount);
+  // }, []);
 
   return (
     <div className={styles.container}>

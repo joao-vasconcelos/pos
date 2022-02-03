@@ -1,16 +1,31 @@
+import _ from 'lodash';
 import useSWR from 'swr';
 import styles from './Discounts.module.css';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../../../utils/global-context';
 import DiscountCard from './discountCard/DiscountCard';
 
-export default function Discounts() {
-  const { data } = useSWR('/api/data');
+import orderManager from '../../../../utils/orderManager';
 
-  return (
+export default function Discounts() {
+  //
+  const { data } = useSWR('/api/data');
+  const { currentOrder } = useContext(GlobalContext);
+
+  // const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(currentOrder.items, data.discounts);
+
+  useEffect(() => {
+    currentOrder.setAvailableDiscounts(data.discounts);
+  });
+
+  return currentOrder.discounts.length ? (
     <div className={styles.container}>
-      {data.discounts.length ? data.discounts.map((discount) => <DiscountCard key={discount.id} discount={discount} />) : 'Current order is empty'}
+      {currentOrder.discounts.map((discount, index) => (
+        <DiscountCard key={index} discount={discount} />
+      ))}
     </div>
+  ) : (
+    ''
   );
 }

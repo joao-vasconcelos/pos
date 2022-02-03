@@ -12,6 +12,7 @@ export default function GlobalProvider({ children }) {
   const [currentOrderItems, updateCurrentOrderItems] = useState([]);
   const [currentOrderDiscounts, updateCurrentOrderDiscounts] = useState([]);
   const [currentOrderTotals, updateCurrentOrderTotals] = useState();
+  const [availableDiscounts, setAvailableDiscounts] = useState();
 
   // Overlay
   const [overlayComponent, setOverlayComponent] = useState();
@@ -22,20 +23,24 @@ export default function GlobalProvider({ children }) {
       position: positionOfSelectedFolder,
       set: setPositionOfSelectedFolder,
     },
+
     currentOrder: {
       items: currentOrderItems,
+      discounts: currentOrderDiscounts,
+      availableDiscounts: availableDiscounts,
+      setAvailableDiscounts,
       totals: currentOrderTotals,
       add: function (product, variation) {
-        const updatedOrderItem = orderManager.addProductVariationToCurrentOrder(currentOrderItems, product, variation);
-        updateCurrentOrderItems(updatedOrderItem);
-        const updatedOrderTotals = orderManager.calculateOrderTotals(updatedOrderItem, currentOrderDiscounts);
+        const updatedOrderItems = orderManager.addProductVariationToCurrentOrder(currentOrderItems, product, variation);
+        updateCurrentOrderItems(updatedOrderItems);
+        const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(updatedOrderItems, availableDiscounts);
+        updateCurrentOrderDiscounts(validDiscounts);
+        const updatedOrderTotals = orderManager.calculateOrderTotals(updatedOrderItems, validDiscounts);
         updateCurrentOrderTotals(updatedOrderTotals);
       },
       remove: () => alert('removed'),
-      checkIfDiscountApplies: function (discount) {
-        orderManager.checkIfDiscountApplies(currentOrderItems, discount);
-      },
     },
+
     overlay: {
       component: overlayComponent,
       setComponent: setOverlayComponent,

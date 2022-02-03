@@ -25,7 +25,7 @@ export default function Totals() {
           })}
         >
           <p className={styles.discountsLabel}>Valor dos Descontos</p>
-          <p className={styles.discountsValue}>- {currentOrder.totals ? currentOrder.totals.discounts.toFixed(2) : '0.00'}€</p>
+          <p className={styles.discountsValue}>{currentOrder.totals ? currentOrder.totals.discounts.toFixed(2) : '0.00'}€</p>
         </div>
       </div>
       <Button

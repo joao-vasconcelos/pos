@@ -46,7 +46,10 @@
             "id": "p008",
             "title": "Bolo do Dia",
             "image": "https://hgsdfyusdgusdgyf.com",
-            "variations": [{ "id": "p008v001", "title": "de Ananás", "price": 2.5 }]
+            "variations": [
+              { "id": "p008v001", "title": "de Ananás", "price": 2.5 },
+              { "id": "p008v002", "title": "de Chocolate", "price": 1.5 }
+            ]
           }
         },
         { "position": 4, "product": null },
@@ -63,10 +66,10 @@
       "id": "d001",
       "title": "Holiday Promo",
       "description": "-0.5€ from any order",
-      "rules": [["p001v001", "p001v002"], ["p008v001"]],
+      "rules": [["p001v001", "p001v003"], ["p008v001"]],
       "amount": 0.5
     },
-    { "id": "d002", "title": "Summer Discount", "description": "-0.5€ from any order", "rules": [], "amount": 0.5 },
+    { "id": "d002", "title": "Summer Discount", "description": "-0.5€ from any order", "rules": [["p001v002"], ["p008v002"]], "amount": 0.75 },
     { "id": "d003", "title": "Winter Vibes", "description": "-0.5€ from any order", "rules": [], "amount": 0.5 }
   ]
 }
