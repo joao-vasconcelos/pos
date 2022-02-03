@@ -104,7 +104,8 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
         if (discountApplies) {
           testResultsForEachANDRule.forEach((ANDrule) => {
             // Compact remove all falsy value from the array, so we get only the elements that matched order items
-            // Only remove one of the order elements. If an OR rule has 3 ids, we just want to remove one of them, even though the 3 might all be present in the order
+            // Only remove one of the order elements. If an OR rule has 3 ids, we just want to remove one of them,
+            // even though the 3 might all be present in the order
             const index = _.indexOf(expandedOrderItems, _.compact(ANDrule)[0]);
             if (index > -1) expandedOrderItems.splice(index, 1); // 2nd parameter means remove one item only
           });
