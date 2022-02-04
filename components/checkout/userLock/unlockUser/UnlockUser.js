@@ -7,7 +7,7 @@ import { GlobalContext } from '../../../../utils/global-context';
 import Pannel from '../../../common/pannel/Pannel';
 import Button from '../../../common/button/Button';
 
-export default function unlockUser() {
+export default function UnlockUser() {
   const { data } = useSWR('/api/data');
   const { lockStatus, overlay } = useContext(GlobalContext);
   const [pwdInput, updatePwdInput] = useState([]);
