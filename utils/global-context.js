@@ -38,7 +38,14 @@ export default function GlobalProvider({ children }) {
         const updatedOrderTotals = orderManager.calculateOrderTotals(updatedOrderItems, validDiscounts);
         updateCurrentOrderTotals(updatedOrderTotals);
       },
-      remove: () => alert('removed'),
+      remove: function (orderItem) {
+        const updatedOrderItems = orderManager.removeItemFromCurrentOrder(currentOrderItems, orderItem);
+        updateCurrentOrderItems(updatedOrderItems);
+        const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(updatedOrderItems, availableDiscounts);
+        updateCurrentOrderDiscounts(validDiscounts);
+        const updatedOrderTotals = orderManager.calculateOrderTotals(updatedOrderItems, validDiscounts);
+        updateCurrentOrderTotals(updatedOrderTotals);
+      },
     },
 
     overlay: {

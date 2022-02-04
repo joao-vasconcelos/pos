@@ -1,6 +1,4 @@
 .pannel {
-  min-width: 500px;
-  min-height: 300px;
   background-color: var(--white);
   border-radius: var(--radius-medium);
   overflow: hidden;

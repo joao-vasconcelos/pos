@@ -24,21 +24,25 @@ export default function VariationSelector({ product }) {
 
   return (
     <Pannel title={product.title}>
-      <p className={styles.productDescription}>{product.description}</p>
-      <div className={styles.variationGrid}>
-        {product.variations
-          ? product.variations.map((variation) => (
-              <VariationButton
-                key={variation.id}
-                variation={variation}
-                selectedVariation={selectedVariation}
-                setSelectedVariation={setSelectedVariation}
-                onSelect={handleSelect}
-              />
-            ))
-          : 'no variations'}
+      <div className={styles.container}>
+        <div className={styles.innerContainer}>
+          <p className={styles.productDescription}>{product.description}</p>
+          <div className={styles.variationGrid}>
+            {product.variations
+              ? product.variations.map((variation) => (
+                  <VariationButton
+                    key={variation.id}
+                    variation={variation}
+                    selectedVariation={selectedVariation}
+                    setSelectedVariation={setSelectedVariation}
+                    onSelect={handleSelect}
+                  />
+                ))
+              : 'no variations'}
+          </div>
+        </div>
+        <Button label={'Adicionar'} type={selectedVariation ? 'primary' : 'disabled'} action={handleAdd} />
       </div>
-      <Button label={'Adicionar'} type={selectedVariation ? 'primary' : 'disabled'} action={handleAdd} />
     </Pannel>
   );
 }

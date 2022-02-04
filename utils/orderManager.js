@@ -1,5 +1,10 @@
 import _, { runInContext } from 'lodash';
 
+// function removeItemFromCurrentOrder(currentOrderItems, item) {
+//   const indexOfItem = currentOrderItems.indexOf(item);
+//   return currentOrderItems.splice(indexOfItem, 1);
+// }
+
 function addProductVariationToCurrentOrder(currentOrderItems, product, variation, qty = 1) {
   //
   const newItem = {

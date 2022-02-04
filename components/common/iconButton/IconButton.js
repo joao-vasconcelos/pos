@@ -1,19 +1,19 @@
 import cn from 'classnames';
-import styles from './Button.module.css';
+import styles from './IconButton.module.css';
 
-export default function Button({ label = 'Button', type = 'primary', action }) {
+export default function Button({ type = 'primary', label = 'Button', icon, action }) {
   return (
     <div
       className={cn({
         [styles.button]: true,
         [styles.primary]: type == 'primary',
-        [styles.secondary]: type == 'secondary',
         [styles.muted]: type == 'muted',
         [styles.disabled]: type == 'disabled',
       })}
       onClick={type == 'disabled' ? null : action}
     >
-      {label}
+      <div className={styles.icon}>+</div>
+      <p className={styles.label}>{label}</p>
     </div>
   );
 }

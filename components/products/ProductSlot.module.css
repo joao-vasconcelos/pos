@@ -1,30 +1,36 @@
+.emptySlot,
+.container {
+  aspect-ratio: 6/5;
+  width: 100%;
+}
+
 .emptySlot {
   background-color: var(--gray-light);
-  height: 110px;
   border-radius: 3px;
 }
 
 .container {
   background-color: #ffffff;
-  height: 110px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   border-radius: var(--radius-small);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .image {
   position: relative;
-  height: 70%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
 .label {
-  height: 30%;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
 }
