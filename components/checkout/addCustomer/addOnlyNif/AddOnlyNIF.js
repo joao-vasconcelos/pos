@@ -22,8 +22,8 @@ export default function AddOnlyNIF() {
 
   return (
     <Pannel title={'Add Only NIF'}>
-      <form onSubmit={handleAddNIF}>
-        <input className={styles.nifInput} id={'nif'} name={'nif'} type={'text'} minLength={9} maxLength={9} required />
+      <form className={styles.formContainer} onSubmit={handleAddNIF}>
+        <input className={styles.nifInput} name={'nif'} type={'text'} minLength={9} maxLength={9} required placeholder={'123456789'} />
         <Button label={'Adicionar NIF'} type={'primary'} />
       </form>
     </Pannel>

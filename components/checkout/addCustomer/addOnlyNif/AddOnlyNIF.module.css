@@ -1,8 +1,16 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .nifInput {
-  display: grid;
-  place-items: stretch;
-  place-content: stretch;
-  grid-template-columns: repeat(2, minmax(130px, 1fr));
-  gap: 15px;
-  margin: 15px 0;
+  width: 100%;
+  min-width: 650px;
+  padding: 30px 10px;
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  text-align: center;
+  letter-spacing: 20px;
+  /* background-color: var(--gray-light); */
+  /* border: 2px solid var(--gray-medium); */
 }
