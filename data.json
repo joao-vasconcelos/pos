@@ -98,6 +98,6 @@
   "users": [
     { "id": "u001", "name": "Andreia Espadeiro", "pwd": "1234" },
     { "id": "u002", "name": "Celia Amorim", "pwd": "4321" },
-    { "id": "u003", "name": "Max Pinheiro", "pwd": "1203" }
+    { "id": "u003", "name": "Max Pinheiro", "pwd": "1204" }
   ]
 }
