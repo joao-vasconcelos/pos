@@ -22,7 +22,7 @@
 .icon {
   height: 100%;
   font-size: 25px;
-  aspect-ratio: 1;
+  aspect-ratio: var(--aspect-square);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -40,6 +40,9 @@
   --font-regular: 500;
   --font-medium: 600;
   --font-bold: 700;
+
+  /* Ratios */
+  --aspect-square: 9/8; /* Visual Square */
 }
 
 html,

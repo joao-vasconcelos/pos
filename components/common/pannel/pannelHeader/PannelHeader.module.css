@@ -8,7 +8,7 @@
 .closeIcon {
   position: absolute;
   float: left;
-  aspect-ratio: 1;
+  aspect-ratio: var(--aspect-square);
   height: 100%;
   display: flex;
   justify-content: center;

@@ -9,7 +9,11 @@ export default function OrderDetails() {
 
   return (
     <div className={styles.container}>
-      {currentOrder.items.length ? currentOrder.items.map((item, index) => <OrderItem key={index} item={item} />) : 'Current order is empty'}
+      {currentOrder.items.length ? (
+        currentOrder.items.map((item, index) => <OrderItem key={index} item={item} />)
+      ) : (
+        <p style={{ textAlign: 'center' }}>Current order is empty</p>
+      )}
     </div>
   );
 }

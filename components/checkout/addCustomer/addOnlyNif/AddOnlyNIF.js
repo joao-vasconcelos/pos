@@ -21,7 +21,7 @@ export default function AddOnlyNIF() {
   return (
     <Pannel title={'Add Only NIF'}>
       <p className={styles.productDescription}>Only NIF Screen</p>
-      <Button label={'Associar Cliente'} type={'primary'} />
+      <Button label={'Adicionar NIF'} type={'primary'} />
     </Pannel>
   );
 }
