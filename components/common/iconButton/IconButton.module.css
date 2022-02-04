@@ -57,3 +57,7 @@
   border-color: var(--gray-medium);
   color: var(--gray-medium);
 }
+
+.disabled:active {
+  opacity: 1;
+}

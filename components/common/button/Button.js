@@ -9,6 +9,7 @@ export default function Button({ label = 'Button', type = 'primary', action }) {
         [styles.primary]: type == 'primary',
         [styles.secondary]: type == 'secondary',
         [styles.muted]: type == 'muted',
+        [styles.danger]: type == 'danger',
         [styles.disabled]: type == 'disabled',
       })}
       onClick={type == 'disabled' ? null : action}

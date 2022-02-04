@@ -35,6 +35,12 @@
   color: var(--gray-dark);
 }
 
+.danger {
+  background-color: var(--status-danger-fill);
+  border-color: var(--status-danger-border);
+  color: var(--white);
+}
+
 .disabled {
   background-color: var(--white);
   border-color: var(--gray-medium);

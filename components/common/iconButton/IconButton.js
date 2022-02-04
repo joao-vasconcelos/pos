@@ -12,7 +12,7 @@ export default function Button({ type = 'primary', label = 'Button', icon, actio
       })}
       onClick={type == 'disabled' ? null : action}
     >
-      <div className={styles.icon}>+</div>
+      <div className={styles.icon}>{icon}</div>
       <p className={styles.label}>{label}</p>
     </div>
   );

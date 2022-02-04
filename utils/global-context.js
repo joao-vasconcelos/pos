@@ -8,11 +8,14 @@ export default function GlobalProvider({ children }) {
   // Folders
   const [positionOfSelectedFolder, setPositionOfSelectedFolder] = useState(0);
 
+  // App Data
+  const [availableDiscounts, setAvailableDiscounts] = useState();
+
   // Order
   const [currentOrderItems, updateCurrentOrderItems] = useState([]);
   const [currentOrderDiscounts, updateCurrentOrderDiscounts] = useState([]);
   const [currentOrderTotals, updateCurrentOrderTotals] = useState();
-  const [availableDiscounts, setAvailableDiscounts] = useState();
+  const [currentOrderCustomer, updateCurrentOrderCustomer] = useState();
 
   // Overlay
   const [overlayComponent, setOverlayComponent] = useState();
@@ -28,6 +31,8 @@ export default function GlobalProvider({ children }) {
       items: currentOrderItems,
       discounts: currentOrderDiscounts,
       availableDiscounts: availableDiscounts,
+      customer: currentOrderCustomer,
+      setCustomer: updateCurrentOrderCustomer,
       setAvailableDiscounts,
       totals: currentOrderTotals,
       add: function (product, variation) {
