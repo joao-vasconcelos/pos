@@ -15,6 +15,7 @@ export default function FolderButton({ position, title = 'untitled' }) {
     <div
       className={cn({
         [styles.categoryBtn]: true,
+        [styles.unselected]: position != currentFolder.position,
         [styles.selected]: position == currentFolder.position,
       })}
       onClick={handleClick}
