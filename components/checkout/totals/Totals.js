@@ -29,8 +29,8 @@ export default function Totals() {
         </div>
       </div>
       <Button
-        label={currentOrder.totals ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
-        type={currentOrder.totals ? 'primary' : 'disabled'}
+        label={currentOrder.items.length ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
+        type={currentOrder.items.length ? 'primary' : 'disabled'}
       />
     </div>
   );

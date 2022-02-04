@@ -9,6 +9,11 @@
   font-size: 25px;
   font-weight: var(--font-bold);
   text-transform: uppercase;
+  transition: all 100ms ease;
+}
+
+.button:active {
+  opacity: 0.5;
 }
 
 .primary {
@@ -34,4 +39,8 @@
   background-color: var(--white);
   border-color: var(--gray-medium);
   color: var(--gray-medium);
+}
+
+.disabled:active {
+  opacity: 1;
 }
