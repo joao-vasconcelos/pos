@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 
 export default function Button({ label = 'Button', type = 'primary', action }) {
   return (
-    <div
+    <button
       className={cn({
         [styles.button]: true,
         [styles.primary]: type == 'primary',
@@ -14,6 +14,6 @@ export default function Button({ label = 'Button', type = 'primary', action }) {
       onClick={type == 'disabled' ? null : action}
     >
       {label}
-    </div>
+    </button>
   );
 }

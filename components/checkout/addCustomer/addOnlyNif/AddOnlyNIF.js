@@ -12,16 +12,20 @@ export default function AddOnlyNIF() {
 
   function handleSelect(clickedVariation) {}
 
-  function handleAddCustomer() {
-    alert('added');
+  function handleAddNIF(event) {
+    event.preventDefault();
+
+    alert(event.target.nif.value);
     // currentOrder.add(product, selectedVariation);
     // overlay.setComponent();
   }
 
   return (
     <Pannel title={'Add Only NIF'}>
-      <p className={styles.productDescription}>Only NIF Screen</p>
-      <Button label={'Adicionar NIF'} type={'primary'} />
+      <form onSubmit={handleAddNIF}>
+        <input className={styles.nifInput} id={'nif'} name={'nif'} type={'text'} minLength={9} maxLength={9} required />
+        <Button label={'Adicionar NIF'} type={'primary'} />
+      </form>
     </Pannel>
   );
 }
