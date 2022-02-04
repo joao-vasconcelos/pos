@@ -20,6 +20,9 @@ export default function GlobalProvider({ children }) {
   // Overlay
   const [overlayComponent, setOverlayComponent] = useState();
 
+  // User Management
+  const [currentUser, setCurrentUser] = useState();
+
   // CONTEXT
   const contextValue = {
     currentFolder: {
@@ -56,6 +59,11 @@ export default function GlobalProvider({ children }) {
     overlay: {
       component: overlayComponent,
       setComponent: setOverlayComponent,
+    },
+
+    lockStatus: {
+      currentUser: currentUser,
+      setCurrentUser: setCurrentUser,
     },
   };
 

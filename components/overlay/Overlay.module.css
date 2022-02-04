@@ -11,6 +11,8 @@
   align-items: center;
 
   background-color: rgba(0, 0, 0, 0.8);
+
+  z-index: 100;
 }
 
 /* 
@@ -35,4 +37,5 @@
   padding: 50px;
   justify-content: center;
   align-items: center;
+  z-index: 200;
 }
