@@ -17,22 +17,36 @@ export default function AddCustomer() {
     overlay.setComponent(<AddOnlyNIF />);
   }
 
-  function handleDelete() {
+  function handleChangeCustomer() {
     currentOrder.setCustomer();
   }
 
-  return (
-    <div className={styles.container}>
-      {currentOrder.customer && currentOrder.customer.onlyNif ? (
-        <IconButton
-          label={currentOrder.customer.nif.region + currentOrder.customer.nif.number}
-          icon={'N'}
-          type={'primary'}
-          action={handleChangeNIF}
-        />
-      ) : (
-        <IconButton label={'Add Customer'} icon={'+'} type={'muted'} action={handleAddCustomer} />
-      )}
-    </div>
-  );
+  function getCorrectCustomerButton() {
+    if (currentOrder.customer) {
+      //
+      if (currentOrder.customer.onlyNif) {
+        return (
+          <IconButton
+            label={currentOrder.customer.nif.region + currentOrder.customer.nif.number}
+            icon={'N'}
+            type={'primary'}
+            action={handleChangeNIF}
+          />
+        );
+      } else {
+        return (
+          <IconButton
+            label={currentOrder.customer.name.first + ' ' + currentOrder.customer.name.last}
+            icon={'C'}
+            type={'primary'}
+            action={handleChangeCustomer}
+          />
+        );
+      }
+    } else {
+      return <IconButton label={'Add Customer'} icon={'+'} type={'muted'} action={handleAddCustomer} />;
+    }
+  }
+
+  return <div className={styles.container}>{getCorrectCustomerButton()}</div>;
 }

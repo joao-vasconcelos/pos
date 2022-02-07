@@ -8,7 +8,7 @@ export default function CustomersListToolbar() {
 
   return (
     <div className={styles.toolbarContainer}>
-      <div className={styles.searchField}></div>
+      <div className={styles.searchFieldContainer}></div>
       <div className={styles.addCustomerButton}>+</div>
     </div>
   );

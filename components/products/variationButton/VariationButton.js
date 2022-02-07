@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import styles from './VariationButton.module.css';
 
-export default function VariationButton({ variation, selectedVariation, setSelectedVariation, onSelect }) {
+export default function VariationButton({ variation, selectedVariation, onSelect }) {
   let isThisVariationSelected = false;
   if (selectedVariation && selectedVariation.id == variation.id) isThisVariationSelected = true;
 
@@ -13,9 +13,7 @@ export default function VariationButton({ variation, selectedVariation, setSelec
         [styles.unselected]: !isThisVariationSelected,
         [styles.selected]: isThisVariationSelected,
       })}
-      onClick={() => {
-        onSelect(variation);
-      }}
+      onClick={() => onSelect(variation)}
     >
       <div className={styles.title}>{variation.title}</div>
       <div className={styles.price}>{variation.price.toFixed(2)}€</div>

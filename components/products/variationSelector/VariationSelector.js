@@ -47,13 +47,7 @@ export default function VariationSelector({ product }) {
         <div className={styles.variationGrid}>
           {product.variations
             ? product.variations.map((variation) => (
-                <VariationButton
-                  key={variation.id}
-                  variation={variation}
-                  selectedVariation={selectedVariation}
-                  setSelectedVariation={setSelectedVariation}
-                  onSelect={handleSelect}
-                />
+                <VariationButton key={variation.id} variation={variation} selectedVariation={selectedVariation} onSelect={handleSelect} />
               ))
             : 'no variations'}
         </div>
