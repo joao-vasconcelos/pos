@@ -1,6 +1,6 @@
 import users from '../../data/users.json';
 
-export default function (req, res) {
+export default function getUsers(req, res) {
   setTimeout(() => {
     res.json(users);
   }, 500);
