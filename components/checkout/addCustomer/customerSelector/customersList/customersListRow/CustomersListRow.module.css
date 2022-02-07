@@ -1,32 +1,40 @@
-.variationGrid {
-  display: grid;
-  place-items: stretch;
-  place-content: stretch;
-  grid-template-columns: repeat(2, minmax(130px, 1fr));
-  gap: 15px;
-  margin: 15px 0;
-}
-
-.image {
-  height: 70%;
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.label {
-  height: 30%;
+.customerRow {
+  background-color: var(--gray-light);
+  border: 2px solid var(--gray-medium);
+  border-radius: var(--radius-medium);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.customerDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px;
+  width: 100%;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: var(--font-bold);
+  color: var(--black);
+}
+
+.email {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: var(--font-medium);
+  color: var(--gray-strong);
   text-transform: uppercase;
 }
 
-.buttonsContainer {
-  /* background-color: blue; */
-  display: grid;
-  place-items: stretch;
-  place-content: stretch;
-  grid-template-columns: 3fr minmax(35%, 1fr);
-  gap: 15px;
+.viewCustomerButton {
+  height: 100%;
+  aspect-ratio: var(--aspect-square);
+  background-color: var(--gray-light);
+  border-left: 2px solid var(--gray-medium);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
