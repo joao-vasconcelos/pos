@@ -7,7 +7,7 @@ import Pannel from '../../../common/pannel/Pannel';
 import Button from '../../../common/button/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
-import CustomersListToolbar from './CustomersListToolbar/CustomersListToolbar';
+import CustomersListToolbar from './customersListToolbar/CustomersListToolbar';
 import CustomersList from './customersList/CustomersList';
 
 export default function CustomerSelector() {
