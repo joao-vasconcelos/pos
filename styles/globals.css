@@ -23,8 +23,8 @@
   --status-ok-border: #2b352f;
   --status-warning-fill: #ffa000;
   --status-warning-border: #8c4600;
-  --status-danger-fill: #e63200;
-  --status-danger-border: #960000;
+  --status-danger-fill: rgb(230, 50, 0);
+  --status-danger-border: rgb(180, 0, 0);
 
   /* Effects */
   --effect-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);

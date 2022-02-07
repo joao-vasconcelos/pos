@@ -52,6 +52,14 @@
   border: 2px solid var(--theme-border);
 }
 
+.isError .unfilled {
+  border: 2px solid var(--status-danger-border);
+}
+.isError .filled {
+  background-color: var(--status-danger-border);
+  border: 2px solid var(--status-danger-border);
+}
+
 .keyboardKey {
   background-color: var(--gray-light);
   border: 2px solid var(--gray-medium);

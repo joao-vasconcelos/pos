@@ -4,7 +4,7 @@
   place-content: stretch;
   grid-template-columns: repeat(2, minmax(130px, 1fr));
   gap: 15px;
-  margin: 15px 0;
+  /* margin: 15px 0; */
 }
 
 .image {
@@ -28,9 +28,45 @@
   justify-content: space-between;
   min-height: 300px;
   min-width: 600px;
+  gap: 30px;
 }
 
-.innerContainer {
-  justify-self: stretch;
-  height: 100%;
+.qtyContainer {
+  width: 100%;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  overflow: hidden;
+  background-color: var(--white);
+  border: 2px solid var(--gray-medium);
+  border-radius: var(--radius-medium);
+  font-weight: var(--font-bold);
+  font-size: 20px;
+}
+
+.qtyMinus,
+.qtyPlus {
+  width: 80px;
+  aspect-ratio: 1;
+  background-color: var(--gray-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qtyMinus:active,
+.qtyPlus:active {
+  background-color: var(--theme-fill);
+  border-color: var(--theme-border);
+  color: var(--white);
+}
+
+.qtyDisplay {
+  width: 100%;
+  border-left: 2px solid var(--gray-medium);
+  border-right: 2px solid var(--gray-medium);
+  color: var(--gray-strong);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

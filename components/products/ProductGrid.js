@@ -9,14 +9,14 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../utils/global-context';
 
 export default function ProductsGrid() {
-  const { data } = useSWR('/api/data');
+  const { data: folders } = useSWR('/api/folders');
 
   const { currentFolder } = useContext(GlobalContext);
 
   return (
     <div className={styles.container}>
-      {data.folders[currentFolder.position] ? (
-        data.folders[currentFolder.position].slots.map(({ position, product }) => <ProductSlot key={position} product={product} />)
+      {folders[currentFolder.position] ? (
+        folders[currentFolder.position].slots.map(({ position, product }) => <ProductSlot key={position} product={product} />)
       ) : (
         <Loading />
       )}

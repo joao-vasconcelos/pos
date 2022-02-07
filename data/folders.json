@@ -1,0 +1,70 @@
+[
+  {
+    "title": "Cafetaria",
+    "position": 0,
+    "slots": [
+      { "position": 0, "product": null },
+      {
+        "position": 1,
+        "product": {
+          "id": "p001",
+          "title": "Café",
+          "image": "https://hgsdfyusdgusdgyf.com",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "p001v001", "title": "Expresso", "price": 0.5 },
+            { "id": "p001v002", "title": "Descafeinado", "price": 0.5 },
+            { "id": "p001v003", "title": "Carioca", "price": 0.45 },
+            { "id": "p001v004", "title": "Garoto", "price": 0.55 }
+          ]
+        }
+      },
+      { "position": 2, "product": null },
+      { "position": 3, "product": null },
+      {
+        "position": 4,
+        "product": {
+          "id": "p005",
+          "title": "Coca Cola",
+          "image": "https://hgsdfyusdgusdgyf.com",
+          "variations": [{ "id": "p005v001", "title": "0.5 L", "price": 1.8 }]
+        }
+      },
+      { "position": 5, "product": null },
+      { "position": 6, "product": null },
+      { "position": 7, "product": null },
+      { "position": 8, "product": null },
+      { "position": 9, "product": null }
+    ]
+  },
+  {
+    "title": "Pastelaria",
+    "position": 1,
+    "slots": [
+      { "position": 0, "product": null },
+      {
+        "position": 1,
+        "product": null
+      },
+      { "position": 2, "product": null },
+      {
+        "position": 3,
+        "product": {
+          "id": "p008",
+          "title": "Bolo do Dia",
+          "image": "https://hgsdfyusdgusdgyf.com",
+          "variations": [
+            { "id": "p008v001", "title": "de Ananás", "price": 2.5 },
+            { "id": "p008v002", "title": "de Chocolate", "price": 1.5 }
+          ]
+        }
+      },
+      { "position": 4, "product": null },
+      { "position": 5, "product": null },
+      { "position": 6, "product": null },
+      { "position": 7, "product": null },
+      { "position": 8, "product": null },
+      { "position": 9, "product": null }
+    ]
+  }
+]

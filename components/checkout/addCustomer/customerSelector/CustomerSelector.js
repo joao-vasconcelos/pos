@@ -7,6 +7,9 @@ import Pannel from '../../../common/pannel/Pannel';
 import Button from '../../../common/button/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
+import CustomersListToolbar from './CustomersListToolbar/CustomersListToolbar';
+import CustomersList from './customersList/CustomersList';
+
 export default function CustomerSelector() {
   //
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -20,14 +23,13 @@ export default function CustomerSelector() {
   }
 
   function handleAddOnlyNIF() {
-    // currentOrder.add(product, selectedVariation);
     overlay.setComponent(<AddOnlyNIF />);
   }
 
   return (
     <Pannel title={'Search Customer'}>
-      <p className={styles.productDescription}></p>
-      <div className={styles.variationGrid}></div>
+      <CustomersListToolbar />
+      <CustomersList />
       <div className={styles.buttonsContainer}>
         <Button label={'Associar Cliente'} type={'primary'} action={handleAddCustomer} />
         <Button label={'Apenas NIF'} type={'secondary'} action={handleAddOnlyNIF} />

@@ -8,7 +8,7 @@ import Pannel from '../../../common/pannel/Pannel';
 import Button from '../../../common/button/Button';
 
 export default function UnlockUser() {
-  const { data } = useSWR('/api/data');
+  const { data: users } = useSWR('/api/users');
   const { lockStatus, overlay } = useContext(GlobalContext);
   const [pwdInput, updatePwdInput] = useState([]);
   const [isError, setIsError] = useState();
@@ -22,7 +22,7 @@ export default function UnlockUser() {
     pwd.push(target.innerHTML);
     updatePwdInput(pwd);
     if (pwd.length > 3) {
-      const user = _.find(data.users, { pwd: pwd.join('').toString() });
+      const user = _.find(users, { pwd: pwd.join('').toString() });
       if (user) {
         lockStatus.setCurrentUser(user);
         overlay.setComponent();

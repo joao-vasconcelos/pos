@@ -11,9 +11,12 @@ import styles from '../styles/Home.module.css';
 import Overlay from '../components/overlay/Overlay';
 
 export default function PointOfSale() {
-  const { data } = useSWR('/api/data');
+  const { data: customers } = useSWR('/api/customers');
+  const { data: discounts } = useSWR('/api/discounts');
+  const { data: folders } = useSWR('/api/folders');
+  const { data: users } = useSWR('/api/users');
 
-  return data ? (
+  return customers && discounts && folders && users ? (
     <div className={styles.container}>
       <div className={styles.leftSide}>
         <FolderGrid />

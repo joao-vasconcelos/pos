@@ -1,0 +1,32 @@
+.variationGrid {
+  display: grid;
+  place-items: stretch;
+  place-content: stretch;
+  grid-template-columns: repeat(2, minmax(130px, 1fr));
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.image {
+  height: 70%;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.label {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.buttonsContainer {
+  /* background-color: blue; */
+  display: grid;
+  place-items: stretch;
+  place-content: stretch;
+  grid-template-columns: 3fr minmax(35%, 1fr);
+  gap: 15px;
+}

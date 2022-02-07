@@ -1,0 +1,26 @@
+[
+  {
+    "id": "d001",
+    "title": "Holiday Promo",
+    "description": "-0.5€ from any order",
+    "rules": [["p001v001", "p001v003"], ["p008v001"]],
+    "amount": 0.5,
+    "style": { "fill": "#FFDE94", "border": "#FAD175", "text": "#D6892E" }
+  },
+  {
+    "id": "d002",
+    "title": "Summer Discount",
+    "description": "-0.5€ from any order",
+    "rules": [["p001v002"], ["p008v002"]],
+    "amount": 0.75,
+    "style": { "fill": "#B9FFBD", "border": "#A0E9A4", "text": "#49854C" }
+  },
+  {
+    "id": "d003",
+    "title": "Winter Vibes",
+    "description": "-0.5€ from any order",
+    "rules": [],
+    "amount": 0.5,
+    "style": { "fill": "#FFDE94", "border": "#FAD175", "text": "#D6892E" }
+  }
+]

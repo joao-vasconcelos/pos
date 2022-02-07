@@ -10,13 +10,13 @@ import orderManager from '../../../../utils/orderManager';
 
 export default function Discounts() {
   //
-  const { data } = useSWR('/api/data');
+  const { data: discounts } = useSWR('/api/discounts');
   const { currentOrder } = useContext(GlobalContext);
 
   // const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(currentOrder.items, data.discounts);
 
   useEffect(() => {
-    currentOrder.setAvailableDiscounts(data.discounts);
+    currentOrder.setAvailableDiscounts(discounts);
   });
 
   return currentOrder.discounts.length ? (

@@ -38,8 +38,8 @@ export default function GlobalProvider({ children }) {
       setCustomer: updateCurrentOrderCustomer,
       setAvailableDiscounts,
       totals: currentOrderTotals,
-      add: function (product, variation) {
-        const updatedOrderItems = orderManager.addProductVariationToCurrentOrder(currentOrderItems, product, variation);
+      add: function (product, variation, qty) {
+        const updatedOrderItems = orderManager.addProductVariationToCurrentOrder(currentOrderItems, product, variation, qty);
         updateCurrentOrderItems(updatedOrderItems);
         const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(updatedOrderItems, availableDiscounts);
         updateCurrentOrderDiscounts(validDiscounts);

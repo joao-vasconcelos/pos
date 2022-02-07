@@ -1,0 +1,18 @@
+[
+  {
+    "id": "c001",
+    "name": { "first": "Max", "middle": "", "last": "Pinheiro" },
+    "email": "maxnrp@icloud.com",
+    "tax_id": "PT270570365",
+    "reference": "tp18372",
+    "birthday": "1993-04-12"
+  },
+  {
+    "id": "c002",
+    "name": { "first": "João", "middle": "", "last": "Vasconcelos" },
+    "email": "johnyvasconcelos@icloud.com",
+    "tax_id": "PT233144455",
+    "reference": "tp29137",
+    "birthday": "1995-07-15"
+  }
+]
