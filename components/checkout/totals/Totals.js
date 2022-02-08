@@ -1,18 +1,21 @@
 import cn from 'classnames';
 
 import Button from '../../common/button/Button';
-import Discounts from './discounts/Discounts';
 import styles from './Totals.module.css';
 
 import { useContext } from 'react';
 import { GlobalContext } from '../../../utils/global-context';
+import FinalizePayment from '../../finalizePayment/FinalizePayment';
 
 export default function Totals() {
-  const { currentOrder } = useContext(GlobalContext);
+  const { currentOrder, overlay } = useContext(GlobalContext);
+
+  function handleFinalize() {
+    overlay.setComponent(<FinalizePayment />);
+  }
 
   return (
     <div className={styles.container}>
-      <Discounts />
       <div className={styles.innerContainer}>
         <div className={styles.row}>
           <p className={styles.subtotalLabel}>Subtotal</p>
@@ -31,6 +34,7 @@ export default function Totals() {
       <Button
         label={currentOrder.items.length ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
         type={currentOrder.items.length ? 'primary' : 'disabled'}
+        action={handleFinalize}
       />
     </div>
   );

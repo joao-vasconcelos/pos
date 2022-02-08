@@ -50,7 +50,6 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-family: work-sans, sans-serif;
 }
 
 p {
@@ -69,6 +68,7 @@ a {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-family: work-sans, sans-serif;
 }
 
 input,

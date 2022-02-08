@@ -1,0 +1,35 @@
+.paymentOption {
+  /* aspect-ratio: var(--aspect-square); */
+  aspect-ratio: 4/3;
+  background-color: var(--gray-light);
+  border: 2px solid var(--gray-medium);
+  border-radius: var(--radius-medium);
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  flex-direction: column;
+  gap: 50px;
+  padding: 30px 20px 20px 20px;
+}
+
+.selected {
+  background-color: var(--theme-fill);
+  border-color: var(--theme-border);
+  box-shadow: var(--effect-shadow-pronounced);
+}
+
+.icon {
+  aspect-ratio: 1;
+  width: 50px;
+}
+
+.label {
+  color: var(--black);
+  font-size: 15px;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+}
+
+.selected .label {
+  color: var(--white);
+}

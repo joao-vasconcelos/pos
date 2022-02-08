@@ -4,7 +4,7 @@ import Loading from '../loading/Loading';
 import FolderButton from './FolderButton';
 import styles from './Categories.module.css';
 
-export default function Categories() {
+export default function FolderGrid() {
   const { data: folders } = useSWR('/api/folders');
 
   return (

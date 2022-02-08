@@ -54,6 +54,12 @@ export default function GlobalProvider({ children }) {
         const updatedOrderTotals = orderManager.calculateOrderTotals(updatedOrderItems, validDiscounts);
         updateCurrentOrderTotals(updatedOrderTotals);
       },
+      clear: function () {
+        updateCurrentOrderItems([]);
+        updateCurrentOrderDiscounts([]);
+        updateCurrentOrderTotals();
+        updateCurrentOrderCustomer();
+      },
     },
 
     overlay: {

@@ -1,3 +1,10 @@
+.container {
+  /* height: 100%; */
+  /* max-height: 200px; */
+  overflow: scroll;
+  margin: 0 15px;
+}
+
 .row {
   padding: 3px;
   display: flex;
