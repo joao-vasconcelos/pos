@@ -1,7 +1,11 @@
 import discounts from '../../data/discounts.json';
 
-export default function getDiscounts(req, res) {
-  setTimeout(() => {
-    res.json(discounts);
-  }, 500);
+export default async function (req, res) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      res.statusCode = 200;
+      res.json(discounts);
+      resolve();
+    }, 3000);
+  });
 }

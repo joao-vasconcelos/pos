@@ -6,8 +6,6 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../utils/global-context';
 import VariationSelector from './variationSelector/VariationSelector';
 
-import productImage from '/public/media/products/cafe.jpg';
-
 export default function ProductSlot({ product }) {
   //
   const { overlay, currentOrder } = useContext(GlobalContext);
@@ -17,7 +15,9 @@ export default function ProductSlot({ product }) {
     return <div className={styles.emptySlot}></div>;
   }
 
-  // ------------------
+  const productImageLoader = ({ src, width, quality }) => {
+    return '/media/products/' + src;
+  };
 
   function handleClick() {
     if (product.variations.length == 1) {
@@ -33,9 +33,9 @@ export default function ProductSlot({ product }) {
   return (
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.image}>
-        <Image src={productImage} placeholder='blur' layout={'fill'} objectFit={'cover'} />
+        <Image loader={productImageLoader} src={product.image} priority={true} layout={'fill'} objectFit={'cover'} />
       </div>
-      <div className={styles.label}>{product.title}</div>
+      <div className={styles.label}>{product.short_title ? product.short_title : product.title}</div>
     </div>
   );
 }

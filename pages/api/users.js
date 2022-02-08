@@ -1,7 +1,11 @@
 import users from '../../data/users.json';
 
-export default function getUsers(req, res) {
-  setTimeout(() => {
-    res.json(users);
-  }, 500);
+export default async function getUsers(req, res) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      res.statusCode = 200;
+      res.json(users);
+      resolve();
+    }, 3000);
+  });
 }

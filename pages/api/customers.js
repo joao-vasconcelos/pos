@@ -1,7 +1,11 @@
 import customers from '../../data/customers.json';
 
-export default function getCustomers(req, res) {
-  setTimeout(() => {
-    res.json(customers);
-  }, 500);
+export default async function (req, res) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      res.statusCode = 200;
+      res.json(customers);
+      resolve();
+    }, 3000);
+  });
 }

@@ -1,6 +1,6 @@
 .paymentOption {
   /* aspect-ratio: var(--aspect-square); */
-  aspect-ratio: 4/3;
+  /* aspect-ratio: 4/3; */
   background-color: var(--gray-light);
   border: 2px solid var(--gray-medium);
   border-radius: var(--radius-medium);

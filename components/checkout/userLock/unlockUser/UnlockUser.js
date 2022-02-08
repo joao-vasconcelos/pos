@@ -26,6 +26,9 @@ export default function UnlockUser() {
       if (user) {
         lockStatus.setCurrentUser(user);
         overlay.setComponent();
+        // setTimeout(() => {
+        //   lockStatus.setCurrentUser();
+        // }, 300000);
       } else {
         setIsError(true);
       }

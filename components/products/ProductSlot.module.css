@@ -1,11 +1,12 @@
 .emptySlot,
 .container {
-  aspect-ratio: 6/5;
+  /* aspect-ratio: 6/5; */
   width: 100%;
 }
 
 .emptySlot {
-  background-color: var(--gray-light);
+  /* background-color: var(--gray-light); */
+  background-color: var(--gray-superlight);
   border-radius: 3px;
 }
 
@@ -32,11 +33,15 @@
 }
 
 .label {
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 13px;
   font-weight: var(--font-bold);
   text-transform: uppercase;
+  text-align: center;
+  padding: 15px 5px;
+  line-height: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px solid var(--gray-light);
 }
