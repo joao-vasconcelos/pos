@@ -1,13 +1,12 @@
 import { SWRConfig } from 'swr';
 import fetch from '../libs/fetch.js';
+import GlobalProvider from '../utils/global-context';
+import BrowserConfig from '../utils/BrowserConfig';
 
-import BrowserConfig from '../components/browserConfig/BrowserConfig';
-
+// Styles
 import '../styles/globals.css';
 
-import GlobalProvider from '../utils/global-context';
-
-function MyApp({ Component, pageProps }) {
+export default function Register({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher: fetch, refreshInterval: 1000 }}>
       <GlobalProvider>
@@ -17,5 +16,3 @@ function MyApp({ Component, pageProps }) {
     </SWRConfig>
   );
 }
-
-export default MyApp;
