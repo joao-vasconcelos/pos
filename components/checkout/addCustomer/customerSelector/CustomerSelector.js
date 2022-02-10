@@ -70,7 +70,7 @@ export default function CustomerSelector() {
   }
 
   return (
-    <Pannel title={'Search Customer'}>
+    <Pannel title={'Procurar Cliente'}>
       <div className={styles.toolbarContainer}>
         <div className={styles.searchFieldContainer}>
           <div className={styles.searchFieldIcon}>

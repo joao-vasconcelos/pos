@@ -44,7 +44,7 @@ export default function AddCustomer() {
         );
       }
     } else {
-      return <IconButton label={'Add Customer'} icon={<Icon name='personbadgeplus' />} type={'muted'} action={handleAddCustomer} />;
+      return <IconButton label={'Associar Cliente'} icon={<Icon name='personbadgeplus' />} type={'muted'} action={handleAddCustomer} />;
     }
   }
 

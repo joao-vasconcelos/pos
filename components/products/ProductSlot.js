@@ -6,6 +6,8 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../utils/global-context';
 import VariationSelector from './variationSelector/VariationSelector';
 
+import placeholder from '../../public/media/products/placeholder.jpg';
+
 export default function ProductSlot({ product }) {
   //
   const { overlay, currentOrder } = useContext(GlobalContext);
@@ -33,7 +35,16 @@ export default function ProductSlot({ product }) {
   return (
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.image}>
-        <Image loader={productImageLoader} src={product.image} priority={true} layout={'fill'} objectFit={'cover'} alt={product.title} />
+        <Image
+          loader={productImageLoader}
+          src={product.image}
+          priority={true}
+          layout={'fill'}
+          objectFit={'cover'}
+          alt={product.title}
+          // placeholder={'blur'}
+          // blurDataURL={'/media/products/placeholder.jpg'}
+        />
       </div>
       <div className={styles.label}>{product.short_title ? product.short_title : product.title}</div>
     </div>

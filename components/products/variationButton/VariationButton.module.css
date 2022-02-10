@@ -16,7 +16,7 @@
 .price {
   font-size: 18px;
   font-weight: var(--font-medium);
-  padding-left: 15px;
+  padding-left: 25px;
 }
 
 .unselected {
@@ -25,11 +25,11 @@
 }
 
 .unselected .title {
-  color: var(--gray-dark);
+  color: var(--black);
 }
 
 .unselected .price {
-  color: var(--black);
+  color: var(--gray-strong);
 }
 
 .selected {
