@@ -2,6 +2,7 @@ import styles from './PannelHeader.module.css';
 
 import { useContext } from 'react';
 import { GlobalContext } from '../../../../utils/global-context';
+import Icon from '../../../../utils/Icon';
 
 export default function PannelHeader({ title = 'Untitled' }) {
   //
@@ -14,7 +15,7 @@ export default function PannelHeader({ title = 'Untitled' }) {
   return (
     <div className={styles.header}>
       <div className={styles.closeIcon} onClick={handleClick}>
-        X
+        <Icon name='xmark' />
       </div>
       <div className={styles.title}>
         <p>{title}</p>

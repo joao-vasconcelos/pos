@@ -5,6 +5,7 @@ import BrowserConfig from '../utils/BrowserConfig';
 
 // Styles
 import '../styles/globals.css';
+import '../styles/icons.css';
 
 export default function Register({ Component, pageProps }) {
   return (

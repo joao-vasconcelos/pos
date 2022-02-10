@@ -10,6 +10,7 @@ import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 import CustomersListRow from './customersList/customersListRow/CustomersListRow';
 import Loading from '../../../loading/Loading';
 import useSWR from 'swr';
+import Icon from '../../../../utils/Icon';
 
 export default function CustomerSelector() {
   //
@@ -72,7 +73,9 @@ export default function CustomerSelector() {
     <Pannel title={'Search Customer'}>
       <div className={styles.toolbarContainer}>
         <div className={styles.searchFieldContainer}>
-          <div className={styles.searchFieldIcon}>S</div>
+          <div className={styles.searchFieldIcon}>
+            <Icon name='magnifyingglass' />
+          </div>
           <input
             className={styles.searchFieldInput}
             name={'searchQuery'}

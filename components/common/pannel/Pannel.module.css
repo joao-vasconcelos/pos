@@ -4,6 +4,7 @@
   overflow: hidden;
   box-shadow: var(--effect-shadow-huge);
   border: 2px solid var(--gray-medium);
+  max-height: 100vh;
 }
 
 .pannelContents {

@@ -33,7 +33,7 @@ export default function ProductSlot({ product }) {
   return (
     <div className={styles.container} onClick={handleClick}>
       <div className={styles.image}>
-        <Image loader={productImageLoader} src={product.image} priority={true} layout={'fill'} objectFit={'cover'} />
+        <Image loader={productImageLoader} src={product.image} priority={true} layout={'fill'} objectFit={'cover'} alt={product.title} />
       </div>
       <div className={styles.label}>{product.short_title ? product.short_title : product.title}</div>
     </div>
