@@ -1,5 +1,5 @@
 .container {
-  padding: 10px 5px;
+  padding: 10px;
   text-align: center;
   background-color: var(--gray-light);
   border: 2px solid var(--gray-medium);
@@ -8,7 +8,7 @@
 }
 
 .title,
-.description {
+.subtitle {
   text-transform: uppercase;
 }
 
@@ -18,7 +18,7 @@
   margin-bottom: 3px;
 }
 
-.description {
+.subtitle {
   font-weight: var(--font-medium);
   font-size: 12px;
   opacity: 0.8;

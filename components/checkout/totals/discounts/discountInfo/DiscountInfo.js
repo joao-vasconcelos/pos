@@ -6,7 +6,7 @@ export default function DiscountInfo({ discount }) {
   return (
     <Pannel title={'Discount Info'}>
       <DiscountCard discount={discount} />
-      <div className={styles.discountExplanation}>{discount.explanation}</div>
+      <div className={styles.discountExplanation}>{discount.description}</div>
     </Pannel>
   );
 }

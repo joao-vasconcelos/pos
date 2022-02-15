@@ -20,7 +20,7 @@ export default function DiscountCard({ discount }) {
       onClick={showInfo}
     >
       <p className={styles.title}>{discount.title}</p>
-      <p className={styles.description}>{discount.description}</p>
+      <p className={styles.subtitle}>{discount.subtitle}</p>
     </div>
   );
 }
