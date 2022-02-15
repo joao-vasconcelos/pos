@@ -29,7 +29,6 @@
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 2px;
 }
 
 .label i {
@@ -38,6 +37,7 @@
 
 .unlocked .label {
   color: var(--theme-fill);
+  gap: 3px;
 }
 
 .locked .label {

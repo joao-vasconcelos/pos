@@ -1,6 +1,6 @@
 import users from '../../data/users.json';
 
-export default async function getUsers(req, res) {
+export default async function listUsers(req, res) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       res.statusCode = 200;
