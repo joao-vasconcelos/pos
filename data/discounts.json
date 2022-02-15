@@ -1,27 +1,38 @@
 [
   {
     "id": "d001",
-    "title": "Café + Bolo de Ananás",
-    "description": "-0.5€ from any order",
-    "rules": [["p001v001", "p001v003"], ["p008v001"]],
-    "amount": 0.5,
+    "title": "Menu Café (Bolo)",
+    "subtitle": "Para começar bem o dia, todos os dias!",
+    "description": "",
+    "rules": [
+      ["f001p001v001", "f001p001v002", "f001p001v003", "f001p001v004", "f001p001v005"],
+      ["f002p001v001", "f002p001v002", "f002p001v003", "f002p001v004", "f002p001v005", "f002p001v006"]
+    ],
+    "amount": 0.05,
     "style": { "fill": "#FFDE94", "border": "#FAD175", "text": "#D6892E" }
   },
   {
     "id": "d002",
-    "title": "Descafeinado + Bolo de Chocolate",
-    "description": "-0.5€ from any order",
-    "explanation": "Na compra de 1 descafeinado e uma fatia de bolo de chocolate, oferecemos 0,50€",
-    "rules": [["p001v002"], ["p008v002"]],
-    "amount": 0.75,
-    "style": { "fill": "#B9FFBD", "border": "#A0E9A4", "text": "#49854C" }
+    "title": "Menu Café (Salgado)",
+    "subtitle": "Para começar bem o dia, todos os dias!",
+    "description": "",
+    "rules": [
+      ["f001p001v001", "f001p001v002", "f001p001v003", "f001p001v004", "f001p001v005"],
+      ["f002p016v001", "f002p016v002", "f002p016v003", "f002p016v004"]
+    ],
+    "amount": 0.15,
+    "style": { "fill": "#FFDE94", "border": "#FAD175", "text": "#D6892E" }
   },
   {
     "id": "d003",
-    "title": "Winter Vibes",
-    "description": "-0.5€ from any order",
-    "rules": [],
-    "amount": 0.5,
+    "title": "Menu Galão (Bolinha)",
+    "subtitle": "Galão + Bolinha",
+    "description": "",
+    "rules": [
+      ["f001p001v001", "f001p001v002", "f001p001v003", "f001p001v004", "f001p001v005"],
+      ["f002p016v001", "f002p016v002", "f002p016v003", "f002p016v004"]
+    ],
+    "amount": 0.9,
     "style": { "fill": "#FFDE94", "border": "#FAD175", "text": "#D6892E" }
   }
 ]

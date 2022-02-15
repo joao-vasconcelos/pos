@@ -15,8 +15,8 @@
             { "id": "f001p001v001", "title": "Expresso", "price": 0.5, "tax": 0.13 },
             { "id": "f001p001v002", "title": "Descafeinado", "price": 0.5, "tax": 0.13 },
             { "id": "f001p001v003", "title": "Duplo", "price": 0.8, "tax": 0.13 },
-            { "id": "f001p001v005", "title": "Garoto", "price": 0.55, "tax": 0.13 },
-            { "id": "f001p001v004", "title": "Carioca", "price": 0.45, "tax": 0.13 }
+            { "id": "f001p001v004", "title": "Carioca", "price": 0.45, "tax": 0.13 },
+            { "id": "f001p001v005", "title": "Garoto", "price": 0.55, "tax": 0.13 }
           ]
         }
       },
