@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('/fonts/icomoon.eot?fquxs6');
-  src: url('/fonts/icomoon.eot?fquxs6#iefix') format('embedded-opentype'), url('/fonts/icomoon.ttf?fquxs6') format('truetype'),
-    url('/fonts/icomoon.woff?fquxs6') format('woff'), url('/fonts/icomoon.svg?fquxs6#icomoon') format('svg');
+  src: url('/fonts/icomoon.eot?wmbn24');
+  src: url('/fonts/icomoon.eot?wmbn24#iefix') format('embedded-opentype'), url('/fonts/icomoon.ttf?wmbn24') format('truetype'),
+    url('/fonts/icomoon.woff?wmbn24') format('woff'), url('/fonts/icomoon.svg?wmbn24#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,15 +24,54 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-magnifyingglass:before {
+.icon-checkmarkcirclefill:before {
   content: '\e900';
 }
-.icon-personbadgeplus:before {
+.icon-creditcardfill:before {
   content: '\e901';
 }
-.icon-personfillcheckmark:before {
+.icon-deleteleft:before {
   content: '\e902';
 }
-.icon-xmark:before {
+.icon-eurosigncirclefill:before {
   content: '\e903';
+}
+.icon-exclamationmarkoctagonfill:before {
+  content: '\e904';
+}
+.icon-listbulletrectanglefill:before {
+  content: '\e905';
+}
+.icon-lockfill:before {
+  content: '\e906';
+}
+.icon-lockopenfill:before {
+  content: '\e907';
+}
+.icon-magnifyingglass:before {
+  content: '\e908';
+}
+.icon-personbadgeplus:before {
+  content: '\e909';
+}
+.icon-personfillcheckmark:before {
+  content: '\e90a';
+}
+.icon-personfillquestionmark:before {
+  content: '\e90b';
+}
+.icon-plus:before {
+  content: '\e90c';
+}
+.icon-printerfill:before {
+  content: '\e90d';
+}
+.icon-rectangleandtextmagnifyingglass:before {
+  content: '\e90e';
+}
+.icon-trashfill:before {
+  content: '\e90f';
+}
+.icon-xmark:before {
+  content: '\e910';
 }

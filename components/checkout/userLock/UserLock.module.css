@@ -27,6 +27,13 @@
   font-weight: var(--font-medium);
   font-size: 14px;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.label i {
+  font-size: 30px;
 }
 
 .unlocked .label {

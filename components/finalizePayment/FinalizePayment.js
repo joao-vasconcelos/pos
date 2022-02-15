@@ -7,6 +7,7 @@ import styles from './FinalizePayment.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../utils/global-context';
 import PaymentOption from './paymentOption/PaymentOption';
+import Icon from '../../utils/Icon';
 
 export default function FinalizePayment() {
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -26,11 +27,23 @@ export default function FinalizePayment() {
     <Pannel title={'Total Final'}>
       <div className={styles.orderTotal}>{currentOrder.totals.total.toFixed(2) + '€'}</div>
       <div className={styles.paymentOptionsContainer}>
-        <PaymentOption value={'card'} icon={'CARD'} label={'Multibanco'} selectedPaymentOption={selectedPaymentOption} onSelect={handleSelect} />
-        <PaymentOption value={'cash'} icon={'CASH'} label={'Numerário'} selectedPaymentOption={selectedPaymentOption} onSelect={handleSelect} />
+        <PaymentOption
+          value={'card'}
+          icon={<Icon name={'creditcardfill'} />}
+          label={'Multibanco'}
+          selectedPaymentOption={selectedPaymentOption}
+          onSelect={handleSelect}
+        />
+        <PaymentOption
+          value={'cash'}
+          icon={<Icon name={'eurosigncirclefill'} />}
+          label={'Numerário'}
+          selectedPaymentOption={selectedPaymentOption}
+          onSelect={handleSelect}
+        />
         <PaymentOption
           value={'checking_account'}
-          icon={'CORR'}
+          icon={<Icon name={'listbulletrectanglefill'} />}
           label={'Conta Corrente'}
           selectedPaymentOption={selectedPaymentOption}
           onSelect={handleSelect}

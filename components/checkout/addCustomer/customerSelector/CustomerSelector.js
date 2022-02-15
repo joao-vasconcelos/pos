@@ -74,7 +74,7 @@ export default function CustomerSelector() {
       <div className={styles.toolbarContainer}>
         <div className={styles.searchFieldContainer}>
           <div className={styles.searchFieldIcon}>
-            <Icon name='magnifyingglass' />
+            <Icon name={'magnifyingglass'} />
           </div>
           <input
             className={styles.searchFieldInput}
@@ -85,7 +85,9 @@ export default function CustomerSelector() {
             onChange={handleSearchQueryChange}
           />
         </div>
-        <div className={styles.addCustomerButton}>+</div>
+        <div className={styles.addCustomerButton}>
+          <Icon name={'plus'} />
+        </div>
       </div>
       <div className={styles.listContainer}>
         {filteredCustomers ? (

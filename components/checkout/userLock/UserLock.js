@@ -4,6 +4,7 @@ import styles from './UserLock.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../utils/global-context';
 import UnlockUser from './unlockUser/UnlockUser';
+import Icon from '../../../utils/Icon';
 
 export default function UserLock() {
   const { lockStatus, overlay } = useContext(GlobalContext);
@@ -25,7 +26,17 @@ export default function UserLock() {
           [styles.unlocked]: lockStatus.currentUser,
         })}
       >
-        {lockStatus.currentUser ? <p className={styles.label}>{lockStatus.currentUser.name}</p> : <p className={styles.label}>Caixa Bloqueada</p>}
+        {lockStatus.currentUser ? (
+          <p className={styles.label}>
+            <Icon name={'lockopenfill'} />
+            {lockStatus.currentUser.name}
+          </p>
+        ) : (
+          <p className={styles.label}>
+            <Icon name={'lockfill'} />
+            Caixa Bloqueada
+          </p>
+        )}
       </div>
       {!lockStatus.currentUser ? <div className={styles.lockOverlay}></div> : ''}
     </div>

@@ -6,6 +6,7 @@ import { GlobalContext } from '../../../../utils/global-context';
 
 import Pannel from '../../../common/pannel/Pannel';
 import Button from '../../../common/button/Button';
+import Icon from '../../../../utils/Icon';
 
 export default function UnlockUser() {
   const { data: users } = useSWR('/api/users');
@@ -92,8 +93,8 @@ export default function UnlockUser() {
           <div className={styles.keyboardKey} onClick={handleClick}>
             9
           </div>
-          <div className={styles.keyboardKey} onClick={handleDeleteValue}>
-            ‹‹
+          <div className={styles.keyboardKeyDelete} onClick={handleDeleteValue}>
+            <Icon name={'deleteleft'} />
           </div>
           <div className={styles.keyboardKey} onClick={handleClick}>
             4

@@ -28,7 +28,7 @@ export default function AddCustomer() {
         return (
           <IconButton
             label={currentOrder.customer.nif.region + currentOrder.customer.nif.number}
-            icon={'N'}
+            icon={<Icon name={'personfillquestionmark'} />}
             type={'primary'}
             action={handleChangeNIF}
           />

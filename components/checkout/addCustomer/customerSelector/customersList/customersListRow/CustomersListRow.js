@@ -4,6 +4,7 @@ import styles from './CustomersListRow.module.css';
 
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../../../utils/global-context';
+import Icon from '../../../../../../utils/Icon';
 
 export default function CustomersListRow({ customer, onSelect, selectedCustomer }) {
   //
@@ -32,7 +33,7 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
         </div>
       </div>
       <div className={styles.viewCustomerButton} onClick={handleView}>
-        VIEW
+        <Icon name={'rectangleandtextmagnifyingglass'} />
       </div>
     </div>
   );

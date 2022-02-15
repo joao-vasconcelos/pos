@@ -60,7 +60,8 @@
   border: 2px solid var(--status-danger-border);
 }
 
-.keyboardKey {
+.keyboardKey,
+.keyboardKeyDelete {
   background-color: var(--gray-light);
   border: 2px solid var(--gray-medium);
   color: var(--gray-strong);
@@ -72,9 +73,14 @@
   font-weight: var(--font-bold);
 }
 
-.keyboardKey:active {
+.keyboardKey:active,
+.keyboardKeyDelete:active {
   background-color: var(--theme-fill);
   border: 2px solid var(--theme-border);
   color: var(--white);
   box-shadow: var(--effect-shadow);
+}
+
+.keyboardKeyDelete {
+  font-size: 50px;
 }
