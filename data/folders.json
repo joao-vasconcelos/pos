@@ -109,8 +109,8 @@
         "position": 8,
         "product": {
           "id": "f001p008",
-          "title": "Infusões",
-          "image": "infusoes.jpg",
+          "title": "Chá",
+          "image": "cha.jpg",
           "description": "Este produto deve ser servido bem quente numa chávena cheia.",
           "variations": [
             { "id": "f001p008v001", "title": "Verde", "price": 0.55, "tax": 0.13 },
@@ -156,16 +156,149 @@
       { "position": 13, "product": null },
       { "position": 14, "product": null },
       { "position": 15, "product": null },
-      { "position": 16, "product": null },
-      { "position": 17, "product": null },
-      { "position": 18, "product": null },
+      {
+        "position": 16,
+        "product": {
+          "id": "f001p016",
+          "title": "Torrada",
+          "image": "torrada.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p016v001", "title": "2 Fatias", "price": 0.85, "tax": 0.13 },
+            { "id": "f001p016v002", "title": "1 Fatia", "price": 0.7, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 17,
+        "product": {
+          "id": "f001p017",
+          "title": "Tosta Normal",
+          "image": "tosta_normal.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p017v001", "title": "c/ Queijo", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p017v002", "title": "c/ Fiambre", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p017v003", "title": "c/ Queijo e Fiambre", "price": 1.4, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 18,
+        "product": {
+          "id": "f001p018",
+          "title": "Tosta Especial",
+          "image": "tosta_especial.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p018v001", "title": "de Frango, Bacon e Queijo", "price": 2, "tax": 0.13 },
+            { "id": "f001p018v002", "title": "de Atum e Mozzarella", "price": 2.25, "tax": 0.13 }
+          ]
+        }
+      },
       { "position": 19, "product": null },
-      { "position": 20, "product": null },
-      { "position": 21, "product": null },
-      { "position": 22, "product": null },
-      { "position": 23, "product": null },
-      { "position": 24, "product": null },
-      { "position": 25, "product": null }
+      {
+        "position": 20,
+        "product": {
+          "id": "f001p020",
+          "title": "Fatia Extra",
+          "image": "fatia_extra.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p020v001", "title": "de Queijo", "price": 0.3, "tax": 0.13 },
+            { "id": "f001p020v002", "title": "de Fiambre", "price": 0.3, "tax": 0.13 },
+            { "id": "f001p020v003", "title": "de Paio", "price": 0.3, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 21,
+        "product": {
+          "id": "f001p021",
+          "title": "Bolinha",
+          "image": "bolinha.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p021v001", "title": "Simples", "price": 0.5, "tax": 0.13 },
+            { "id": "f001p021v002", "title": "c/ Manteiga", "price": 0.8, "tax": 0.13 },
+            { "id": "f001p021v003", "title": "c/ Queijo", "price": 1.25, "tax": 0.13 },
+            { "id": "f001p021v004", "title": "c/ Fiambre", "price": 1.25, "tax": 0.13 },
+            { "id": "f001p021v005", "title": "c/ Queijo e Fiambre", "price": 1.45, "tax": 0.13 },
+            { "id": "f001p021v006", "title": "c/ Paio ou Chourição", "price": 1.3, "tax": 0.13 },
+            { "id": "f001p021v007", "title": "c/ Queijo Fresco", "price": 1.6, "tax": 0.13 },
+            { "id": "f001p021v008", "title": "c/ Presunto", "price": 1.8, "tax": 0.13 },
+            { "id": "f001p021v009", "title": "c/ Panado", "price": 1.85, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 22,
+        "product": {
+          "id": "f001p022",
+          "title": "Baguette",
+          "image": "baguette.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p022v001", "title": "Simples", "price": 0.5, "tax": 0.13 },
+            { "id": "f001p022v002", "title": "c/ Manteiga", "price": 0.8, "tax": 0.13 },
+            { "id": "f001p022v003", "title": "c/ Queijo", "price": 1.25, "tax": 0.13 },
+            { "id": "f001p022v004", "title": "c/ Fiambre", "price": 1.25, "tax": 0.13 },
+            { "id": "f001p022v005", "title": "c/ Queijo e Fiambre", "price": 1.45, "tax": 0.13 },
+            { "id": "f001p022v006", "title": "c/ Paio ou Chourição", "price": 1.3, "tax": 0.13 },
+            { "id": "f001p022v007", "title": "c/ Queijo Fresco", "price": 1.6, "tax": 0.13 },
+            { "id": "f001p022v008", "title": "c/ Presunto", "price": 1.8, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 23,
+        "product": {
+          "id": "f001p023",
+          "title": "Sementes",
+          "image": "sementes.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p023v001", "title": "Simples", "price": 0.65, "tax": 0.13 },
+            { "id": "f001p023v002", "title": "c/ Manteiga", "price": 1.05, "tax": 0.13 },
+            { "id": "f001p023v003", "title": "c/ Queijo", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p023v004", "title": "c/ Fiambre", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p023v005", "title": "c/ Queijo e Fiambre", "price": 1.5, "tax": 0.13 },
+            { "id": "f001p023v006", "title": "c/ Queijo Fresco", "price": 1.7, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 24,
+        "product": {
+          "id": "f001p024",
+          "title": "Croissant",
+          "image": "croissant.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p024v001", "title": "Simples", "price": 1, "tax": 0.13 },
+            { "id": "f001p024v002", "title": "c/ Manteiga", "price": 1.1, "tax": 0.13 },
+            { "id": "f001p024v003", "title": "c/ Queijo", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p024v004", "title": "c/ Fiambre", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p024v005", "title": "c/ Queijo e Fiambre", "price": 1.45, "tax": 0.13 }
+          ]
+        }
+      },
+      {
+        "position": 25,
+        "product": {
+          "id": "f001p025",
+          "title": "Pão de Leite",
+          "image": "pao_leite.jpg",
+          "description": "Este produto deve ser servido bem quente numa chávena cheia.",
+          "variations": [
+            { "id": "f001p025v001", "title": "Simples", "price": 1, "tax": 0.13 },
+            { "id": "f001p025v002", "title": "c/ Manteiga", "price": 1.1, "tax": 0.13 },
+            { "id": "f001p025v003", "title": "c/ Queijo", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p025v004", "title": "c/ Fiambre", "price": 1.35, "tax": 0.13 },
+            { "id": "f001p025v005", "title": "c/ Queijo e Fiambre", "price": 1.45, "tax": 0.13 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -229,7 +362,7 @@
         "product": {
           "id": "f002p005",
           "title": "Panuts",
-          "image": "panuts.png",
+          "image": "panuts.jpg",
           "description": "Este produto deve ser servido bem quente numa chávena cheia.",
           "variations": [
             { "id": "f002p005v001", "title": "Simples", "price": 1, "tax": 0.13 },
@@ -345,7 +478,7 @@
         "product": {
           "id": "f002p018",
           "title": "Pão c/ Chouriço",
-          "image": "pao_chourico.jpg",
+          "image": "pao_chourico.png",
           "description": "Este produto deve ser servido bem quente numa chávena cheia.",
           "variations": [{ "id": "f002p018v001", "title": "Regular", "price": 1.25, "tax": 0.13 }]
         }
