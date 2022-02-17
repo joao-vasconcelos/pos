@@ -6,6 +6,6 @@ export default async function createCustomer(req, res) {
       res.statusCode = 200;
       res.json(customers);
       resolve();
-    }, 3000);
+    }, 500);
   });
 }

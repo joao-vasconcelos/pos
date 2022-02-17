@@ -6,6 +6,6 @@ export default async function listFolders(req, res) {
       res.statusCode = 200;
       res.json(folders);
       resolve();
-    }, 3000);
+    }, 500);
   });
 }

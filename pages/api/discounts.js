@@ -6,6 +6,6 @@ export default async function listDiscounts(req, res) {
       res.statusCode = 200;
       res.json(discounts);
       resolve();
-    }, 3000);
+    }, 500);
   });
 }

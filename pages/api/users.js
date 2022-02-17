@@ -6,6 +6,6 @@ export default async function listUsers(req, res) {
       res.statusCode = 200;
       res.json(users);
       resolve();
-    }, 3000);
+    }, 500);
   });
 }
