@@ -14,4 +14,3 @@ jobs:
         with:
           branch: production
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # unrelated: true
