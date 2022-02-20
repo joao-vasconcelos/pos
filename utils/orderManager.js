@@ -1,4 +1,4 @@
-import _, { runInContext } from 'lodash';
+import _ from 'lodash';
 
 // function removeItemFromCurrentOrder(currentOrderItems, item) {
 //   const indexOfItem = currentOrderItems.indexOf(item);
