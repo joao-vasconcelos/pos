@@ -14,6 +14,7 @@ import Icon from '../../../../utils/Icon';
 
 export default function CustomerSelector() {
   //
+
   const { data: customers } = useSWR('/api/customers/list');
 
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -31,10 +32,10 @@ export default function CustomerSelector() {
   }
 
   function handleSearchQueryChange({ target }) {
-    setSearchQuery(target.value.toLowerCase());
+    setSearchQuery(target.value);
 
     if (target.value) {
-      const searchResult = customers.filter((customer) => {
+      const searchResult = _.filter(customers, function (customer) {
         // Firt Name
         const firstName = customer.name.first ? customer.name.first.toLowerCase().includes(target.value) : false;
 
@@ -50,7 +51,6 @@ export default function CustomerSelector() {
         // Reference
         const reference = customer.reference ? customer.reference.toLowerCase().includes(target.value) : false;
 
-        // Return true if any field contains value
         return firstName || lastName || email || tax_id || reference;
       });
       setFilteredCustomers(searchResult);
