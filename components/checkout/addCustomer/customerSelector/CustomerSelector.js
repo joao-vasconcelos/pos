@@ -14,7 +14,6 @@ import Icon from '../../../../utils/Icon';
 
 export default function CustomerSelector() {
   //
-
   const { data: customers } = useSWR('/api/customers/list');
 
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -32,25 +31,29 @@ export default function CustomerSelector() {
   }
 
   function handleSearchQueryChange({ target }) {
-    setSearchQuery(target.value);
+    //
+    const query = target.value.toLowerCase();
 
-    if (target.value) {
-      const searchResult = _.filter(customers, function (customer) {
+    setSearchQuery(query);
+
+    if (query) {
+      const searchResult = customers.filter((customer) => {
         // Firt Name
-        const firstName = customer.name.first ? customer.name.first.toLowerCase().includes(target.value) : false;
+        const firstName = customer.name.first ? customer.name.first.toLowerCase().includes(query) : false;
 
         // Last Name
-        const lastName = customer.name.last ? customer.name.last.toLowerCase().includes(target.value) : false;
+        const lastName = customer.name.last ? customer.name.last.toLowerCase().includes(query) : false;
 
         // Email
-        const email = customer.email ? customer.email.toLowerCase().includes(target.value) : false;
+        const email = customer.email ? customer.email.toLowerCase().includes(query) : false;
 
         // Tax ID
-        const tax_id = customer.tax_id ? customer.tax_id.toString().toLowerCase().includes(target.value) : false;
+        const tax_id = customer.tax_id ? customer.tax_id.toString().toLowerCase().includes(query) : false;
 
         // Reference
-        const reference = customer.reference ? customer.reference.toLowerCase().includes(target.value) : false;
+        const reference = customer.reference ? customer.reference.toLowerCase().includes(query) : false;
 
+        // Return true if any field contains value
         return firstName || lastName || email || tax_id || reference;
       });
       setFilteredCustomers(searchResult);
