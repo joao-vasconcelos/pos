@@ -5,7 +5,7 @@ import PanelHeader from './pannelHeader/PannelHeader';
 export default function Pannel({ title, children }) {
   return (
     <div className={styles.pannel}>
-      <PanelHeader title={title} />
+      {title ? <PanelHeader title={title} /> : ''}
       <div className={styles.pannelContents}>{children}</div>
     </div>
   );
