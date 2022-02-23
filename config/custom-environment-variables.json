@@ -1,0 +1,5 @@
+{
+  "secrets": {
+    "database-connection-string": "MONGODB_CONNECTION_STRING"
+  }
+}
