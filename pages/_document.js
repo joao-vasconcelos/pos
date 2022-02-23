@@ -15,7 +15,6 @@ export default function Document() {
         <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
         <link rel='manifest' href='/site.webmanifest' />
         <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#ff0000' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
         <meta name='HandheldFriendly' content='true' />
         <link rel='stylesheet' href='https://use.typekit.net/tto7hgg.css' />
       </Head>
