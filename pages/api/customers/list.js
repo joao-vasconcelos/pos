@@ -1,11 +1,8 @@
-import customers from '../../../data/customers.json';
+import database from '../../../services/database';
+import Customer from '../../../models/Customer';
 
 export default async function listCustomers(req, res) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      res.statusCode = 200;
-      res.json(customers);
-      resolve();
-    }, 500);
-  });
+  database.connect();
+  const customers = await Customer.find({});
+  await res.status(200).json(customers);
 }

@@ -1,11 +1,8 @@
-import users from '../../data/users.json';
+import database from '../../services/database';
+import User from '../../models/User';
 
 export default async function listUsers(req, res) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      res.statusCode = 200;
-      res.json(users);
-      resolve();
-    }, 500);
-  });
+  database.connect();
+  const users = await User.find({});
+  await res.status(200).json(users);
 }
