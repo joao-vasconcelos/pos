@@ -8,6 +8,7 @@ import { useContext, useState } from 'react';
 import { GlobalContext } from '../../utils/global-context';
 import PaymentOption from './paymentOption/PaymentOption';
 import Icon from '../../utils/Icon';
+import PaidByCash from './methods/cash/PaidByCash';
 
 export default function FinalizePayment() {
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -19,8 +20,22 @@ export default function FinalizePayment() {
   }
 
   function handleInitiatePayment() {
-    currentOrder.clear();
-    overlay.setComponent();
+    switch (selectedPaymentOption) {
+      case 'card':
+        console.log('card');
+        break;
+      case 'cash':
+        overlay.setComponent(<PaidByCash />);
+        break;
+      case 'card':
+        console.log('checking_account');
+        break;
+      default:
+        break;
+    }
+
+    // currentOrder.clear();
+    // overlay.setComponent();
   }
 
   return (

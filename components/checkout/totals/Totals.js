@@ -6,12 +6,14 @@ import styles from './Totals.module.css';
 import { useContext } from 'react';
 import { GlobalContext } from '../../../utils/global-context';
 import FinalizePayment from '../../finalizePayment/FinalizePayment';
+import PaidByCash from '../../finalizePayment/methods/cash/PaidByCash';
 
 export default function Totals() {
   const { currentOrder, overlay } = useContext(GlobalContext);
 
   function handleFinalize() {
-    overlay.setComponent(<FinalizePayment />);
+    // overlay.setComponent(<FinalizePayment />);
+    overlay.setComponent(<PaidByCash />);
   }
 
   return (
