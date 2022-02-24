@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import { GlobalContext } from './global-context';
+import { GlobalContext } from '../services/context';
 import pjson from '../package.json';
 
 export default function Refresh() {

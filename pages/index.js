@@ -1,14 +1,14 @@
 import useSWR from 'swr';
 
-import FolderGrid from '../components/folders/FolderGrid';
-import ProductGrid from '../components/products/ProductGrid';
+import FolderGrid from '../components/folders/folderGrid/FolderGrid';
+import ProductGrid from '../components/products/productGrid/ProductGrid';
 import Checkout from '../components/checkout/Checkout';
 
-import Loading from '../components/loading/Loading';
+import Loading from '../components/common/loading/Loading';
 
 import styles from '../styles/Home.module.css';
 
-import Overlay from '../components/overlay/Overlay';
+import Overlay from '../components/common/overlay/Overlay';
 
 export default function PointOfSale() {
   const { data: customers } = useSWR('/api/customers/list');

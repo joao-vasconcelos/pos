@@ -1,9 +1,9 @@
 import styles from './VariationSelector.module.css';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../../utils/global-context';
+import { GlobalContext } from '../../../services/context';
 
-import Pannel from '../../common/pannel/Pannel';
+import Pannel from '../../common/pannel/container/Pannel';
 import VariationButton from '../variationButton/VariationButton';
 import Button from '../../common/button/Button';
 
@@ -47,7 +47,7 @@ export default function VariationSelector({ product }) {
         <div className={styles.variationGrid}>
           {product.variations
             ? product.variations.map((variation) => (
-                <VariationButton key={variation.id} variation={variation} selectedVariation={selectedVariation} onSelect={handleSelect} />
+                <VariationButton key={variation._id} variation={variation} selectedVariation={selectedVariation} onSelect={handleSelect} />
               ))
             : 'no variations'}
         </div>

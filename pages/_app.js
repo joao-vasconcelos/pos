@@ -1,6 +1,6 @@
 import { SWRConfig } from 'swr';
 import fetch from '../services/fetch.js';
-import GlobalProvider from '../utils/global-context';
+import GlobalProvider from '../services/context';
 import BrowserConfig from '../utils/BrowserConfig';
 import Refresh from '../utils/Refresh.js';
 

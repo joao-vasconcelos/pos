@@ -1,10 +1,5 @@
 import cn from 'classnames';
-import useSWR from 'swr';
-
 import styles from './PaymentOption.module.css';
-
-import { useContext, useState } from 'react';
-import { GlobalContext } from '../../../utils/global-context';
 
 export default function PaymentOption({ value, icon, label, selectedPaymentOption, onSelect }) {
   //

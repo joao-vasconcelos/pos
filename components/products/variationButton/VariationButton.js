@@ -1,10 +1,9 @@
 import cn from 'classnames';
-
 import styles from './VariationButton.module.css';
 
 export default function VariationButton({ variation, selectedVariation, onSelect }) {
   let isThisVariationSelected = false;
-  if (selectedVariation && selectedVariation.id == variation.id) isThisVariationSelected = true;
+  if (selectedVariation && selectedVariation._id == variation._id) isThisVariationSelected = true;
 
   return (
     <div

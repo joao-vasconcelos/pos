@@ -1,11 +1,8 @@
-import discounts from '../../data/discounts.json';
+import database from '../../services/database';
+import Discount from '../../models/Discount';
 
 export default async function listDiscounts(req, res) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      res.statusCode = 200;
-      res.json(discounts);
-      resolve();
-    }, 500);
-  });
+  database.connect();
+  const discounts = await Discount.find({});
+  await res.status(200).json(discounts);
 }

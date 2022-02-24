@@ -29,6 +29,7 @@ module.exports =
       },
       tax_id: {
         type: String,
+        minlength: 11,
         maxlength: 11,
       },
       reference: {
