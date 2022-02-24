@@ -8,7 +8,7 @@ import { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../../services/context';
 
 export default function FolderGrid() {
-  const { data: folders } = useSWR('/api/folders');
+  const { data: folders } = useSWR('/api/folders/*');
 
   const { currentFolder } = useContext(GlobalContext);
 

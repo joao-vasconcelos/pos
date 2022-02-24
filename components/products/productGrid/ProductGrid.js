@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../../services/context';
 
 export default function ProductsGrid() {
-  const { data: folders } = useSWR('/api/folders');
+  const { data: folders } = useSWR('/api/folders/*');
 
   const { currentFolder } = useContext(GlobalContext);
 

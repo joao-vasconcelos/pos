@@ -10,7 +10,7 @@ import DiscountCard from '../discountCard/DiscountCard';
 
 export default function Discounts() {
   //
-  const { data: discounts } = useSWR('/api/discounts');
+  const { data: discounts } = useSWR('/api/discounts/*');
   const { currentOrder } = useContext(GlobalContext);
 
   // const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(currentOrder.items, data.discounts);

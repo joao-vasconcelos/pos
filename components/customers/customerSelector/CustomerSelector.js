@@ -14,7 +14,7 @@ import Icon from '../../../utils/Icon';
 
 export default function CustomerSelector() {
   //
-  const { data: customers } = useSWR('/api/customers/list');
+  const { data: customers } = useSWR('/api/customers/*');
 
   const { currentOrder, overlay } = useContext(GlobalContext);
 

@@ -8,7 +8,7 @@ import Pannel from '../../common/pannel/container/Pannel';
 import Icon from '../../../utils/Icon';
 
 export default function UserUnlock() {
-  const { data: users } = useSWR('/api/users');
+  const { data: users } = useSWR('/api/users/*');
   const { lockStatus, overlay } = useContext(GlobalContext);
   const [pwdInput, updatePwdInput] = useState([]);
   const [isError, setIsError] = useState();
