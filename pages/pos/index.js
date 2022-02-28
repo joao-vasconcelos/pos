@@ -6,7 +6,7 @@ import Checkout from '../../components/pos/checkout/Checkout';
 
 import Loading from '../../components/common/loading/Loading';
 
-import styles from './POS.module.css';
+import styles from '../../styles/pos/POS.module.css';
 
 import Overlay from '../../components/common/overlay/Overlay';
 

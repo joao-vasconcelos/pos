@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
 
 export default function Kiosk() {
   return (
-    <div className={styles.container}>
+    <div>
       <Link href='/pos'>
         <a>Point of Sale</a>
       </Link>
