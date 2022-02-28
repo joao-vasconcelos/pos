@@ -5,33 +5,75 @@ import _ from 'lodash';
 //   return currentOrderItems.splice(indexOfItem, 1);
 // }
 
-function addProductVariationToCurrentOrder(currentOrderItems, product, variation, qty = 1) {
+function addProductVariationToCurrentOrder(currentOrderItems, product, variation, qty) {
   //
-  const newItem = {
-    id: variation.id,
-    productTitle: product.title,
-    variationTitle: variation.title,
+  const newOrderItem = {
+    product: product,
+    variation: variation,
     qty: qty,
-    unitPrice: variation.price,
     lineTotal: qty * variation.price,
   };
 
-  const isDuplicate = _.findIndex(currentOrderItems, (line) => {
+  const isDuplicate = _.findIndex(currentOrderItems, (item) => {
     // Check if product and variation exists in the order already
-    if (line.id == variation.id) return true;
+    if (item.product._id == product._id && item.variation._id == variation._id) return true;
   });
 
   if (isDuplicate < 0) {
     // If it is not duplicate, then return the updated orderItems arrays
-    return _.concat(currentOrderItems, newItem);
+    return _.concat(currentOrderItems, newOrderItem);
     //
   } else {
     // If it is duplicate, then only update the quantity and line total for the duplicate line
     let duplicateOrder = Array.from(currentOrderItems);
     duplicateOrder[isDuplicate].qty += qty;
-    duplicateOrder[isDuplicate].lineTotal += newItem.lineTotal;
+    duplicateOrder[isDuplicate].lineTotal += newOrderItem.lineTotal;
     return duplicateOrder;
   }
+}
+
+function updateProductVariationOfCurrentOrder(currentOrderItems, orderItemToChange, newVariation, newQty) {
+  //
+
+  const orderItemInArray = _.findIndex(currentOrderItems, (item) => {
+    // Check if product and variation exists in the order already
+    if (item.product._id == orderItemToChange.product._id && item.variation._id == orderItemToChange.variation._id) return true;
+  });
+
+  let updatedOrder = Array.from(currentOrderItems);
+  updatedOrder[orderItemInArray].variation = newVariation;
+  updatedOrder[orderItemInArray].qty = newQty;
+  updatedOrder[orderItemInArray].lineTotal = newQty * newVariation.price;
+
+  // AFTER CHANGING THE VARIATION OF A PRODUCT, IT MIGHT BE DUPLICATED IN THE ORDER ALREADY.
+  // THIS FUNCTION IS TO COMBINE BOTH ORDER ITEMS INTO JUST ONE (SUM OF QUANTITY AND LINE TOTAL)
+  // const duplicateItemInCurrentOrder = _.filter(
+  //   _.uniq(
+  //     _.map(currentOrderItems, function (item) {
+  //       if (
+  //         _.filter(currentOrderItems, (item) => {
+  //           // Check if product and variation exists in the order already
+  //           if (item.product._id == orderItemToChange.product._id && item.variation._id == orderItemToChange.variation._id) return true;
+  //         }).length > 1
+  //       ) {
+  //         return item;
+  //       }
+
+  //       return false;
+  //     })
+  //   ),
+  //   function (value) {
+  //     return value;
+  //   }
+  // );
+
+  // console.log(duplicateItemInCurrentOrder);
+
+  // if (duplicateItemInCurrentOrder.length) {
+  //   duplicateItemInCurrentOrder.forEach((duplicate) => {});
+  // }
+
+  return updatedOrder;
 }
 
 function removeItemFromCurrentOrder(currentOrderItems, item) {
@@ -126,9 +168,12 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
   return validDiscounts;
 }
 
-export default {
+const orderManager = {
   addProductVariationToCurrentOrder,
+  updateProductVariationOfCurrentOrder,
   removeItemFromCurrentOrder,
   calculateOrderTotals,
   getValidDiscountsForCurrentOrder,
 };
+
+export default orderManager;

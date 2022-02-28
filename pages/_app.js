@@ -8,7 +8,7 @@ import Refresh from '../utils/Refresh.js';
 import '../styles/globals.css';
 import '../styles/icons.css';
 
-export default function Register({ Component, pageProps }) {
+export default function Kiosk({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher: fetch, refreshInterval: 1000 }}>
       <GlobalProvider>

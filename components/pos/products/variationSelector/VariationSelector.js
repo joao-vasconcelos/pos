@@ -7,12 +7,12 @@ import Pannel from '../../common/pannel/container/Pannel';
 import VariationButton from '../variationButton/VariationButton';
 import Button from '../../common/button/Button';
 
-export default function VariationSelector({ product }) {
+export default function VariationSelector({ product, orderItem = null }) {
   //
   const { currentOrder, overlay } = useContext(GlobalContext);
 
-  const [selectedVariation, setSelectedVariation] = useState();
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [selectedVariation, setSelectedVariation] = useState(orderItem ? orderItem.variation : null);
+  const [selectedQuantity, setSelectedQuantity] = useState(orderItem ? orderItem.qty : 1);
 
   let qty = selectedQuantity;
 
@@ -23,7 +23,7 @@ export default function VariationSelector({ product }) {
   function handleQtyDecrease() {
     if (qty < 2) {
       qty = 1;
-      setSelectedQuantity(1);
+      setSelectedQuantity(qty);
     } else {
       qty--;
       setSelectedQuantity(qty--);
@@ -37,6 +37,16 @@ export default function VariationSelector({ product }) {
 
   function handleAdd() {
     currentOrder.add(product, selectedVariation, qty);
+    overlay.setComponent();
+  }
+
+  function handleChange() {
+    currentOrder.change(orderItem, selectedVariation, qty);
+    overlay.setComponent();
+  }
+
+  function handleRemove() {
+    currentOrder.remove(orderItem);
     overlay.setComponent();
   }
 
@@ -62,7 +72,14 @@ export default function VariationSelector({ product }) {
           </div>
         </div>
 
-        <Button label={'Adicionar'} type={selectedVariation ? 'primary' : 'disabled'} action={handleAdd} />
+        {orderItem ? (
+          <div className={styles.buttonsContainer}>
+            <Button label={'Atualizar'} type={'primary'} action={handleChange} />
+            <Button label={'Remover'} type={'danger'} action={handleRemove} />
+          </div>
+        ) : (
+          <Button label={'Adicionar'} type={selectedVariation ? 'primary' : 'disabled'} action={handleAdd} />
+        )}
       </div>
     </Pannel>
   );

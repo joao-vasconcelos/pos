@@ -2,7 +2,7 @@ import cn from 'classnames';
 import styles from './FolderButton.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 
 export default function FolderButton({ folder }) {
   const { currentFolder } = useContext(GlobalContext);

@@ -1,5 +1,6 @@
 import styles from '../../../styles/Home.module.css';
+import Sidebar from '../../../components/dashboard/sidebar/container/Sidebar';
 
 export default function DashboardLayouts() {
-  return <div className={styles.container}>Layouts</div>;
+  return <Sidebar>Layouts</Sidebar>;
 }

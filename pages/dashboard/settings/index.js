@@ -1,5 +1,6 @@
 import styles from '../../../styles/Home.module.css';
+import Sidebar from '../../../components/dashboard/sidebar/container/Sidebar';
 
 export default function DashboardSettings() {
-  return <div className={styles.container}>Settings</div>;
+  return <Sidebar>Settings</Sidebar>;
 }

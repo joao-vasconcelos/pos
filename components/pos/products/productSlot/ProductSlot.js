@@ -24,7 +24,7 @@ export default function ProductSlot({ product }) {
   function handleClick() {
     if (product.variations.length == 1) {
       // If product only has 1 variation, add it to the order imediatly
-      currentOrder.add(product, product.variations[0]);
+      currentOrder.add(product, product.variations[0], 1);
     } else {
       // Else, show the variations screen
       overlay.setComponent(<VariationSelector product={product} />);

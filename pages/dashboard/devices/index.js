@@ -1,5 +1,6 @@
 import styles from '../../../styles/Home.module.css';
+import Sidebar from '../../../components/dashboard/sidebar/container/Sidebar';
 
 export default function DashboardDevices() {
-  return <div className={styles.container}>Devices</div>;
+  return <Sidebar>Devices</Sidebar>;
 }
