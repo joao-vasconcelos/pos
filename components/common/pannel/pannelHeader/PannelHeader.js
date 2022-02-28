@@ -2,7 +2,7 @@ import styles from './PannelHeader.module.css';
 
 import { useContext } from 'react';
 import { GlobalContext } from '../../../../services/context';
-import Icon from '../../../../utils/Icon';
+import Icon from '../../icon/Icon';
 
 export default function PannelHeader({ title = 'Untitled' }) {
   //

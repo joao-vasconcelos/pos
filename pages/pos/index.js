@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 
-import FolderGrid from '../../components/folders/folderGrid/FolderGrid';
-import ProductGrid from '../../components/products/productGrid/ProductGrid';
-import Checkout from '../../components/checkout/Checkout';
+import FolderGrid from '../../components/pos/folders/folderGrid/FolderGrid';
+import ProductGrid from '../../components/pos/products/productGrid/ProductGrid';
+import Checkout from '../../components/pos/checkout/Checkout';
 
 import Loading from '../../components/common/loading/Loading';
 

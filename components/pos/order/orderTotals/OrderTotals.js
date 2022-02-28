@@ -1,10 +1,10 @@
 import cn from 'classnames';
 
-import Button from '../../common/button/Button';
+import Button from '../../../common/button/Button';
 import styles from './OrderTotals.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import FinalizePayment from '../../finalizePayment/FinalizePayment';
 import PaidByCash from '../../finalizePayment/methods/cash/PaidByCash';
 

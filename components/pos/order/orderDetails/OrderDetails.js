@@ -2,7 +2,7 @@ import styles from './OrderDetails.module.css';
 import OrderItem from '../orderItem/OrderItem';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 
 export default function OrderDetails() {
   const { currentOrder } = useContext(GlobalContext);

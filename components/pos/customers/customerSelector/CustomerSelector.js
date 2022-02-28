@@ -1,16 +1,16 @@
 import styles from './CustomerSelector.module.css';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../common/pannel/container/Pannel';
-import Button from '../../common/button/Button';
+import Pannel from '../../../common/pannel/container/Pannel';
+import Button from '../../../common/button/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
 import CustomersListRow from '../customersListRow/CustomersListRow';
-import Loading from '../../common/loading/Loading';
+import Loading from '../../../common/loading/Loading';
 import useSWR from 'swr';
-import Icon from '../../../utils/Icon';
+import Icon from '../../../common/icon/Icon';
 
 export default function CustomerSelector() {
   //

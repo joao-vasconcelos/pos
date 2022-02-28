@@ -1,10 +1,10 @@
 import styles from './AddCustomer.module.css';
-import IconButton from '../../common/iconButton/IconButton';
+import IconButton from '../../../common/iconButton/IconButton';
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import CustomerSelector from '../customerSelector/CustomerSelector';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
-import Icon from '../../../utils/Icon';
+import Icon from '../../../common/icon/Icon';
 
 export default function AddCustomer() {
   const { overlay, currentOrder } = useContext(GlobalContext);

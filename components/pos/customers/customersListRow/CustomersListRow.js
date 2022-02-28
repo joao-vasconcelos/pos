@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import styles from './CustomersListRow.module.css';
-import Icon from '../../../utils/Icon';
+import Icon from '../../../common/icon/Icon';
 
 export default function CustomersListRow({ customer, onSelect, selectedCustomer }) {
   //

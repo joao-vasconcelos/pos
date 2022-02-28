@@ -1,7 +1,7 @@
 import styles from './DiscountCard.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import DiscountInfo from '../discountInfo/DiscountInfo';
 
 export default function DiscountCard({ discount }) {

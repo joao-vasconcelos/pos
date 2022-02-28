@@ -1,10 +1,10 @@
 import styles from './AddOnlyNIF.module.css';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../common/pannel/container/Pannel';
-import Button from '../../common/button/Button';
+import Pannel from '../../../common/pannel/container/Pannel';
+import Button from '../../../common/button/Button';
 
 export default function AddOnlyNIF() {
   //

@@ -1,11 +1,11 @@
 import useSWR from 'swr';
 
-import Loading from '../../common/loading/Loading';
+import Loading from '../../../common/loading/Loading';
 import FolderButton from '../folderButton/FolderButton';
 import styles from './FolderGrid.module.css';
 
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 
 export default function FolderGrid() {
   const { data: layout } = useSWR('/api/layouts/621a229c9d0f1a427523c0bf');

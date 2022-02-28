@@ -3,7 +3,7 @@ import styles from './ProductSlot.module.css';
 import Image from 'next/image';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import VariationSelector from '../variationSelector/VariationSelector';
 
 import placeholder from '/public/media/products/placeholder.jpg';

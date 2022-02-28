@@ -1,6 +1,6 @@
 import styles from './OrderItem.module.css';
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import VariationSelector from '../../products/variationSelector/VariationSelector';
 
 export default function OrderItem({ item }) {

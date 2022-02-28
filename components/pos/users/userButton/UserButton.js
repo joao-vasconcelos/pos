@@ -2,9 +2,9 @@ import cn from 'classnames';
 import styles from './UserButton.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import UserUnlock from '../userUnlock/UserUnlock';
-import Icon from '../../../utils/Icon';
+import Icon from '../../../common/icon/Icon';
 
 export default function UserButton() {
   const { lockStatus, overlay } = useContext(GlobalContext);

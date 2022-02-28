@@ -1,12 +1,12 @@
-import Pannel from '../common/pannel/container/Pannel';
-import Button from '../common/button/Button';
+import Pannel from '../../common/pannel/container/Pannel';
+import Button from '../../common/button/Button';
 
 import styles from './FinalizePayment.module.css';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../services/context';
+import { GlobalContext } from '../../../services/context';
 import PaymentOption from './paymentOption/PaymentOption';
-import Icon from '../../utils/Icon';
+import Icon from '../../common/icon/Icon';
 import PaidByCash from './methods/cash/PaidByCash';
 
 export default function FinalizePayment() {

@@ -4,7 +4,7 @@ import styles from './ProductsGrid.module.css';
 import useSWR from 'swr';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 
 export default function ProductsGrid() {
   const { data: layout } = useSWR('/api/layouts/621a229c9d0f1a427523c0bf');

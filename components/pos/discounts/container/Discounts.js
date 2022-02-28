@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import styles from './Discounts.module.css';
 
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../../../services/context';
 import DiscountCard from '../discountCard/DiscountCard';
 
 // import orderManager from '../../../../utils/orderManager';

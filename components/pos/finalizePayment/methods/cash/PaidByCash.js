@@ -1,13 +1,13 @@
-import Pannel from '../../../common/pannel/container/Pannel';
-import Button from '../../../common/button/Button';
+import Pannel from '../../../../common/pannel/container/Pannel';
+import Button from '../../../../common/button/Button';
 
-import Player from '../../../../utils/Player';
+import Player from '../../../../../utils/Player';
 import loadingDots from '/public/media/animations/loading-dots.json';
 
 import styles from './PaidByCash.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../../services/context';
+import { GlobalContext } from '../../../../../services/context';
 
 export default function PaidByCash() {
   const { currentOrder, overlay } = useContext(GlobalContext);
