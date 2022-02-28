@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "config": "^3.3.7",
     "lodash": "^4.17.21",
     "lottie-web": "^5.8.1",
     "mongoose": "^6.2.4",
