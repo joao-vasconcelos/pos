@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-.productList {
+.layoutList {
   display: flex;
   flex-direction: column;
   /* gap: 15px; */

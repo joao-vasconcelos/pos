@@ -1,5 +1,5 @@
 import styles from './AddCustomer.module.css';
-import IconButton from '../../../common/iconButton/IconButton';
+import AddCustomerButton from '../addCustomerButton/AddCustomerButton';
 import { useContext } from 'react';
 import { GlobalContext } from '../../../../services/context';
 import CustomerSelector from '../customerSelector/CustomerSelector';
@@ -26,7 +26,7 @@ export default function AddCustomer() {
       //
       if (currentOrder.customer.onlyNif) {
         return (
-          <IconButton
+          <AddCustomerButton
             label={currentOrder.customer.nif.region + currentOrder.customer.nif.number}
             icon={<Icon name={'personfillquestionmark'} />}
             type={'primary'}
@@ -35,7 +35,7 @@ export default function AddCustomer() {
         );
       } else {
         return (
-          <IconButton
+          <AddCustomerButton
             label={currentOrder.customer.name.first + ' ' + currentOrder.customer.name.last}
             icon={<Icon name={'personfillcheckmark'} />}
             type={'primary'}
@@ -44,7 +44,7 @@ export default function AddCustomer() {
         );
       }
     } else {
-      return <IconButton label={'Associar Cliente'} icon={<Icon name='personbadgeplus' />} type={'muted'} action={handleAddCustomer} />;
+      return <AddCustomerButton label={'Associar Cliente'} icon={<Icon name='personbadgeplus' />} type={'muted'} action={handleAddCustomer} />;
     }
   }
 

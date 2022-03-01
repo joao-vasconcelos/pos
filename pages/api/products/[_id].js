@@ -16,9 +16,19 @@ export default async function products(req, res) {
       await res.status(getResult.status).json(getResult.data);
       break;
     //
+    case 'POST':
+      const postResult = await postProductWith(req.body);
+      res.status(postResult.status).json(postResult.data);
+      break;
+    //
     case 'PUT':
-      const putResult = await putProductWith(req.query._id, req.query);
+      const putResult = await putProductWith(req.query._id, req.body);
       res.status(putResult.status).json(putResult.data);
+      break;
+    //
+    case 'DELETE':
+      const deleteResult = await deleteProductWith(req.query._id);
+      res.status(deleteResult.status).json(deleteResult.data);
       break;
     //
     default:
@@ -52,10 +62,26 @@ async function getProductWith(_id) {
 }
 
 /* * */
+/* REST: POST */
+async function postProductWith(query) {
+  // Create new document
+  const newProduct = Product(query);
+  const result = await newProduct.save();
+
+  if (result) {
+    // Document was updated or created
+    return { status: 200, data: result };
+  } else {
+    // An Error Occurred
+    return { status: 500, data: { message: 'An Error Occurred.' } };
+  }
+}
+
+/* * */
 /* REST: PUT */
-async function putProductWith(_id, query) {
+async function putProductWith(_id, body) {
   // Update document that matches the requested '_id'
-  const updatedProduct = await Product.findOneAndUpdate({ _id: _id }, query, {
+  const updatedProduct = await Product.findOneAndUpdate({ _id: _id }, body, {
     new: true, // Return the updated document
     upsert: true, // If no document is found, create it
   });
@@ -63,6 +89,21 @@ async function putProductWith(_id, query) {
   if (updatedProduct.length > 0) {
     // Document was updated or created
     return { status: 200, data: updatedProduct };
+  } else {
+    // An Error Occurred
+    return { status: 500, data: { message: 'An Error Occurred.' } };
+  }
+}
+
+/* * */
+/* REST: DELETE */
+async function deleteProductWith(_id) {
+  // Delete document that matches the requested '_id'
+  const deletedProduct = await Product.findOneAndDelete({ _id: _id });
+
+  if (deletedProduct) {
+    // Document was deleted or created
+    return { status: 200, data: deletedProduct };
   } else {
     // An Error Occurred
     return { status: 500, data: { message: 'An Error Occurred.' } };

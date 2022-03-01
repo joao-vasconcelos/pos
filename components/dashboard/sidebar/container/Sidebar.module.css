@@ -18,6 +18,7 @@
   background-color: var(--white);
   padding: 30px;
   box-shadow: var(--effect-shadow);
+  z-index: 999;
 }
 
 .buttonsContainer {
@@ -29,6 +30,7 @@
   width: 100%;
   padding: 50px;
   overflow: scroll;
+  background-color: var(--gray-light);
 }
 
 .pageTitle {

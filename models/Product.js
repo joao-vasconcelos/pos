@@ -16,6 +16,11 @@ module.exports =
       title: {
         type: String,
         maxlength: 30,
+        required: true,
+      },
+      short_title: {
+        type: String,
+        maxlength: 30,
       },
       image: {
         type: String,
@@ -41,5 +46,9 @@ module.exports =
           },
         }),
       ],
+      apicbase_id: {
+        type: String,
+        maxlength: 100,
+      },
     })
   );
