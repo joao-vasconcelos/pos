@@ -10,10 +10,17 @@ export default function DashboardProductAdd() {
   const router = useRouter();
   //
 
-  const [variationsCount, setVariationsCount] = useState(['1']);
+  const [variationsCount, setVariationsCount] = useState([0]);
 
   function handleAddVariation() {
-    const array = [...variationsCount, 'a'];
+    const array = [...variationsCount, variationsCount.length];
+    setVariationsCount(array);
+  }
+
+  function handleRemoveVariation(element) {
+    const array = [...variationsCount];
+    array.splice(array.indexOf(element), 1);
+    console.log('after', array);
     setVariationsCount(array);
   }
 
@@ -51,12 +58,16 @@ export default function DashboardProductAdd() {
             <input id='short_title' name='short_title' type='text' autoComplete='short_title' required />
           </div>
           <div className={'group'}>
+            <label htmlFor='image'>Image SRC</label>
+            <input id='image' name='image' type='text' autoComplete='image' required />
+          </div>
+          <div className={'group'}>
             <label htmlFor='description'>Description</label>
             <textarea id='description' name='description' type='text' autoComplete='description' required></textarea>
           </div>
           <div className={styles.variationsContainer}>
-            {variationsCount.map((element, index) => (
-              <div className={styles.variationGroup} key={index}>
+            {variationsCount.map((element) => (
+              <div className={styles.variationGroup} key={element}>
                 <div className={'group'}>
                   <label htmlFor='variationTitle'>Variation Title</label>
                   <input id='variationTitle' name='variationTitle' type='text' />
@@ -69,6 +80,7 @@ export default function DashboardProductAdd() {
                   <label htmlFor='variationTax'>Variation Tax</label>
                   <input id='variationTax' name='variationTax' type='number' />
                 </div>
+                <IconButton icon={'minus'} label={'Remove Variation'} action={() => handleRemoveVariation(element)} />
               </div>
             ))}
 
