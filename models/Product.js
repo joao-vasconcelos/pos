@@ -41,14 +41,16 @@ module.exports =
           price: {
             type: Number,
           },
-          tax: {
+          vat: {
             type: Number,
+          },
+          apicbase: {
+            recipe_id: {
+              type: String,
+              maxlength: 100,
+            },
           },
         }),
       ],
-      apicbase_id: {
-        type: String,
-        maxlength: 100,
-      },
     })
   );
