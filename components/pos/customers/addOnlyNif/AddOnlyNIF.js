@@ -10,7 +10,8 @@ export default function AddOnlyNIF() {
   //
   const { currentOrder, overlay } = useContext(GlobalContext);
 
-  function handleRemoveNIF() {
+  function handleRemoveNIF(event) {
+    event.preventDefault();
     currentOrder.setCustomer();
     overlay.setComponent();
   }
