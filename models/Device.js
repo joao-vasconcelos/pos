@@ -19,7 +19,7 @@ module.exports =
         required: true,
       },
       location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
-      layout: { type: mongoose.Schema.Types.ObjectId, ref: 'Layout' },
       users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+      layout: { type: mongoose.Schema.Types.ObjectId, ref: 'Layout' },
     })
   );
