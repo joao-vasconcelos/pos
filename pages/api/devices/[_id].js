@@ -1,5 +1,9 @@
 import database from '../../../services/database';
 import Device from '../../../models/Device';
+import Location from '../../../models/Location';
+import User from '../../../models/User';
+import Layout from '../../../models/Layout';
+import Product from '../../../models/Product';
 
 export default async function devices(req, res) {
   //
