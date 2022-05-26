@@ -13,7 +13,7 @@ export default async function devices(req, res) {
   switch (req.method) {
     //
     case 'GET':
-      const getResult = await getDeviceWith(req.query._id);
+      const getResult = await getDeviceWith(req.query.code);
       await res.status(getResult.status).json(getResult.data);
       break;
     //
@@ -26,9 +26,9 @@ export default async function devices(req, res) {
 
 /* * */
 /* REST: GET */
-async function getDeviceWith(_id) {
-  // Fetch documents from the database that match the requested '_id'
-  const foundDevices = await Device.find({ _id: _id })
+async function getDeviceWith(code) {
+  // Fetch documents from the database that match the requested 'code'
+  const foundDevices = await Device.find({ code: code })
     .populate({ path: 'location' })
     .populate({ path: 'users' })
     .populate({
@@ -37,10 +37,10 @@ async function getDeviceWith(_id) {
     });
 
   if (foundDevices.length > 0) {
-    // If document with _id exists
+    // If document with code exists
     return { status: 200, data: foundDevices[0] };
   } else {
-    // If document with _id does not exist
-    return { status: 404, data: { message: `Device with _id: ${_id} not found.` } };
+    // If document with code does not exist
+    return { status: 404, data: { message: `Device with code: ${code} not found.` } };
   }
 }

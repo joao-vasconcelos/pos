@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 export default function ProductsGrid() {
-  const { data: device } = useSWR('/api/devices/628ec0e43eed7e89de4e0156');
+  const { data: device } = useSWR('/api/devices/A73HK2');
 
   const { currentFolder } = useContext(GlobalContext);
 

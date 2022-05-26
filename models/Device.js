@@ -18,6 +18,11 @@ module.exports =
         maxlength: 30,
         required: true,
       },
+      code: {
+        type: String,
+        maxlength: 6,
+        required: true,
+      },
       location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
       users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
       layout: { type: mongoose.Schema.Types.ObjectId, ref: 'Layout' },
