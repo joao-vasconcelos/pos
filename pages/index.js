@@ -13,10 +13,9 @@ import Overlay from '../components/common/overlay/Overlay';
 export default function PointOfSale() {
   const { data: customers } = useSWR('/api/customers/*');
   const { data: discounts } = useSWR('/api/discounts/*');
-  const { data: layout } = useSWR('/api/layouts/621a229c9d0f1a427523c0bf');
-  const { data: users } = useSWR('/api/users/*');
+  const { data: device } = useSWR('/api/devices/628ec0e43eed7e89de4e0156');
 
-  return customers && discounts && layout && users ? (
+  return customers && discounts && device ? (
     <div className={styles.container}>
       <div className={styles.leftSide}>
         <FolderGrid />
