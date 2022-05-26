@@ -7,11 +7,11 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 export default function ProductsGrid() {
-  const { data: layout } = useSWR('/api/layouts/621a229c9d0f1a427523c0bf');
+  const { data: device } = useSWR('/api/devices/628ec0e43eed7e89de4e0156');
 
   const { currentFolder } = useContext(GlobalContext);
 
-  const selectedFolderSlots = _.find(layout.folders, { _id: currentFolder._id });
+  const selectedFolderSlots = _.find(device.layout.folders, { _id: currentFolder._id });
 
   return (
     <div className={styles.container}>

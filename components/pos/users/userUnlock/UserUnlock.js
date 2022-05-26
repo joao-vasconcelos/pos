@@ -8,7 +8,9 @@ import Pannel from '../../../common/pannel/container/Pannel';
 import Icon from '../../../common/icon/Icon';
 
 export default function UserUnlock() {
-  const { data: users } = useSWR('/api/users/*');
+  //
+  const { data: device } = useSWR('/api/devices/628ec0e43eed7e89de4e0156');
+
   const { lockStatus, overlay } = useContext(GlobalContext);
   const [pwdInput, updatePwdInput] = useState([]);
   const [isError, setIsError] = useState();
@@ -22,7 +24,7 @@ export default function UserUnlock() {
     pwd.push(target.innerHTML);
     updatePwdInput(pwd);
     if (pwd.length > 3) {
-      const user = _.find(users, { pwd: pwd.join('').toString() });
+      const user = _.find(device.users, { pwd: pwd.join('').toString() });
       if (user) {
         lockStatus.setCurrentUser(user);
         overlay.setComponent();
