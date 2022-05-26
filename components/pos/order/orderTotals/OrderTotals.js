@@ -12,8 +12,8 @@ export default function OrderTotals() {
   const { currentOrder, overlay } = useContext(GlobalContext);
 
   function handleFinalize() {
-    // overlay.setComponent(<FinalizePayment />);
-    overlay.setComponent(<PaidByCash />);
+    overlay.setComponent(<FinalizePayment />);
+    // overlay.setComponent(<PaidByCash />);
   }
 
   return (

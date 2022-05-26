@@ -8,6 +8,8 @@ import { GlobalContext } from '../../../services/context';
 import PaymentOption from './paymentOption/PaymentOption';
 import Icon from '../../common/icon/Icon';
 import PaidByCash from './methods/cash/PaidByCash';
+import PaidByCard from './methods/card/PaidByCard';
+import PaidByAccount from './methods/account/PaidByAccount';
 
 export default function FinalizePayment() {
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -21,13 +23,13 @@ export default function FinalizePayment() {
   function handleInitiatePayment() {
     switch (selectedPaymentOption) {
       case 'card':
-        console.log('card');
+        overlay.setComponent(<PaidByCard />);
         break;
       case 'cash':
         overlay.setComponent(<PaidByCash />);
         break;
-      case 'card':
-        console.log('checking_account');
+      case 'checking_account':
+        overlay.setComponent(<PaidByAccount />);
         break;
       default:
         break;
