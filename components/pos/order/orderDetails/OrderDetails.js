@@ -12,7 +12,7 @@ export default function OrderDetails() {
       {currentOrder.items.length ? (
         currentOrder.items.map((item, index) => <OrderItem key={index} item={item} />)
       ) : (
-        <p style={{ textAlign: 'center' }}>Current order is empty</p>
+        <p className={styles.emptyOrder}>Pedido Vazio</p>
       )}
     </div>
   );

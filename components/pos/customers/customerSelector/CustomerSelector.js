@@ -48,7 +48,7 @@ export default function CustomerSelector() {
         const email = customer.email ? customer.email.toLowerCase().includes(query) : false;
 
         // Tax ID
-        const tax_id = customer.tax_id ? customer.tax_id.toString().toLowerCase().includes(query) : false;
+        const tax_id = customer.tax.number ? customer.tax.number.toString().toLowerCase().includes(query) : false;
 
         // Reference
         const reference = customer.reference ? customer.reference.toLowerCase().includes(query) : false;

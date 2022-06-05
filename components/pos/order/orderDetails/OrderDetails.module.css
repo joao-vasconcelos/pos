@@ -3,3 +3,10 @@
   /* height: 100%; */
   margin-bottom: 10px;
 }
+
+.emptyOrder {
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--gray-strong);
+}

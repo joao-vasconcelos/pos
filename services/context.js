@@ -1,6 +1,5 @@
 import { useState, createContext } from 'react';
 import orderManager from '../utils/orderManager';
-import invoiceManager from '../utils/invoiceManager';
 
 export const GlobalContext = createContext();
 
@@ -68,9 +67,6 @@ export default function GlobalProvider({ children }) {
         updateCurrentOrderDiscounts([]);
         updateCurrentOrderTotals();
         updateCurrentOrderCustomer();
-      },
-      createInvoice: function (payment) {
-        invoiceManager.createInvoice(currentOrderItems, currentOrderCustomer, payment);
       },
     },
 

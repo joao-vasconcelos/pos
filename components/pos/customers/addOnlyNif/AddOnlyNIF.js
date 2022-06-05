@@ -27,7 +27,7 @@ export default function AddOnlyNIF() {
 
     currentOrder.setCustomer({
       onlyNif: true,
-      nif: { region: nifRegion, number: nifNumber },
+      tax: { country: nifRegion, number: nifNumber },
     });
 
     overlay.setComponent();
@@ -43,7 +43,7 @@ export default function AddOnlyNIF() {
             type={'text'}
             minLength={2}
             maxLength={2}
-            defaultValue={currentOrder.customer ? currentOrder.customer.nif.region : ''}
+            defaultValue={currentOrder.customer ? currentOrder.customer.tax.country : ''}
             placeholder={'PT'}
           />
           <input
@@ -53,7 +53,7 @@ export default function AddOnlyNIF() {
             maxLength={9}
             placeholder={'_________'}
             required
-            defaultValue={currentOrder.customer ? currentOrder.customer.nif.number : ''}
+            defaultValue={currentOrder.customer ? currentOrder.customer.tax.number : ''}
             onInput={({ target }) => (target.value = target.value.slice(0, target.maxLength))}
           />
         </div>

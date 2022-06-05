@@ -16,7 +16,7 @@ export default function ProductsGrid() {
   return (
     <div className={styles.container}>
       {selectedFolderSlots ? (
-        selectedFolderSlots.slots.map(({ position, product }) => <ProductSlot key={position} product={product} />)
+        selectedFolderSlots.slots.map(({ product }, index) => <ProductSlot key={index} product={product} />)
       ) : (
         <div>Select a folder</div>
       )}

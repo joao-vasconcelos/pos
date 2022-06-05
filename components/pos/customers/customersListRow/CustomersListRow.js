@@ -25,7 +25,7 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
         </div>
         <div className={styles.additionalInfoContainer}>
           <div className={styles.additionalInfo}>{customer.email ? customer.email : '-'}</div>
-          <div className={styles.additionalInfo}>NIF: {customer.tax_id ? customer.tax_id : '-'}</div>
+          <div className={styles.additionalInfo}>NIF: {customer.tax.number ? customer.tax.number : '-'}</div>
         </div>
       </div>
       <div className={styles.viewCustomerButton} onClick={handleView}>

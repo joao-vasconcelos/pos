@@ -27,7 +27,7 @@ export default function AddCustomer() {
       if (currentOrder.customer.onlyNif) {
         return (
           <AddCustomerButton
-            label={currentOrder.customer.nif.region + currentOrder.customer.nif.number}
+            label={currentOrder.customer.tax.country + currentOrder.customer.tax.number}
             icon={<Icon name={'personfillquestionmark'} />}
             type={'primary'}
             action={handleChangeNIF}

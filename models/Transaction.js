@@ -87,7 +87,11 @@ module.exports =
           price: {
             type: Number,
           },
-          vat: {
+          vat_id: {
+            type: String,
+            maxlength: 3, // NOR, INT, RED
+          },
+          vat_percentage: {
             type: Number,
           },
           qty: {
@@ -116,5 +120,8 @@ module.exports =
           },
         },
       ],
+      payment: {
+        type: String,
+      },
     })
   );
