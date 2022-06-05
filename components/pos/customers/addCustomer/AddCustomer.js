@@ -1,13 +1,44 @@
 import styles from './AddCustomer.module.css';
 import AddCustomerButton from '../addCustomerButton/AddCustomerButton';
-import { useContext } from 'react';
+import { useCallback, useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 import CustomerSelector from '../customerSelector/CustomerSelector';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 import Icon from '../../../common/icon/Icon';
+import ViewCustomer from '../viewCustomer/ViewCustomer';
+import useSWR from 'swr';
 
 export default function AddCustomer() {
   const { overlay, currentOrder } = useContext(GlobalContext);
+
+  const [cardReader, setCardReader] = useState('');
+
+  const { data: customers } = useSWR('/api/customers/*');
+
+  const handleKeyPress = useCallback(
+    (event) => {
+      console.log(`Key pressed: ${event.key}`);
+      if (event.key == 'Enter') {
+        console.log('Enter Pressed');
+        const matchedCustomer = customers.find((entries) => entries.reference == cardReader);
+        if (matchedCustomer) currentOrder.setCustomer(matchedCustomer);
+        setCardReader('');
+      } else {
+        console.log('String:', cardReader);
+        setCardReader(cardReader + event.key);
+      }
+    },
+    [cardReader, customers]
+  );
+
+  useEffect(() => {
+    // attach the event listener
+    document.addEventListener('keydown', handleKeyPress);
+    // remove the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   function handleAddCustomer() {
     overlay.setComponent(<CustomerSelector />);
@@ -18,7 +49,7 @@ export default function AddCustomer() {
   }
 
   function handleChangeCustomer() {
-    currentOrder.setCustomer();
+    overlay.setComponent(<ViewCustomer customer={currentOrder.customer} />);
   }
 
   function getCorrectCustomerButton() {

@@ -1,15 +1,20 @@
 import cn from 'classnames';
 import styles from './CustomersListRow.module.css';
 import Icon from '../../../common/icon/Icon';
+import { useContext, useState } from 'react';
+import { GlobalContext } from '../../../../services/context';
+import ViewCustomer from '../viewCustomer/ViewCustomer';
 
 export default function CustomersListRow({ customer, onSelect, selectedCustomer }) {
   //
+
+  const { currentOrder, overlay } = useContext(GlobalContext);
 
   let isThisCustomerSelected = false;
   if (selectedCustomer && selectedCustomer._id == customer._id) isThisCustomerSelected = true;
 
   function handleView() {
-    alert('View');
+    overlay.setComponent(<ViewCustomer customer={customer} />);
   }
 
   return (

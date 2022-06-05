@@ -15,9 +15,8 @@ export default async function customers(req, res) {
       else getResult = await getCustomerWith(req.query._id);
       await res.status(getResult.status).json(getResult.data);
       break;
-    //
     case 'PUT':
-      const putResult = await putCustomerWith(req.query._id, req.query);
+      const putResult = await putCustomerWith(req.query._id, JSON.parse(req.body));
       res.status(putResult.status).json(putResult.data);
       break;
     //
@@ -60,11 +59,11 @@ async function putCustomerWith(_id, query) {
     upsert: true, // If no document is found, create it
   });
 
-  if (updatedCustomer.length > 0) {
+  if (updatedCustomer) {
     // Document was updated or created
-    return { status: 200, data: updatedCustomer };
+    return { ok: true, status: 200, data: updatedCustomer };
   } else {
     // An Error Occurred
-    return { status: 500, data: { message: 'An Error Occurred.' } };
+    return { ok: false, status: 500, data: { message: 'An Error Occurred.' } };
   }
 }
