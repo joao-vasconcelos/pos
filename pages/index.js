@@ -1,22 +1,21 @@
 import useSWR from 'swr';
 
-import FolderGrid from '../components/folders/FolderGrid';
-import ProductGrid from '../components/products/ProductGrid';
-import Checkout from '../components/checkout/Checkout';
+import FolderGrid from '../components/pos/folders/folderGrid/FolderGrid';
+import ProductGrid from '../components/pos/products/productGrid/ProductGrid';
+import Checkout from '../components/pos/checkout/Checkout';
 
-import Loading from '../components/loading/Loading';
+import Loading from '../components/common/loading/Loading';
 
-import styles from '../styles/Home.module.css';
+import styles from '../styles/pos/POS.module.css';
 
-import Overlay from '../components/overlay/Overlay';
+import Overlay from '../components/common/overlay/Overlay';
 
 export default function PointOfSale() {
-  const { data: customers } = useSWR('/api/customers/list');
-  const { data: discounts } = useSWR('/api/discounts');
-  const { data: folders } = useSWR('/api/folders');
-  const { data: users } = useSWR('/api/users');
+  const { data: customers } = useSWR('/api/customers/*');
+  const { data: discounts } = useSWR('/api/discounts/*');
+  const { data: device } = useSWR('/api/devices/A73HK2');
 
-  return customers && discounts && folders && users ? (
+  return customers && discounts && device ? (
     <div className={styles.container}>
       <div className={styles.leftSide}>
         <FolderGrid />

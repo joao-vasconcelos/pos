@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* .read.container {
+} */
+
+.edit.container {
+  border: 1px solid var(--gray-medium);
+  border-radius: var(--radius-medium);
+}
+
+.label {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: var(--font-medium);
+}
+
+.read .label {
+  color: var(--gray-strong);
+  padding: 3px 5px;
+}
+
+.edit .label {
+  color: var(--gray-strong);
+  border-bottom: 1px solid var(--gray-medium);
+  padding: 7px;
+}
+
+.input {
+  border: none;
+  outline: none;
+}
+
+.read .input {
+  font-size: 20px;
+  font-weight: var(--font-medium);
+  padding: 5px;
+  padding-top: 2px;
+}
+
+.edit .input {
+  font-size: 18px;
+  font-weight: var(--font-regular);
+  padding: 7px;
+  padding-top: 5px;
+}

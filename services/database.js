@@ -4,12 +4,11 @@
 
 /* * */
 /* IMPORTS */
-import config from 'config';
 import mongoose from 'mongoose';
 
 module.exports.connect = async function () {
   await mongoose
-    .connect(config.get('secrets.database-connection-string'))
+    .connect(process.env.MONGODB_CONNECTION_STRING)
     // .then(() => console.log('Connected.'))
     .catch((error) => {
       console.log('Connection to MongoDB failed.');

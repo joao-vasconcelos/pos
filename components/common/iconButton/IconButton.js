@@ -1,19 +1,35 @@
 import cn from 'classnames';
+import Icon from '../icon/Icon';
 import styles from './IconButton.module.css';
+import Link from 'next/link';
 
-export default function Button({ type = 'primary', label = 'Button', icon, action }) {
-  return (
+export default function IconButton({ status = 'default', icon, label = 'Button', href, action }) {
+  return href ? (
+    <Link href={href}>
+      <a
+        className={cn({
+          [styles.button]: true,
+          [styles.default]: status == 'default',
+          [styles.enabled]: status == 'enabled',
+          [styles.disabled]: status == 'disabled',
+        })}
+      >
+        <Icon name={icon} />
+        <div className={styles.label}>{label}</div>
+      </a>
+    </Link>
+  ) : (
     <div
       className={cn({
         [styles.button]: true,
-        [styles.primary]: type == 'primary',
-        [styles.muted]: type == 'muted',
-        [styles.disabled]: type == 'disabled',
+        [styles.default]: status == 'default',
+        [styles.enabled]: status == 'enabled',
+        [styles.disabled]: status == 'disabled',
       })}
-      onClick={type == 'disabled' ? null : action}
+      onClick={status != 'disabled' ? action : ''}
     >
-      <div className={styles.icon}>{icon}</div>
-      <p className={styles.label}>{label}</p>
+      <Icon name={icon} />
+      <div className={styles.label}>{label}</div>
     </div>
   );
 }

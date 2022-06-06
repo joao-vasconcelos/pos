@@ -27,9 +27,18 @@ module.exports =
         type: String,
         maxlength: 50,
       },
-      tax_id: {
-        type: String,
-        maxlength: 11,
+      tax: {
+        country: {
+          type: String,
+          minlength: 2,
+          maxlength: 2,
+          default: 'PT',
+        },
+        number: {
+          type: String,
+          minlength: 9,
+          maxlength: 9,
+        },
       },
       reference: {
         type: String,
