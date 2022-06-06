@@ -31,14 +31,14 @@ export default function AddCustomer() {
 
   useEffect(() => {
     // attach the event listener
-    if (!overlay.hasComponent) {
+    if (!currentOrder.hasCustomer) {
       document.addEventListener('keydown', handleKeyPress);
     }
     // remove the event listener
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress, overlay.hasComponent]);
+  }, [handleKeyPress, currentOrder.hasCustomer]);
 
   function handleAddCustomer() {
     overlay.setComponent(<CustomerSelector />);
