@@ -17,28 +17,28 @@ export default function AddCustomer() {
 
   const handleKeyPress = useCallback(
     (event) => {
-      console.log(`Key pressed: ${event.key}`);
+      console.log(cardReader);
       if (event.key == 'Enter') {
-        console.log('Enter Pressed');
         const matchedCustomer = customers.find((entries) => entries.reference == cardReader);
         if (matchedCustomer) currentOrder.setCustomer(matchedCustomer);
         setCardReader('');
       } else {
-        console.log('String:', cardReader);
         setCardReader(cardReader + event.key);
       }
     },
-    [cardReader, customers]
+    [cardReader, currentOrder, customers]
   );
 
   useEffect(() => {
     // attach the event listener
-    document.addEventListener('keydown', handleKeyPress);
+    if (!overlay.hasComponent) {
+      document.addEventListener('keydown', handleKeyPress);
+    }
     // remove the event listener
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyPress, overlay.hasComponent]);
 
   function handleAddCustomer() {
     overlay.setComponent(<CustomerSelector />);

@@ -74,7 +74,7 @@ export default function ViewCustomer({ customer }) {
     })
       .then((res) => {
         if (res.ok) {
-          currentOrder.setCustomer(updatedCustomer);
+          if (currentOrder.hasCustomer) currentOrder.setCustomer(updatedCustomer);
           const indexOfUpdatedCustomer = customers.findIndex((entries) => entries._id == customer._id);
           customers[indexOfUpdatedCustomer] = updatedCustomer;
           mutate(customers);

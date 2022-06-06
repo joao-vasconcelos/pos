@@ -36,6 +36,7 @@ export default function GlobalProvider({ children }) {
       availableDiscounts: availableDiscounts,
       customer: currentOrderCustomer,
       setCustomer: updateCurrentOrderCustomer,
+      hasCustomer: !(currentOrderCustomer === null || currentOrderCustomer === undefined),
       setAvailableDiscounts,
       totals: currentOrderTotals,
       add: function (product, variation, qty) {
@@ -73,6 +74,7 @@ export default function GlobalProvider({ children }) {
     overlay: {
       component: overlayComponent,
       setComponent: setOverlayComponent,
+      hasComponent: !(overlayComponent === null || overlayComponent === undefined),
     },
 
     lockStatus: {
