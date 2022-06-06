@@ -15,7 +15,7 @@ export default function VariationButton({ variation, selectedVariation, onSelect
       onClick={() => onSelect(variation)}
     >
       <div className={styles.title}>{variation.title}</div>
-      <div className={styles.price}>{variation.price.toFixed(2)}€</div>
+      <div className={styles.price}>{variation.price > 0 ? variation.price.toFixed(2) + '€' : 'FREE'}</div>
     </div>
   );
 }
