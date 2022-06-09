@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { GoX } from 'react-icons/go';
 import { useContext } from 'react';
-import { GlobalContext } from '../services/context';
+import { GlobalContext } from '../../services/context';
 
 /* * */
 /* PANNEL */

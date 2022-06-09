@@ -3,10 +3,10 @@ import styles from './VariationSelector.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../../../modules/Pannel';
-import VariationButton from '../variationButton/VariationButton';
-// import Button from '../../../common/button/Button';
+import Pannel from '../../../../theme/modules/Pannel';
 import Button from '../../../../theme/components/Button';
+
+import VariationButton from '../variationButton/VariationButton';
 
 export default function VariationSelector({ product, orderItem = null }) {
   //

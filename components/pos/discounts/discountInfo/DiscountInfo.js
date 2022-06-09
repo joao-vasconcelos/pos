@@ -1,4 +1,4 @@
-import Pannel from '../../../../modules/Pannel';
+import Pannel from '../../../../theme/modules/Pannel';
 import DiscountCard from '../discountCard/DiscountCard';
 import styles from './DiscountInfo.module.css';
 

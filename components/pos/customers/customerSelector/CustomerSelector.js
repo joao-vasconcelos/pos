@@ -3,7 +3,7 @@ import styles from './CustomerSelector.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../../../modules/Pannel';
+import Pannel from '../../../../theme/modules/Pannel';
 import Button from '../../../../theme/components/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 

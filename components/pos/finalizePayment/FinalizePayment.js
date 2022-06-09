@@ -1,4 +1,4 @@
-import Pannel from '../../../modules/Pannel';
+import Pannel from '../../../theme/modules/Pannel';
 import Button from '../../../theme/components/Button';
 
 import styles from './FinalizePayment.module.css';
