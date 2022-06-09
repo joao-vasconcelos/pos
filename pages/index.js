@@ -8,7 +8,7 @@ import Loading from '../theme/modules/Loading';
 
 import styles from '../styles/pos/POS.module.css';
 
-import Overlay from '../components/common/overlay/Overlay';
+import Overlay from '../theme/modules/Overlay';
 
 export default function PointOfSale() {
   const { data: customers } = useSWR('/api/customers/*');

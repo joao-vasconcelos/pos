@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 
+/* * */
+/* ANIMATION */
+/* Explanation needed. */
+/* * */
+
 export default function Animation({ name }) {
+  //
+
   const ref = useRef(null);
-
-  // const [lottie, setLottie] = useState(null);
-
-  // useEffect(() => {
-  //   lottieWeb.then((Lottie) => setLottie(Lottie.default));
-  //   // import('lottie-web').then((Lottie) => setLottie(Lottie.default));
-  // }, []);
 
   useEffect(() => {
     if (lottie && ref.current) {
