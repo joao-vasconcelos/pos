@@ -104,9 +104,8 @@ export default function ViewCustomer({ customer }) {
         <CustomerInput label={'Email'} value={customerEmail} onChange={setCustomerEmail} editMode={editMode} />
         <CustomerInput label={'Região Fiscal'} value={customerTaxCountry} onChange={setCustomerTaxCountry} editMode={editMode} />
         <CustomerInput label={'NIF'} value={customerTaxNumber} onChange={setCustomerTaxNumber} editMode={editMode} />
-        <CustomerInput label={'Referência'} value={customerReference} onChange={setCustomerReference} editMode={editMode} />
         <CustomerInput label={'Data de Nascimento'} value={customerBirthday} onChange={setCustomerBirthday} editMode={editMode} />
-        <CustomerInput label={'ID'} value={customer?._id} editMode={editMode} />
+        <CustomerInput label={'Ref Cartão #'} value={customerReference} onChange={setCustomerReference} editMode={editMode} />
       </div>
       <div className={styles.buttonsContainer}>
         {editMode ? (
