@@ -24,7 +24,7 @@ export default function PointOfSale() {
       <div className={styles.rightSide}>
         <Checkout />
       </div>
-      <Overlay visible={true} component={<Checkout />} />
+      <Overlay />
     </div>
   ) : (
     <Loading />
