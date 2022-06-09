@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import { getCssText } from '../stitches.config';
 
 export default function Document() {
   return (
@@ -17,6 +18,7 @@ export default function Document() {
         <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#ff0000' />
         <meta name='HandheldFriendly' content='true' />
         <link rel='stylesheet' href='https://use.typekit.net/tto7hgg.css' />
+        <style id='stitches' dangerouslySetInnerHTML={{ __html: getCssText() }} />
       </Head>
       <body>
         <Main />
