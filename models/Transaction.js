@@ -82,7 +82,7 @@ module.exports =
           },
           variation_title: {
             type: String,
-            maxlength: 30,
+            maxlength: 50,
           },
           price: {
             type: Number,
