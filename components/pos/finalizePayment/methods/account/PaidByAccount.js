@@ -1,9 +1,6 @@
 import Pannel from '../../../../../theme/modules/Pannel';
 import Button from '../../../../../theme/components/Button';
 
-import Player from '../../../../../utils/Player';
-import loadingDots from '/public/media/animations/loading-dots.json';
-
 import styles from './PaidByAccount.module.css';
 
 import { useContext } from 'react';

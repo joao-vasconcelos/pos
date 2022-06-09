@@ -1,8 +1,6 @@
 import Pannel from '../../../../../theme/modules/Pannel';
+import Animation from '../../../../../theme/modules/Animation';
 import Button from '../../../../../theme/components/Button';
-
-import Player from '../../../../../utils/Player';
-import loadingDots from '/public/media/animations/loading-dots.json';
 
 import styles from './PaidByCash.module.css';
 
@@ -25,7 +23,7 @@ export default function PaidByCash() {
     <Pannel>
       <div className={styles.container}>
         <div className={styles.player}>
-          <Player animationData={loadingDots} />
+          <Animation name={'loading-dots'} />
         </div>
         <div className={styles.orderTotal}>{currentOrder.totals.total.toFixed(2) + '€'}</div>
         <div className={styles.paymentMethod}>Numerário</div>

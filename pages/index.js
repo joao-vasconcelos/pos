@@ -4,7 +4,7 @@ import FolderGrid from '../components/pos/folders/folderGrid/FolderGrid';
 import ProductGrid from '../components/pos/products/productGrid/ProductGrid';
 import Checkout from '../components/pos/checkout/Checkout';
 
-import Loading from '../components/common/loading/Loading';
+import Loading from '../theme/modules/Loading';
 
 import styles from '../styles/pos/POS.module.css';
 

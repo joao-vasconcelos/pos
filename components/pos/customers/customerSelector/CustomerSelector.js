@@ -4,11 +4,11 @@ import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../../theme/modules/Pannel';
+import Animation from '../../../../theme/modules/Animation';
 import Button from '../../../../theme/components/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
 import CustomersListRow from '../customersListRow/CustomersListRow';
-import Loading from '../../../common/loading/Loading';
 import useSWR from 'swr';
 import Icon from '../../../common/icon/Icon';
 
@@ -102,7 +102,7 @@ export default function CustomerSelector() {
             <div className={styles.noResultsMessage}>Nenhum Resultado Encontrado</div>
           )
         ) : (
-          <Loading />
+          <Animation name={'loading-dots'} />
         )}
       </div>
       <div className={styles.buttonsContainer}>

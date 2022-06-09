@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import Loading from '../../../common/loading/Loading';
+import Loading from '../../../../theme/modules/Loading';
 import FolderButton from '../folderButton/FolderButton';
 import styles from './FolderGrid.module.css';
 

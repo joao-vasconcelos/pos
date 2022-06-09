@@ -1,9 +1,7 @@
-// import Pannel from '../../../../common/pannel/container/Pannel';
 import Pannel from '../../../../../theme/modules/Pannel';
+import Animation from '../../../../../theme/modules/Animation';
 import Button from '../../../../../theme/components/Button';
 import useSWR from 'swr';
-
-import Animation from '../../../../../utils/Animation';
 
 import styles from './PaidByCard.module.css';
 

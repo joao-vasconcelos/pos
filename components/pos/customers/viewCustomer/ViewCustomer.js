@@ -5,12 +5,8 @@ import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../../theme/modules/Pannel';
 import Button from '../../../../theme/components/Button';
-import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
-import CustomersListRow from '../customersListRow/CustomersListRow';
-import Loading from '../../../common/loading/Loading';
-import useSWR, { useSWRConfig } from 'swr';
-import Icon from '../../../common/icon/Icon';
+import useSWR from 'swr';
 import CustomerInput from '../customerInput/CustomerInput';
 
 export default function ViewCustomer({ customer }) {
