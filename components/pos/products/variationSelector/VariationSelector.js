@@ -5,7 +5,8 @@ import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../common/pannel/container/Pannel';
 import VariationButton from '../variationButton/VariationButton';
-import Button from '../../../common/button/Button';
+// import Button from '../../../common/button/Button';
+import Button from '../../../../theme/components/Button';
 
 export default function VariationSelector({ product, orderItem = null }) {
   //
@@ -74,11 +75,15 @@ export default function VariationSelector({ product, orderItem = null }) {
 
         {orderItem ? (
           <div className={styles.buttonsContainer}>
-            <Button label={'Atualizar'} type={'primary'} action={handleChange} />
-            <Button label={'Remover'} type={'danger'} action={handleRemove} />
+            <Button onClick={handleChange}>Atualizar</Button>
+            <Button color={'danger'} onClick={handleRemove}>
+              Remover
+            </Button>
           </div>
         ) : (
-          <Button label={'Adicionar'} type={selectedVariation ? 'primary' : 'disabled'} action={handleAdd} />
+          <Button disabled={!selectedVariation} onClick={handleAdd}>
+            Adicionar
+          </Button>
         )}
       </div>
     </Pannel>

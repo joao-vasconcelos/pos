@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../common/pannel/container/Pannel';
-import Button from '../../../common/button/Button';
+import Button from '../../../../theme/components/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
 import CustomersListRow from '../customersListRow/CustomersListRow';
@@ -106,8 +106,12 @@ export default function CustomerSelector() {
         )}
       </div>
       <div className={styles.buttonsContainer}>
-        <Button label={'Associar Cliente'} type={selectedCustomer ? 'primary' : 'disabled'} action={handleAddCustomer} />
-        <Button label={'Apenas NIF'} type={'secondary'} action={handleAddOnlyNIF} />
+        <Button disabled={!selectedCustomer} onClick={handleAddCustomer}>
+          Associar Cliente
+        </Button>
+        <Button color={'secondary'} onClick={handleAddOnlyNIF}>
+          Apenas NIF
+        </Button>
       </div>
     </Pannel>
   );

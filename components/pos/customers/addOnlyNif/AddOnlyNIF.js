@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../common/pannel/container/Pannel';
-import Button from '../../../common/button/Button';
+import Button from '../../../../theme/components/Button';
 
 export default function AddOnlyNIF() {
   //
@@ -59,11 +59,13 @@ export default function AddOnlyNIF() {
         </div>
         {currentOrder.customer ? (
           <div className={styles.buttonsContainer}>
-            <Button label={'Atualizar NIF'} type={'primary'} />
-            <Button label={'Remover'} type={'danger'} action={handleRemoveNIF} />
+            <Button>Atualizar NIF</Button>
+            <Button color={'danger'} onClick={handleRemoveNIF}>
+              Remover
+            </Button>
           </div>
         ) : (
-          <Button label={'Adicionar NIF'} type={'primary'} />
+          <Button>Adicionar NIF</Button>
         )}
       </form>
     </Pannel>

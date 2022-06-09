@@ -1,6 +1,7 @@
 import cn from 'classnames';
 
-import Button from '../../../common/button/Button';
+// import Button from '../../../common/button/Button';
+import Button from '../../../../theme/components/Button';
 import styles from './OrderTotals.module.css';
 
 import { useContext } from 'react';
@@ -33,11 +34,9 @@ export default function OrderTotals() {
           <p className={styles.discountsValue}>{currentOrder.totals ? currentOrder.totals.discounts.toFixed(2) : '0.00'}€</p>
         </div>
       </div>
-      <Button
-        label={currentOrder.items.length ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
-        type={currentOrder.items.length ? 'primary' : 'disabled'}
-        action={handleFinalize}
-      />
+      <Button disabled={!currentOrder.items.length} onClick={handleFinalize}>
+        {currentOrder.items.length ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
+      </Button>
     </div>
   );
 }

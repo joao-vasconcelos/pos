@@ -1,5 +1,5 @@
 import Pannel from '../../common/pannel/container/Pannel';
-import Button from '../../common/button/Button';
+import Button from '../../../theme/components/Button';
 
 import styles from './FinalizePayment.module.css';
 
@@ -65,7 +65,9 @@ export default function FinalizePayment() {
           onSelect={handleSelect}
         />
       </div>
-      <Button label={'Iniciar Pagamento'} type={selectedPaymentOption ? 'primary' : 'disabled'} action={handleInitiatePayment} />
+      <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
+        Iniciar Pagamento
+      </Button>
     </Pannel>
   );
 }

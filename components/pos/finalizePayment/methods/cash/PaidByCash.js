@@ -1,5 +1,5 @@
 import Pannel from '../../../../common/pannel/container/Pannel';
-import Button from '../../../../common/button/Button';
+import Button from '../../../../../theme/components/Button';
 
 import Player from '../../../../../utils/Player';
 import loadingDots from '/public/media/animations/loading-dots.json';
@@ -30,7 +30,9 @@ export default function PaidByCash() {
         <div className={styles.orderTotal}>{currentOrder.totals.total.toFixed(2) + '€'}</div>
         <div className={styles.paymentMethod}>Numerário</div>
       </div>
-      <Button label={'Cancelar'} type={'muted'} action={handleCancelPayment} />
+      <Button color={'secondary'} onClick={handleCancelPayment}>
+        Cancelar
+      </Button>
     </Pannel>
   );
 }

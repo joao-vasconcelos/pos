@@ -1,5 +1,5 @@
 import Pannel from '../../../../common/pannel/container/Pannel';
-import Button from '../../../../common/button/Button';
+import Button from '../../../../../theme/components/Button';
 import useSWR from 'swr';
 
 import Animation from '../../../../../utils/Animation';
@@ -49,8 +49,10 @@ export default function PaidByCard() {
             <div className={styles.paymentMethod}>Multibanco</div>
           </div>
           <div className={styles.buttons}>
-            <Button label={'Pago'} type={'primary'} action={handleSubmitPayment} />
-            <Button label={'Cancelar'} type={'muted'} action={handleCancelPayment} />
+            <Button onClick={handleSubmitPayment}>Pago</Button>
+            <Button color={'secondary'} onClick={handleCancelPayment}>
+              Cancelar
+            </Button>
           </div>
         </>
       )}

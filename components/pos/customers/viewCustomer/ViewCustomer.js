@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../common/pannel/container/Pannel';
-import Button from '../../../common/button/Button';
+import Button from '../../../../theme/components/Button';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
 import CustomersListRow from '../customersListRow/CustomersListRow';
@@ -110,17 +110,25 @@ export default function ViewCustomer({ customer }) {
       <div className={styles.buttonsContainer}>
         {editMode ? (
           <>
-            <Button label={'Guardar Alterações'} type={'secondary'} action={handleSave} />
-            <Button label={'Descartar'} type={'danger'} action={handleCancel} />
+            <Button color={'secondary'} onClick={handleSave}>
+              Guardar Alterações
+            </Button>
+            <Button color={'danger'} onClick={handleCancel}>
+              Descartar
+            </Button>
           </>
         ) : (
           <>
             {currentOrder.customer ? (
-              <Button label={'Desassociar'} type={'danger'} action={handleRemove} />
+              <Button color={'danger'} onClick={handleRemove}>
+                Desassociar
+              </Button>
             ) : (
-              <Button label={'Associar este Cliente'} type={'primary'} action={handleAdd} />
+              <Button onClick={handleAdd}>Associar este Cliente</Button>
             )}
-            <Button label={'Editar'} type={'secondary'} action={handleEdit} />
+            <Button color={'secondary'} onClick={handleEdit}>
+              Editar
+            </Button>
           </>
         )}
       </div>
