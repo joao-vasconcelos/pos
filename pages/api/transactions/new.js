@@ -83,6 +83,8 @@ const prepareInvoice = (transaction) => {
     date: moment(transaction.timestamp).format('YYYY[-]MM[-]DD'),
     // Prepare final invoice items details
     items: setInvoiceItems(transaction.items),
+    // Setup invoice discounts
+    discount_amount: setInvoiceDiscounts(transaction.discounts),
     // Set payment method so a receipt is issued
     payments: [{ id: process.env.VENDUS_PAYMENT_ID }],
   };
@@ -116,6 +118,19 @@ const setInvoiceItems = (line_items) => {
 };
 
 /* * */
+/* This function calculates the total amount of discounts for this invoice, */
+/* according to the provided discounts array of a transaction. */
+const setInvoiceDiscounts = (discounts) => {
+  let discount_amount = 0;
+  // Loop through all the discounts and sum the total amount
+  for (const discount of discounts) {
+    discount_amount += discount.amount;
+  }
+  // Return the total value of discount
+  return discount_amount;
+};
+
+/* * */
 /* This function sets the new invoice client details, */
 /* according to the provided customer value of a transaction. */
 /* This includes Fiscal ID, Name and Email, as well as the option */
@@ -132,7 +147,7 @@ const setInvoiceClient = (customer) => {
     name: firstName + ' ' + lastName,
     country: customer.tax.country,
     fiscal_id: customer.tax.number,
-    email: 'contabilidade@chefpoint.pt',
+    email: 'joao@chefpoint.pt',
     send_email: 'yes',
     address: '-',
   };

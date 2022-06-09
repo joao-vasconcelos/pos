@@ -30,13 +30,13 @@ async function createTransaction(items, customer, discounts, payment, location) 
     });
   }
 
-  // for (const discount of discounts) {
-  //   transaction.discounts.push({
-  //     title: '',
-  //     subtitle: '',
-  //     amount: '',
-  //   });
-  // }
+  for (const discount of discounts) {
+    transaction.discounts.push({
+      title: discount.title,
+      subtitle: discount.subtitle,
+      amount: discount.amount,
+    });
+  }
 
   await fetch('/api/transactions/new', {
     method: 'POST',

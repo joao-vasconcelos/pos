@@ -133,7 +133,9 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
             //
             // Check if the current variationId matches any of the order items
             const result = _.find(expandedOrderItems, (item) => {
-              return item.id == variationId;
+              console.log('item.variation._id', item.variation._id);
+              console.log('variationId', variationId);
+              return item.variation._id == variationId;
             });
 
             testResultsForEachORRule.push(result);
