@@ -8,7 +8,7 @@ export default styled('button', {
   justifyContent: 'center',
   //
   width: '100%',
-  padding: '15px 25px',
+  padding: '$md $lg',
   borderWidth: '2px',
   borderStyle: 'solid',
   borderRadius: '$md',
@@ -17,7 +17,7 @@ export default styled('button', {
   fontWeight: '$bold',
   textTransform: 'uppercase',
   //
-  transition: 'all 100ms ease',
+  transition: '$default',
   cursor: 'pointer',
   //
   variants: {
@@ -79,6 +79,7 @@ export default styled('button', {
       },
     },
   },
+  //
   '&[disabled]': {
     cursor: 'not-allowed',
     color: '$gray8',
@@ -92,6 +93,7 @@ export default styled('button', {
       boxShadow: 'none',
     },
   },
+  //
   defaultVariants: {
     color: 'primary',
   },

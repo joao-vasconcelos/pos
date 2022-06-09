@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../../common/pannel/container/Pannel';
+import Pannel from '../../../../modules/Pannel';
 import Icon from '../../../common/icon/Icon';
 
 export default function UserUnlock() {

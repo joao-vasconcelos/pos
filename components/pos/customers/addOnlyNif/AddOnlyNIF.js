@@ -3,7 +3,7 @@ import styles from './AddOnlyNIF.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../../common/pannel/container/Pannel';
+import Pannel from '../../../../modules/Pannel';
 import Button from '../../../../theme/components/Button';
 
 export default function AddOnlyNIF() {

@@ -114,9 +114,9 @@ export const { styled, getCssText } = createStitches({
       info9: '#00316A',
     },
     space: {
-      1: '5px',
-      2: '10px',
-      3: '15px',
+      sm: '5px',
+      md: '15px',
+      lg: '25px',
     },
     fonts: {
       system: 'system-ui',
@@ -143,8 +143,14 @@ export const { styled, getCssText } = createStitches({
     },
     shadows: {
       sm: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-      md: '0 0 10px -2px rgba(0, 0, 0, 0.1)',
-      lg: '0 0 25px 0 rgba(0, 0, 0, 0.1)',
+      md: '0 0 5px 0 rgba(0, 0, 0, 0.1)',
+      lg: '0 0 30px 0 rgba(0, 0, 0, 0.1)',
+    },
+    aspectRatio: {
+      square: '1/1',
+    },
+    transitions: {
+      default: 'all 100ms ease',
     },
   },
 });

@@ -3,7 +3,7 @@ import styles from './VariationSelector.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
-import Pannel from '../../../common/pannel/container/Pannel';
+import Pannel from '../../../../modules/Pannel';
 import VariationButton from '../variationButton/VariationButton';
 // import Button from '../../../common/button/Button';
 import Button from '../../../../theme/components/Button';

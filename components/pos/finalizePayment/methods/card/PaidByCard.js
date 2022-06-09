@@ -1,4 +1,5 @@
-import Pannel from '../../../../common/pannel/container/Pannel';
+// import Pannel from '../../../../common/pannel/container/Pannel';
+import Pannel from '../../../../../modules/Pannel';
 import Button from '../../../../../theme/components/Button';
 import useSWR from 'swr';
 
