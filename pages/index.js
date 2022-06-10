@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import Overlay from '../components/Overlay';
 import FolderGrid from '../modules/folders/folderGrid/FolderGrid';
 import ProductGrid from '../modules/products/productGrid/ProductGrid';
-import AddCustomer from '../modules/customers/addCustomer/AddCustomer';
+import AddCustomer from '../modules/customers/AddCustomer';
 import OrderDetails from '../modules/order/orderDetails/OrderDetails';
 import Totals from '../modules/order/orderTotals/OrderTotals';
 import UserLock from '../modules/users/userButton/UserButton';
@@ -33,7 +33,7 @@ export default function PointOfSale() {
     justifyContent: 'stretch',
     height: '100%',
     width: '100%',
-    padding: '10px',
+    padding: '$sm',
     backgroundColor: '$gray0',
     overflow: 'hidden',
   });

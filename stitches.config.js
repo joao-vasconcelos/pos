@@ -115,7 +115,8 @@ export const { styled, getCssText } = createStitches({
       info9: '#00316A',
     },
     space: {
-      sm: '5px',
+      xs: '5px',
+      sm: '10px',
       md: '15px',
       lg: '25px',
     },
