@@ -1,10 +1,15 @@
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
 import Loading from '../components/Loading';
 import Overlay from '../components/Overlay';
 import FolderGrid from '../modules/folders/folderGrid/FolderGrid';
 import ProductGrid from '../modules/products/productGrid/ProductGrid';
-import Checkout from '../modules/checkout/Checkout';
+import AddCustomer from '../modules/customers/addCustomer/AddCustomer';
+import OrderDetails from '../modules/order/orderDetails/OrderDetails';
+import Totals from '../modules/order/orderTotals/OrderTotals';
+import UserLock from '../modules/users/userButton/UserButton';
+import Discounts from '../modules/discounts/container/Discounts';
 
 /* * */
 /* POINT OF SALE */
@@ -33,7 +38,7 @@ export default function PointOfSale() {
     overflow: 'hidden',
   });
 
-  const InnerWrapperA = styled('div', {
+  const ProductsContainer = styled('div', {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -41,29 +46,54 @@ export default function PointOfSale() {
     justifyContent: 'stretch',
   });
 
-  const InnerWrapperB = styled('div', {
+  const CheckoutPannel = styled('div', {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
     minWidth: '350px',
+    borderRadius: '$md',
+    backgroundColor: '$gray0',
+    boxShadow: '$md',
+    overflow: 'scroll',
+  });
+
+  const InnerCheckoutWrapper = styled('div', {
+    height: '100%',
+    flexGrow: 0,
+    display: 'flex',
+    overflow: 'hidden',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   });
 
   /* */
   /* LOGIC */
 
+  const router = useRouter();
+  const { device_code } = router.query;
+
+  const { data: device } = useSWR('/api/devices/A73HK2'); // Replace later with device_code
   const { data: customers } = useSWR('/api/customers/*');
-  const { data: discounts } = useSWR('/api/discounts/*');
-  const { data: device } = useSWR('/api/devices/A73HK2');
 
   /* */
   /* RENDER */
 
-  return customers && discounts && device ? (
+  return device && customers ? (
     <Container>
-      <InnerWrapperA>
+      <ProductsContainer>
         <FolderGrid />
         <ProductGrid />
-      </InnerWrapperA>
-      <InnerWrapperB>
-        <Checkout />
-      </InnerWrapperB>
+      </ProductsContainer>
+      <CheckoutPannel>
+        <UserLock />
+        <AddCustomer />
+        <InnerCheckoutWrapper>
+          <OrderDetails />
+          <Discounts />
+        </InnerCheckoutWrapper>
+        <Totals />
+      </CheckoutPannel>
       <Overlay />
     </Container>
   ) : (
