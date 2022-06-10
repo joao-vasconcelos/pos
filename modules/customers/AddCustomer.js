@@ -2,14 +2,11 @@ import useSWR from 'swr';
 import { styled } from '@stitches/react';
 import { useCallback, useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../services/context';
-
-import CustomerSelector from './customerSelector/CustomerSelector';
-import AddOnlyNIF from './addOnlyNif/AddOnlyNIF';
-import ViewCustomer from './viewCustomer/ViewCustomer';
-
-import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
-
 import Button from '../../components/Button';
+import CustomerSelector from './customerSelector/CustomerSelector';
+import AddOnlyNIF from './AddOnlyNIF';
+import ViewCustomer from './viewCustomer/ViewCustomer';
+import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 
 /* * */
 /* ADD CUSTOMER */

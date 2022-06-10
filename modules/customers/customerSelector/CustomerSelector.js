@@ -8,7 +8,7 @@ import { GoPlus, GoSearch } from 'react-icons/go';
 import Pannel from '../../../components/Pannel';
 import Animation from '../../../components/Animation';
 import Button from '../../../components/Button';
-import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
+import AddOnlyNIF from '../AddOnlyNIF';
 
 import CustomersListRow from '../customersListRow/CustomersListRow';
 import useSWR from 'swr';

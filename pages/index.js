@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
 import Loading from '../components/Loading';
@@ -31,11 +32,10 @@ export default function PointOfSale() {
     gap: '$md',
     alignItems: 'stretch',
     justifyContent: 'stretch',
-    height: '100%',
+    minHeight: 'var(--window-inner-height)',
     width: '100%',
     padding: '$sm',
     backgroundColor: '$gray0',
-    overflow: 'hidden',
   });
 
   const ProductsContainer = styled('div', {
@@ -66,6 +66,15 @@ export default function PointOfSale() {
     flexDirection: 'column',
     justifyContent: 'space-between',
   });
+
+  const syncHeight = useCallback(() => {
+    document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`);
+  }, []);
+
+  useEffect(() => {
+    syncHeight();
+    // window.addEventListener('resize', syncHeight);
+  }, [syncHeight]);
 
   /* */
   /* LOGIC */
