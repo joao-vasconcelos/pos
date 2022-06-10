@@ -3,6 +3,8 @@ import styles from './CustomerSelector.module.css';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
+import { GoPlus, GoSearch } from 'react-icons/go';
+
 import Pannel from '../../../../theme/modules/Pannel';
 import Animation from '../../../../theme/modules/Animation';
 import Button from '../../../../theme/components/Button';
@@ -10,7 +12,6 @@ import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
 
 import CustomersListRow from '../customersListRow/CustomersListRow';
 import useSWR from 'swr';
-import Icon from '../../../common/icon/Icon';
 
 export default function CustomerSelector() {
   //
@@ -77,7 +78,7 @@ export default function CustomerSelector() {
       <div className={styles.toolbarContainer}>
         <div className={styles.searchFieldContainer}>
           <div className={styles.searchFieldIcon}>
-            <Icon name={'magnifyingglass'} />
+            <GoSearch />
           </div>
           <input
             className={styles.searchFieldInput}
@@ -89,7 +90,7 @@ export default function CustomerSelector() {
           />
         </div>
         <div className={styles.addCustomerButton}>
-          <Icon name={'plus'} />
+          <GoPlus />
         </div>
       </div>
       <div className={styles.listContainer}>

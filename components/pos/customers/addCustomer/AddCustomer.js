@@ -4,9 +4,10 @@ import { useCallback, useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 import CustomerSelector from '../customerSelector/CustomerSelector';
 import AddOnlyNIF from '../addOnlyNif/AddOnlyNIF';
-import Icon from '../../../common/icon/Icon';
 import ViewCustomer from '../viewCustomer/ViewCustomer';
 import useSWR from 'swr';
+
+import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 
 export default function AddCustomer() {
   const { overlay, currentOrder } = useContext(GlobalContext);
@@ -59,7 +60,7 @@ export default function AddCustomer() {
         return (
           <AddCustomerButton
             label={currentOrder.customer.tax.country + currentOrder.customer.tax.number}
-            icon={<Icon name={'personfillquestionmark'} />}
+            icon={<FaUserTimes />}
             type={'primary'}
             action={handleChangeNIF}
           />
@@ -68,14 +69,14 @@ export default function AddCustomer() {
         return (
           <AddCustomerButton
             label={currentOrder.customer.name.first + ' ' + currentOrder.customer.name.last}
-            icon={<Icon name={'personfillcheckmark'} />}
+            icon={<FaUserCheck />}
             type={'primary'}
             action={handleChangeCustomer}
           />
         );
       }
     } else {
-      return <AddCustomerButton label={'Associar Cliente'} icon={<Icon name='personbadgeplus' />} type={'muted'} action={handleAddCustomer} />;
+      return <AddCustomerButton label={'Associar Cliente'} icon={<FaUserPlus />} type={'muted'} action={handleAddCustomer} />;
     }
   }
 

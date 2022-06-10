@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 
 import Pannel from '../../../../theme/modules/Pannel';
-import Icon from '../../../common/icon/Icon';
+import { MdBackspace } from 'react-icons/md';
 
 export default function UserUnlock() {
   //
@@ -95,7 +95,7 @@ export default function UserUnlock() {
             9
           </div>
           <div className={styles.keyboardKeyDelete} onClick={handleDeleteValue}>
-            <Icon name={'deleteleft'} />
+            <MdBackspace />
           </div>
           <div className={styles.keyboardKey} onClick={handleClick}>
             4

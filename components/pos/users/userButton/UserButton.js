@@ -4,7 +4,7 @@ import styles from './UserButton.module.css';
 import { useContext } from 'react';
 import { GlobalContext } from '../../../../services/context';
 import UserUnlock from '../userUnlock/UserUnlock';
-import Icon from '../../../common/icon/Icon';
+import { BsFillLockFill, BsFillUnlockFill } from 'react-icons/bs';
 
 export default function UserButton() {
   const { lockStatus, overlay } = useContext(GlobalContext);
@@ -28,12 +28,12 @@ export default function UserButton() {
       >
         {lockStatus.currentUser ? (
           <p className={styles.label}>
-            <Icon name={'lockopenfill'} />
+            <BsFillUnlockFill />
             {lockStatus.currentUser.name}
           </p>
         ) : (
           <p className={styles.label}>
-            <Icon name={'lockfill'} />
+            <BsFillLockFill />
             Caixa Bloqueada
           </p>
         )}

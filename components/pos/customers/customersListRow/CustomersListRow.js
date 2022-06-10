@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import styles from './CustomersListRow.module.css';
-import Icon from '../../../common/icon/Icon';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../../../services/context';
 import ViewCustomer from '../viewCustomer/ViewCustomer';
+import { GoClippy } from 'react-icons/go';
 
 export default function CustomersListRow({ customer, onSelect, selectedCustomer }) {
   //
@@ -34,7 +34,7 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
         </div>
       </div>
       <div className={styles.viewCustomerButton} onClick={handleView}>
-        <Icon name={'rectangleandtextmagnifyingglass'} />
+        <GoClippy />
       </div>
     </div>
   );
