@@ -1,16 +1,15 @@
 import useSWR from 'swr';
-
-import FolderGrid from '../components/pos/folders/folderGrid/FolderGrid';
-import ProductGrid from '../components/pos/products/productGrid/ProductGrid';
-import Checkout from '../components/pos/checkout/Checkout';
-
-import Loading from '../theme/modules/Loading';
+import Loading from '../components/Loading';
+import Overlay from '../components/Overlay';
+import FolderGrid from '../modules/folders/folderGrid/FolderGrid';
+import ProductGrid from '../modules/products/productGrid/ProductGrid';
+import Checkout from '../modules/checkout/Checkout';
 
 import styles from '../styles/pos/POS.module.css';
 
-import Overlay from '../theme/modules/Overlay';
-
 export default function PointOfSale() {
+  //
+
   const { data: customers } = useSWR('/api/customers/*');
   const { data: discounts } = useSWR('/api/discounts/*');
   const { data: device } = useSWR('/api/devices/A73HK2');
