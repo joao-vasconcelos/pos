@@ -56,6 +56,7 @@ export const { styled, getCssText } = createStitches({
       primary9: '$beach9',
 
       // ACCENTS
+      gray0: '#ffffff',
       gray1: '#fdfcfd',
       gray2: '#f9f8f9',
       gray3: '#f4f2f4',

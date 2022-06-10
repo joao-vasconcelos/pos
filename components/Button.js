@@ -23,7 +23,7 @@ export default styled('button', {
   variants: {
     color: {
       primary: {
-        color: '$gray1',
+        color: '$gray0',
         backgroundColor: '$primary5',
         borderColor: '$primary6',
         '&:active': {
@@ -45,7 +45,7 @@ export default styled('button', {
         },
       },
       success: {
-        color: '$gray1',
+        color: '$gray0',
         backgroundColor: '$success5',
         borderColor: '$success6',
         '&:active': {
@@ -56,7 +56,7 @@ export default styled('button', {
         },
       },
       warning: {
-        color: '$gray1',
+        color: '$gray0',
         backgroundColor: '$warning5',
         borderColor: '$warning6',
         '&:active': {
@@ -67,7 +67,7 @@ export default styled('button', {
         },
       },
       danger: {
-        color: '$gray1',
+        color: '$gray0',
         backgroundColor: '$danger5',
         borderColor: '$danger6',
         '&:active': {
