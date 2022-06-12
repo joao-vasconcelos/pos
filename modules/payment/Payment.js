@@ -1,30 +1,70 @@
+import { styled } from '@stitches/react';
+
 import Pannel from '../../components/Pannel';
 import Button from '../../components/Button';
 
-import styles from './FinalizePayment.module.css';
-
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../../services/context';
-import PaymentOption from './paymentOption/PaymentOption';
+import PaymentOption from './PaymentOption';
 import PaidByCash from './methods/cash/PaidByCash';
-import PaidByCard from './methods/card/PaidByCard';
+import PayByCard from './PayByCard';
 import PaidByAccount from './methods/account/PaidByAccount';
 
 import { BsCreditCardFill, BsCashCoin, BsBookmarkCheckFill } from 'react-icons/bs';
+import ButtonBar from '../../components/ButtonBar';
 
-export default function FinalizePayment() {
+/* * */
+/* PAYMENT */
+/* Explanation needed. */
+/* * */
+
+/* */
+/* STYLES */
+
+const OrderTotal = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '60px',
+  color: '$primary5',
+  fontWeight: '$bold',
+  margin: '0 -$md',
+  padding: '$lg',
+  paddingTop: '$md',
+  borderBottomWidth: '2px',
+  borderBottomStyle: 'solid',
+  borderBottomColor: '$gray7',
+});
+
+const PaymentOptionsContainer = styled('div', {
+  display: 'grid',
+  gap: '$md',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+  gridTemplateRows: '180px',
+  minWidth: '750px',
+  margin: '$md 0',
+});
+
+/* */
+/* LOGIC */
+
+export default function Payment() {
+  //
+
   const { currentOrder, overlay } = useContext(GlobalContext);
 
   const [selectedPaymentOption, setSelectedPaymentOption] = useState();
+  const [selectedOption, setSelectedOption] = useState();
 
   function handleSelect(value) {
     setSelectedPaymentOption(value);
+    setSelectedOption(value);
   }
 
   function handleInitiatePayment() {
     switch (selectedPaymentOption) {
       case 'card':
-        overlay.setComponent(<PaidByCard />);
+        overlay.setComponent(<PayByCard />);
         break;
       case 'cash':
         overlay.setComponent(<PaidByCash />);
@@ -35,15 +75,12 @@ export default function FinalizePayment() {
       default:
         break;
     }
-
-    // currentOrder.clear();
-    // overlay.setComponent();
   }
 
   return (
     <Pannel title={'Total Final'}>
-      <div className={styles.orderTotal}>{currentOrder.totals.total.toFixed(2) + '€'}</div>
-      <div className={styles.paymentOptionsContainer}>
+      <OrderTotal>{currentOrder.totals.total.toFixed(2) + '€'}</OrderTotal>
+      <PaymentOptionsContainer>
         <PaymentOption
           value={'card'}
           icon={<BsCreditCardFill />}
@@ -65,10 +102,12 @@ export default function FinalizePayment() {
           selectedPaymentOption={selectedPaymentOption}
           onSelect={handleSelect}
         />
-      </div>
-      <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
-        Iniciar Pagamento
-      </Button>
+      </PaymentOptionsContainer>
+      <ButtonBar cols={1}>
+        <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
+          Finalizar Pagamento
+        </Button>
+      </ButtonBar>
     </Pannel>
   );
 }

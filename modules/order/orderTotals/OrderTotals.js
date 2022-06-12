@@ -5,13 +5,13 @@ import styles from './OrderTotals.module.css';
 
 import { useContext } from 'react';
 import { GlobalContext } from '../../../services/context';
-import FinalizePayment from '../../finalizePayment/FinalizePayment';
+import Payment from '../../payment/Payment';
 
 export default function OrderTotals() {
   const { currentOrder, overlay } = useContext(GlobalContext);
 
   function handleFinalize() {
-    overlay.setComponent(<FinalizePayment />);
+    overlay.setComponent(<Payment />);
   }
 
   return (
