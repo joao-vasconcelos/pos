@@ -3,7 +3,7 @@ import { styled } from '@stitches/react';
 import { useCallback, useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../services/context';
 import Button from '../../components/Button';
-import CustomerSelector from './customerSelector/CustomerSelector';
+import CustomerSelector from './CustomerSelector';
 import AddOnlyNIF from './AddOnlyNIF';
 import ViewCustomer from './viewCustomer/ViewCustomer';
 import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
@@ -13,39 +13,40 @@ import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 /* Explanation needed. */
 /* * */
 
+/* */
+/* STYLES */
+
+const Container = styled('div', {
+  margin: '$sm',
+});
+
+const CustomerButton = styled(Button, {
+  width: '100%',
+  height: '50px',
+  padding: 0,
+});
+
+const Icon = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '25px',
+  height: '100%',
+  aspectRatio: '9/8',
+  borderRightWidth: '$md',
+  borderRightStyle: 'solid',
+  borderRightColor: 'inherit',
+});
+
+const Label = styled('p', {
+  width: '100%',
+  fontSize: '18px',
+  fontWeight: '$medium',
+  textTransform: 'uppercase',
+});
+
 export default function AddCustomer() {
   //
-
-  /* */
-  /* STYLES */
-
-  const Container = styled('div', {
-    margin: '$sm',
-  });
-
-  const CustomerButton = styled(Button, {
-    height: '50px',
-    padding: 0,
-  });
-
-  const Icon = styled('div', {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '25px',
-    height: '100%',
-    aspectRatio: '9/8',
-    borderRightWidth: '$md',
-    borderRightStyle: 'solid',
-    borderRightColor: 'inherit',
-  });
-
-  const Label = styled('p', {
-    width: '100%',
-    fontSize: '18px',
-    fontWeight: '$medium',
-    textTransform: 'uppercase',
-  });
 
   /* */
   /* LOGIC */

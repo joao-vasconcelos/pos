@@ -6,21 +6,18 @@ import Animation from './Animation';
 /* Explanation needed. */
 /* * */
 
+/* */
+/* STYLES */
+
+const Container = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100vh',
+});
+
 export default function Loading() {
   //
-
-  /* */
-  /* STYLES */
-
-  const Container = styled('div', {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-  });
-
-  /* */
-  /* RENDER */
 
   return (
     <Container>

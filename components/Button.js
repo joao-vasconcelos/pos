@@ -7,7 +7,7 @@ export default styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   //
-  width: '100%',
+  // width: '100%',
   padding: '$md $lg',
   borderWidth: '2px',
   borderStyle: 'solid',
@@ -82,14 +82,14 @@ export default styled('button', {
   //
   '&[disabled]': {
     cursor: 'not-allowed',
-    color: '$gray8',
+    color: '$gray6',
     backgroundColor: '$gray2',
-    borderColor: '$gray5',
+    borderColor: '$gray4',
     boxShadow: 'none',
     '&:active': {
-      color: '$gray8',
+      color: '$gray6',
       backgroundColor: '$gray2',
-      borderColor: '$gray5',
+      borderColor: '$gray4',
       boxShadow: 'none',
     },
   },

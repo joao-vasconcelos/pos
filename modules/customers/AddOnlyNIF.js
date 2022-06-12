@@ -1,7 +1,8 @@
 import { styled } from '@stitches/react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { GlobalContext } from '../../services/context';
 import Pannel from '../../components/Pannel';
+import TextField from '../../components/TextField';
 import Button from '../../components/Button';
 
 /* * */
@@ -9,85 +10,70 @@ import Button from '../../components/Button';
 /* Explanation needed. */
 /* * */
 
+/* */
+/* STYLES */
+
+const Container = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$md',
+});
+
+const NifInputContainer = styled('div', {
+  display: 'grid',
+  gridTemplateColumns: '150px 500px',
+});
+
+const Input = styled(TextField, {
+  paddingLeft: '30px',
+  fontSize: '50px',
+  fontWeight: '$bold',
+  textAlign: 'center',
+  letterSpacing: '15px',
+  textTransform: 'uppercase',
+});
+
+const NifCountryInput = styled(Input, {
+  borderRightWidth: 0,
+  borderTopRightRadius: 0,
+  borderBottomRightRadius: 0,
+  '&::placeholder': {
+    color: '$gray12',
+  },
+  '&:focus': {
+    '&::placeholder': {
+      color: 'transparent',
+    },
+  },
+});
+
+const NifNumberInput = styled(Input, {
+  borderTopLeftRadius: 0,
+  borderBottomLeftRadius: 0,
+});
+
+/* */
+/* LOGIC */
+
 export default function AddOnlyNIF() {
   //
 
-  /* */
-  /* STYLES */
-
-  const Container = styled('div', {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$md',
-  });
-
-  const NifInputContainer = styled('div', {
-    display: 'grid',
-    gridTemplateColumns: '150px 500px',
-  });
-
-  const Input = styled('input', {
-    padding: '15px',
-    paddingLeft: '30px',
-    fontSize: '50px',
-    fontWeight: '$bold',
-    backgroundColor: '$gray4',
-    borderWidth: '$md',
-    borderStyle: 'solid',
-    borderColor: '$gray7',
-    outline: 'none',
-    textAlign: 'center',
-    letterSpacing: '15px',
-    textTransform: 'uppercase',
-    borderSpacing: '0',
-    margin: '0',
-    borderRadius: '$md',
-    '&:focus': {
-      '&::placeholder': {
-        color: 'transparent',
-      },
-    },
-    '&::placeholder': {
-      color: '$gray10',
-    },
-  });
-
-  const NifCountryInput = styled(Input, {
-    borderRightWidth: 0,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    '&::placeholder': {
-      color: '$gray12',
-    },
-  });
-
-  const NifNumberInput = styled(Input, {
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-  });
-
-  /* */
-  /* LOGIC */
-
   const { currentOrder, overlay } = useContext(GlobalContext);
 
-  function handleAddNif(event) {
-    event.preventDefault();
+  const [isValidNifCountry, setIsValidNifCountry] = useState(false);
+  const [nifCountry, setNifCountry] = useState(currentOrder?.customer?.tax?.country || '');
 
-    const nifCountry = event.target.nifCountry;
-    const nifNumber = event.target.nifNumber;
+  const [isValidNifNumber, setIsValidNifNumber] = useState(false);
+  const [nifNumber, setNifNumber] = useState(currentOrder?.customer?.tax?.number || '');
 
-    if (nifCountry.value.length > 0 && nifCountry.value.length < nifCountry.maxLength) return;
-    if (nifNumber.value.length != nifNumber.maxLength) return;
-
+  function handleAddNif() {
     currentOrder.setCustomer({
       onlyNif: true,
       tax: {
-        country: nifCountry.value || 'PT',
-        number: nifNumber.value,
+        country: nifCountry || 'PT',
+        number: nifNumber,
       },
     });
-
     overlay.setComponent();
   }
 
@@ -96,48 +82,78 @@ export default function AddOnlyNIF() {
     overlay.setComponent();
   }
 
+  function handleNifCountryChange({ target }) {
+    const regexResult = target.value.match(/^[A-Za-z]+$/); // Only alphabet letters
+    target.value = regexResult && regexResult[0] ? regexResult : '';
+    target.value = target.value.slice(0, target.maxLength);
+    setNifCountry(target.value);
+    validateNifCountry(target);
+  }
+
+  function validateNifCountry(target) {
+    // Checks
+    const length = target.value.length == target.maxLength;
+    const hasChanged = target.value != currentOrder?.customer?.tax?.country;
+    // Result
+    setIsValidNifCountry(length && hasChanged);
+  }
+
+  function handleNifNumberChange({ target }) {
+    const regexResult = target.value.match(/^[0-9]*$/); // Only numbers
+    target.value = regexResult && regexResult[0] ? regexResult : '';
+    target.value = target.value.slice(0, target.maxLength);
+    setNifNumber(target.value);
+    validateNifNumber(target);
+  }
+
+  function validateNifNumber(target) {
+    // Checks
+    const length = target.value.length == target.maxLength;
+    const hasChanged = target.value != currentOrder?.customer?.tax?.number;
+    // Result
+    setIsValidNifNumber(length && hasChanged);
+  }
+
   /* */
   /* RENDER */
 
   return (
     <Pannel title={'Add Only NIF'}>
-      <form onSubmit={handleAddNif}>
-        <Container>
-          <NifInputContainer>
-            <NifCountryInput
-              name={'nifCountry'}
-              type={'text'}
-              minLength={2}
-              maxLength={2}
-              defaultValue={currentOrder.customer ? currentOrder.customer.tax.country : ''}
-              placeholder={'PT'}
-              onChange={({ target }) => {
-                const regexResult = target.value.match(/^[A-Za-z]+$/);
-                target.value = regexResult && regexResult[0] ? regexResult : '';
-              }}
-            />
-            <NifNumberInput
-              name={'nifNumber'}
-              type={'number'}
-              maxLength={9}
-              placeholder={'_________'}
-              required
-              defaultValue={currentOrder.customer ? currentOrder.customer.tax.number : ''}
-              onChange={({ target }) => (target.value = target.value.slice(0, target.maxLength))}
-            />
-          </NifInputContainer>
-          {currentOrder.customer ? (
-            <Container>
-              <Button color={'secondary'}>Atualizar NIF</Button>
-              <Button color={'danger'} onClick={handleRemoveNif}>
-                Remover
-              </Button>
-            </Container>
-          ) : (
-            <Button>Adicionar NIF</Button>
-          )}
-        </Container>
-      </form>
+      <Container>
+        <NifInputContainer>
+          <NifCountryInput
+            name={'nifCountry'}
+            type={'text'}
+            minLength={2}
+            maxLength={2}
+            placeholder={'PT'}
+            value={nifCountry}
+            onChange={handleNifCountryChange}
+          />
+          <NifNumberInput
+            name={'nifNumber'}
+            type={'number'}
+            maxLength={9}
+            placeholder={'_________'}
+            value={nifNumber}
+            onChange={handleNifNumberChange}
+          />
+        </NifInputContainer>
+        {currentOrder.customer ? (
+          <Container>
+            <Button onClick={handleAddNif} disabled={!isValidNifCountry && !isValidNifNumber}>
+              Atualizar NIF
+            </Button>
+            <Button color={'danger'} onClick={handleRemoveNif}>
+              Remover
+            </Button>
+          </Container>
+        ) : (
+          <Button onClick={handleAddNif} disabled={!isValidNifCountry && !isValidNifNumber}>
+            Adicionar NIF
+          </Button>
+        )}
+      </Container>
     </Pannel>
   );
 }
