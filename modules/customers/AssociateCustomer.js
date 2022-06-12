@@ -5,7 +5,7 @@ import { GlobalContext } from '../../services/context';
 import Button from '../../components/Button';
 import CustomerList from './CustomerList';
 import AssociateOnlyNIF from './AssociateOnlyNIF';
-import ViewCustomer from './viewCustomer/ViewCustomer';
+import CustomerDetail from './CustomerDetail';
 import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 
 /* * */
@@ -45,11 +45,11 @@ const Label = styled('p', {
   textTransform: 'uppercase',
 });
 
+/* */
+/* LOGIC */
+
 export default function AssociateCustomer() {
   //
-
-  /* */
-  /* LOGIC */
 
   const { data: customers } = useSWR('/api/customers/*');
   const { overlay, currentOrder } = useContext(GlobalContext);
@@ -86,7 +86,7 @@ export default function AssociateCustomer() {
   }
 
   function handleChangeCustomer() {
-    overlay.setComponent(<ViewCustomer customer={currentOrder.customer} />);
+    overlay.setComponent(<CustomerDetail customer={currentOrder.customer} />);
   }
 
   /* */

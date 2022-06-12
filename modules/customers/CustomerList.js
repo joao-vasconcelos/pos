@@ -10,6 +10,7 @@ import Pannel from '../../components/Pannel';
 import Animation from '../../components/Animation';
 import Button from '../../components/Button';
 import TextField from '../../components/TextField';
+import ButtonBar from '../../components/ButtonBar';
 import AddOnlyNIF from './AssociateOnlyNIF';
 
 import CustomersListRow from './CustomerListRow';
@@ -91,14 +92,6 @@ const NoResultsMessage = styled('div', {
   fontSize: '30px',
   fontWeight: '$regular',
   color: '$gray7',
-});
-
-const ButtonsContainer = styled('div', {
-  display: 'grid',
-  placeItems: 'stretch',
-  placeContent: 'stretch',
-  gridTemplateColumns: '3fr minmax(35%, 1fr)',
-  gap: '$md',
 });
 
 /* */
@@ -190,14 +183,14 @@ export default function CustomerList() {
           <Animation name={'loading-dots'} />
         )}
       </ListContainer>
-      <ButtonsContainer>
+      <ButtonBar>
         <Button disabled={!selectedCustomer} onClick={handleAddCustomer}>
           Associar Cliente
         </Button>
         <Button color={'secondary'} onClick={handleAddOnlyNIF}>
           Apenas NIF
         </Button>
-      </ButtonsContainer>
+      </ButtonBar>
     </Pannel>
   );
 }

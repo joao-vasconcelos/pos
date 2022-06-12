@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
 import { GlobalContext } from '../../services/context';
-import ViewCustomer from './viewCustomer/ViewCustomer';
+import CustomerDetail from './CustomerDetail';
 import { GoClippy } from 'react-icons/go';
 
 /* * */
@@ -143,7 +143,7 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
   if (selectedCustomer && selectedCustomer._id == customer._id) isThisCustomerSelected = true;
 
   function handleView() {
-    overlay.setComponent(<ViewCustomer customer={customer} />);
+    overlay.setComponent(<CustomerDetail customer={customer} />);
   }
 
   return (

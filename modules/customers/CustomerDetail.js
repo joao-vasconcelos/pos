@@ -1,16 +1,38 @@
-import styles from './ViewCustomer.module.css';
+import useSWR from 'swr';
+import { styled } from '@stitches/react';
 
 import { useContext, useState, useEffect } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { GlobalContext } from '../../services/context';
 
-import Pannel from '../../../components/Pannel';
-import Button from '../../../components/Button';
+import Pannel from '../../components/Pannel';
+import Button from '../../components/Button';
+import ButtonBar from '../../components/ButtonBar';
 
-import useSWR from 'swr';
-import CustomerInput from '../customerInput/CustomerInput';
+import CustomerDetailInput from './CustomerDetailInput';
 
-export default function ViewCustomer({ customer }) {
+/* * */
+/* CUSTOMER DETAIL */
+/* Explanation needed. */
+/* * */
+
+/* */
+/* STYLES */
+
+const InputGrid = styled('div', {
+  display: 'grid',
+  placeItems: 'stretch',
+  placeContent: 'stretch',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '15px',
+  marginBottom: '15px',
+});
+
+/* */
+/* LOGIC */
+
+export default function CustomerDetail({ customer }) {
   //
+
   const { data: customers, mutate } = useSWR('/api/customers/*');
 
   const { currentOrder, overlay } = useContext(GlobalContext);
@@ -26,16 +48,14 @@ export default function ViewCustomer({ customer }) {
   const [customerBirthday, setCustomerBirthday] = useState('');
 
   useEffect(() => {
-    if (!editMode) {
-      const c = customers.find((entries) => entries._id == customer._id);
-      setCustomerFirstName(c?.name?.first);
-      setCustomerLastName(c?.name?.last);
-      setCustomerEmail(c?.email);
-      setCustomerTaxCountry(c?.tax?.country);
-      setCustomerTaxNumber(c?.tax?.number);
-      setCustomerReference(c?.reference);
-      setCustomerBirthday(c?.birthday);
-    }
+    const c = customers.find((entries) => entries._id == customer._id);
+    setCustomerFirstName(c?.name?.first);
+    setCustomerLastName(c?.name?.last);
+    setCustomerEmail(c?.email);
+    setCustomerTaxCountry(c?.tax?.country);
+    setCustomerTaxNumber(c?.tax?.number);
+    setCustomerReference(c?.reference);
+    setCustomerBirthday(c?.birthday);
   }, [customers, customer._id, editMode]);
 
   function handleAdd() {
@@ -94,16 +114,16 @@ export default function ViewCustomer({ customer }) {
 
   return (
     <Pannel title={customer.name.first}>
-      <div className={styles.customerInfo}>
-        <CustomerInput label={'Nome'} value={customerFirstName} onChange={setCustomerFirstName} editMode={editMode} />
-        <CustomerInput label={'Apelido'} value={customerLastName} onChange={setCustomerLastName} editMode={editMode} />
-        <CustomerInput label={'Email'} value={customerEmail} onChange={setCustomerEmail} editMode={editMode} />
-        <CustomerInput label={'Região Fiscal'} value={customerTaxCountry} onChange={setCustomerTaxCountry} editMode={editMode} />
-        <CustomerInput label={'NIF'} value={customerTaxNumber} onChange={setCustomerTaxNumber} editMode={editMode} />
-        <CustomerInput label={'Data de Nascimento'} value={customerBirthday} onChange={setCustomerBirthday} editMode={editMode} />
-        <CustomerInput label={'Ref Cartão #'} value={customerReference} onChange={setCustomerReference} editMode={editMode} />
-      </div>
-      <div className={styles.buttonsContainer}>
+      <InputGrid>
+        <CustomerDetailInput label={'Nome'} value={customerFirstName} onChange={setCustomerFirstName} editMode={editMode} />
+        <CustomerDetailInput label={'Apelido'} value={customerLastName} onChange={setCustomerLastName} editMode={editMode} />
+        <CustomerDetailInput label={'Email'} value={customerEmail} onChange={setCustomerEmail} editMode={editMode} />
+        <CustomerDetailInput label={'Região Fiscal'} value={customerTaxCountry} onChange={setCustomerTaxCountry} editMode={editMode} />
+        <CustomerDetailInput label={'NIF'} value={customerTaxNumber} onChange={setCustomerTaxNumber} editMode={editMode} />
+        <CustomerDetailInput label={'Data de Nascimento'} value={customerBirthday} onChange={setCustomerBirthday} editMode={editMode} />
+        <CustomerDetailInput label={'Ref Cartão #'} value={customerReference} onChange={setCustomerReference} editMode={editMode} />
+      </InputGrid>
+      <ButtonBar>
         {editMode ? (
           <>
             <Button color={'secondary'} onClick={handleSave}>
@@ -127,7 +147,7 @@ export default function ViewCustomer({ customer }) {
             </Button>
           </>
         )}
-      </div>
+      </ButtonBar>
     </Pannel>
   );
 }
