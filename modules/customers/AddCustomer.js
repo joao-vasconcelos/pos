@@ -3,7 +3,7 @@ import { styled } from '@stitches/react';
 import { useCallback, useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../services/context';
 import Button from '../../components/Button';
-import CustomerSelector from './CustomerSelector';
+import CustomerList from './CustomerList';
 import AddOnlyNIF from './AddOnlyNIF';
 import ViewCustomer from './viewCustomer/ViewCustomer';
 import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
@@ -78,7 +78,7 @@ export default function AddCustomer() {
   // Handlers
 
   function handleAddCustomer() {
-    overlay.setComponent(<CustomerSelector />);
+    overlay.setComponent(<CustomerList />);
   }
 
   function handleChangeNIF() {

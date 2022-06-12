@@ -12,11 +12,11 @@ import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 import AddOnlyNIF from './AddOnlyNIF';
 
-import CustomersListRow from './customersListRow/CustomersListRow';
+import CustomersListRow from './CustomerListRow';
 import Icon from '../../components/Icon';
 
 /* * */
-/* CUSTOMER SELECTOR */
+/* CUSTOMER LIST */
 /* Explanation needed. */
 /* * */
 
@@ -104,7 +104,7 @@ const ButtonsContainer = styled('div', {
 /* */
 /* LOGIC */
 
-export default function CustomerSelector() {
+export default function CustomerList() {
   //
   const { data: customers } = useSWR('/api/customers/*');
 
