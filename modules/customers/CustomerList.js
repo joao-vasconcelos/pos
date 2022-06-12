@@ -10,7 +10,7 @@ import Pannel from '../../components/Pannel';
 import Animation from '../../components/Animation';
 import Button from '../../components/Button';
 import TextField from '../../components/TextField';
-import AddOnlyNIF from './AddOnlyNIF';
+import AddOnlyNIF from './AssociateOnlyNIF';
 
 import CustomersListRow from './CustomerListRow';
 import Icon from '../../components/Icon';

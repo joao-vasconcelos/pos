@@ -4,12 +4,12 @@ import { useCallback, useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../services/context';
 import Button from '../../components/Button';
 import CustomerList from './CustomerList';
-import AddOnlyNIF from './AddOnlyNIF';
+import AssociateOnlyNIF from './AssociateOnlyNIF';
 import ViewCustomer from './viewCustomer/ViewCustomer';
 import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 
 /* * */
-/* ADD CUSTOMER */
+/* ASSOCIATE CUSTOMER */
 /* Explanation needed. */
 /* * */
 
@@ -45,7 +45,7 @@ const Label = styled('p', {
   textTransform: 'uppercase',
 });
 
-export default function AddCustomer() {
+export default function AssociateCustomer() {
   //
 
   /* */
@@ -82,7 +82,7 @@ export default function AddCustomer() {
   }
 
   function handleChangeNIF() {
-    overlay.setComponent(<AddOnlyNIF />);
+    overlay.setComponent(<AssociateOnlyNIF />);
   }
 
   function handleChangeCustomer() {

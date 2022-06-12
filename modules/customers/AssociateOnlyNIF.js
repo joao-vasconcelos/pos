@@ -6,7 +6,7 @@ import TextField from '../../components/TextField';
 import Button from '../../components/Button';
 
 /* * */
-/* ADD ONLY NIF */
+/* ASSOCIATE ONLY NIF */
 /* Explanation needed. */
 /* * */
 
@@ -55,7 +55,7 @@ const NifNumberInput = styled(Input, {
 /* */
 /* LOGIC */
 
-export default function AddOnlyNIF() {
+export default function AssociateOnlyNIF() {
   //
 
   const { currentOrder, overlay } = useContext(GlobalContext);

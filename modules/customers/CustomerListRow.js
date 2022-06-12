@@ -100,7 +100,7 @@ const CustomerName = styled(Text, {
 const CustomerInfo = styled(Text, {
   fontSize: '12px',
   fontWeight: '$medium',
-  color: '$gray10',
+  color: '$gray9',
   textTransform: 'uppercase',
   variants: {
     selected: {

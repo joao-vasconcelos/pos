@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 import Overlay from '../components/Overlay';
 import FolderGrid from '../modules/folders/folderGrid/FolderGrid';
 import ProductGrid from '../modules/products/productGrid/ProductGrid';
-import AddCustomer from '../modules/customers/AddCustomer';
+import AssociateCustomer from '../modules/customers/AssociateCustomer';
 import OrderDetails from '../modules/order/orderDetails/OrderDetails';
 import Totals from '../modules/order/orderTotals/OrderTotals';
 import UserLock from '../modules/users/userButton/UserButton';
@@ -96,7 +96,7 @@ export default function PointOfSale() {
       </ProductsContainer>
       <CheckoutPannel>
         <UserLock />
-        <AddCustomer />
+        <AssociateCustomer />
         <InnerCheckoutWrapper>
           <OrderDetails />
           <Discounts />
