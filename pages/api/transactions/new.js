@@ -54,6 +54,7 @@ export default async function transactions(req, res) {
     });
     // 5.3. Parse the response into JSON
     const invoice = await response.json();
+    console.log(invoice);
     // 5.4. Check status of response
     if (response.status != 201) throw new Error(invoice.errors[0]?.message); // This is how Vendus API sends errors
     // 5.5. If response is valid, update request data with new details
@@ -70,7 +71,7 @@ export default async function transactions(req, res) {
     };
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err.message });
     return;
   }
 
