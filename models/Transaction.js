@@ -123,5 +123,34 @@ module.exports =
       payment: {
         type: String,
       },
+      invoice: {
+        id: {
+          type: String,
+        },
+        type: {
+          type: String,
+        },
+        number: {
+          type: String,
+        },
+        date: {
+          type: String,
+        },
+        system_time: {
+          type: String,
+        },
+        local_time: {
+          type: String,
+        },
+        amount_gross: {
+          type: String,
+        },
+        amount_net: {
+          type: String,
+        },
+        hash: {
+          type: String,
+        },
+      },
     })
   );

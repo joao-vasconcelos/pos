@@ -1,71 +1,91 @@
-import _, { last } from 'lodash';
+import _ from 'lodash';
 import database from '../../../services/database';
 import Transaction from '../../../models/Transaction';
+import Device from '../../../models/Device';
 import moment from 'moment';
 
 export default async function transactions(req, res) {
   //
-  // Connect to the Database
-  database.connect();
 
-  switch (req.method) {
-    //
-    case 'POST':
-      const postResult = await postTransactionWith(JSON.parse(req.body));
-      res.status(postResult.status).json(postResult.data);
-      break;
-    //
-    default:
-      res.setHeader('Allow', ['GET', 'PUT']);
-      res.status(405).end(`Method ${req.method} Not Allowed`);
-      break;
+  // 0. Refuse request if not POST
+  if (req.method != 'POST') {
+    res.setHeader('Allow', ['GET', 'PUT']);
+    res.status(405).json({ message: `Method ${req.method} Not Allowed` });
+    return;
   }
-}
 
-/* * */
-/* REST: POST */
-async function postTransactionWith(query) {
-  // Create new document
-  const newTransaction = Transaction(query);
-  const result = await newTransaction.save();
-
-  if (result) {
-    // Document was updated or created
-
-    // 1. Update stock in Apicbase (later)
-    //
-
-    // 2. Create invoice in Vendus
-
-    const invoice = prepareInvoice(newTransaction);
-
-    try {
-      await fetch('https://www.vendus.pt/ws/v1.2/documents', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Basic ' + Buffer.from(process.env.VENDUS_API_KEY).toString('base64'),
-        },
-        body: JSON.stringify(invoice),
-      })
-        .then((res) => {
-          if (res.ok) return res.text();
-          throw new Error('Something went wrong.');
-        })
-        .catch((err) => {
-          console.log(err);
-          throw new Error('Something went wrong.');
-        });
-    } catch (err) {
-      return { status: 500, data: { message: 'An Error Occurred.' } };
-    }
-
-    // Send response to the client
-    return { status: 200, data: result };
-  } else {
-    // An Error Occurred
-    return { status: 500, data: { message: 'An Error Occurred.' } };
+  // 1. Try to connect to the database
+  try {
+    database.connect();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Database connection error.' });
+    return;
   }
+
+  // 2. Parse request body into JSON
+  const data = JSON.parse(req.body);
+
+  // 3. Verify validity of Device Code
+  try {
+    const foundDevices = await Device.find({ code: data?.device?.code });
+    if (!foundDevices.length) throw new Error('No valid devices found.');
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err });
+    return;
+  }
+
+  // 4. Update stock in Apicbase
+  // later...
+
+  // 5. Create an invoice in Vendus
+  try {
+    // 5.1. Format transaction into an invoice
+    const preparedInvoice = prepareInvoice(data);
+    // 5.2. Perform the HTTP request
+    const response = await fetch('https://www.vendus.pt/ws/v1.2/documents', {
+      method: 'POST',
+      body: JSON.stringify(preparedInvoice),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic ' + Buffer.from(process.env.VENDUS_API_KEY).toString('base64'),
+      },
+    });
+    // 5.3. Parse the response into JSON
+    const invoice = await response.json();
+    // 5.4. Check status of response
+    if (response.status != 201) throw new Error(invoice.errors[0]?.message); // This is how Vendus API sends errors
+    // 5.5. If response is valid, update request data with new details
+    data.invoice = {
+      id: invoice.id,
+      type: invoice.type,
+      number: invoice.number,
+      date: invoice.date,
+      system_time: invoice.system_time,
+      local_time: invoice.local_time,
+      amount_gross: invoice.amount_gross,
+      amount_net: invoice.amount_net,
+      hash: invoice.hash,
+    };
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err });
+    return;
+  }
+
+  // 6. Try to save a new document with req.body
+  try {
+    await Transaction(data).save();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Transaction creation error.' });
+    return;
+  }
+
+  // 7. If we're here it's because everything worked.
+  res.status(201).json({ message: 'Transaction saved.' });
+  return;
 }
 
 /* * */
@@ -90,8 +110,7 @@ const prepareInvoice = (transaction) => {
   };
 
   // If transaction has customer NIF, add it to invoice
-  console.log(transaction.customer);
-  if (transaction.customer.tax.number) {
+  if (transaction?.customer?.tax?.number) {
     invoice.client = setInvoiceClient(transaction.customer);
   }
 
@@ -137,16 +156,15 @@ const setInvoiceDiscounts = (discounts) => {
 /* to send digital invoices to the customer if not in test mode. */
 const setInvoiceClient = (customer) => {
   //
-
   console.log(customer);
 
-  const firstName = customer.name && customer.name.first ? customer.name.first : '';
-  const lastName = customer.name && customer.name.last ? customer.name.last : '';
+  const firstName = customer?.name && customer?.name?.first ? customer?.name?.first : '';
+  const lastName = customer?.name && customer?.name?.last ? customer?.name?.last : '';
 
   return {
     name: firstName + ' ' + lastName,
-    country: customer.tax.country,
-    fiscal_id: customer.tax.number,
+    country: customer?.tax?.country,
+    fiscal_id: customer?.tax?.number,
     email: 'joao@chefpoint.pt',
     send_email: 'yes',
     address: '-',

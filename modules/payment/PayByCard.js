@@ -63,14 +63,15 @@ export default function PayByCard() {
 
   const initiatePayment = useCallback(async () => {
     try {
-      await transactionManager.createTransaction(currentOrder.items, currentOrder.customer, currentOrder.discounts, 'card', device.location);
+      console.log(currentOrder.customer);
+      await transactionManager.create(currentOrder.items, currentOrder.customer, currentOrder.discounts, 'card', device);
       overlay.setComponent(<PaymentResult color={'success'} title={currentOrder.totals.total.toFixed(2) + '€'} subtitle={'Multibanco'} />);
       currentOrder.clear();
     } catch (err) {
       console.log(err);
       overlay.setComponent(<PaymentResult color={'danger'} title={'Erro'} subtitle={'Tente novamente'} />);
     }
-  }, [currentOrder, device.location, overlay]);
+  }, [currentOrder, device, overlay]);
 
   useEffect(() => {
     initiatePayment();

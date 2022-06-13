@@ -71,7 +71,7 @@ const DetailsContainer = styled('div', {
   },
 });
 
-const Text = styled('p', {
+const Text = styled('div', {
   fontWeight: '$bold',
   color: '$gray12',
   variants: {

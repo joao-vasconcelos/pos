@@ -1,18 +1,26 @@
 import _ from 'lodash';
 
-async function createTransaction(items, customer, discounts, payment, location) {
+/* * */
+/* TRANSACTION MANAGER */
+/* Explanation needed. */
+/* * */
+
+async function create(items, customer, discounts, payment, device) {
   //
 
-  console.log(customer);
+  // 1. Build the Transaction object
 
+  // 1.1. Some items can be read right away.
   const transaction = {
     timestamp: new Date().toISOString(),
-    location: location,
+    device: device,
     customer: customer,
     items: [],
     discounts: [],
   };
 
+  // 1.1. For items, loop through each one
+  //      and format it according to the model.
   for (const item of items) {
     transaction.items.push({
       product_id: item.product._id,
@@ -30,6 +38,8 @@ async function createTransaction(items, customer, discounts, payment, location) 
     });
   }
 
+  // 1.3. For discounts, also loop through them
+  //      and format each according to the model.
   for (const discount of discounts) {
     transaction.discounts.push({
       title: discount.title,
@@ -38,24 +48,29 @@ async function createTransaction(items, customer, discounts, payment, location) 
     });
   }
 
-  await fetch('/api/transactions/new', {
-    method: 'POST',
-    body: JSON.stringify(transaction),
-  })
-    .then((res) => {
-      if (res.ok) return res.text();
-      throw new Error('Something went wrong.');
-    })
-    .catch((err) => {
-      console.log(err);
-      throw new Error('Something went wrong.');
+  // 2. Now that the Transaction object is built,
+  //    send it to the API for processing and storage.
+  try {
+    const res = await fetch('/api/transactions/new', {
+      method: 'POST',
+      body: JSON.stringify(transaction),
     });
+    const parsedResponse = await res.json();
+    console.log(parsedResponse);
+    if (!res.ok) throw new Error(parsedResponse.message);
+    else return parsedResponse;
+  } catch (err) {
+    console.log('here start');
+    console.log(err);
+    console.log('here end');
+    throw new Error(err);
+  }
 
-  // Send the transaction to the api
+  //
 }
 
 const transactionManager = {
-  createTransaction,
+  create,
 };
 
 export default transactionManager;
