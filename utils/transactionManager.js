@@ -17,6 +17,7 @@ async function create(items, customer, discounts, payment, device) {
     customer: customer,
     items: [],
     discounts: [],
+    payment: payment,
   };
 
   // 1.1. For items, loop through each one

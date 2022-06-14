@@ -39,43 +39,71 @@ export default async function transactions(req, res) {
   // 4. Update stock in Apicbase
   // later...
 
-  // 5. Create an invoice in Vendus
-  try {
-    // 5.1. Format transaction into an invoice
-    const preparedInvoice = prepareInvoice(data);
-    // 5.2. Perform the HTTP request
-    const response = await fetch('https://www.vendus.pt/ws/v1.2/documents', {
-      method: 'POST',
-      body: JSON.stringify(preparedInvoice),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + Buffer.from(process.env.VENDUS_API_KEY).toString('base64'),
-      },
-    });
-    // 5.3. Parse the response into JSON
-    const invoice = await response.json();
-    console.log(invoice);
-    // 5.4. Check status of response
-    if (response.status != 201) throw new Error(invoice.errors[0]?.message); // This is how Vendus API sends errors
-    // 5.5. If response is valid, update request data with new details
-    data.invoice = {
-      id: invoice.id,
-      type: invoice.type,
-      number: invoice.number,
-      date: invoice.date,
-      system_time: invoice.system_time,
-      local_time: invoice.local_time,
-      amount_gross: invoice.amount_gross,
-      amount_net: invoice.amount_net,
-      hash: invoice.hash,
-    };
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: err.message });
-    return;
+  // 5. Define gateways for the next actions
+  let shouldCreateInvoice;
+  let shouldSaveToCheckingAccount;
+
+  // 6. Check payment method specificities
+  switch (data.payment?.method) {
+    case 'card' || 'cash':
+      shouldCreateInvoice = true;
+      shouldSaveToCheckingAccount = false;
+      break;
+
+    case 'account':
+      shouldCreateInvoice = false;
+      shouldSaveToCheckingAccount = true;
+      break;
+
+    default:
+      console.log('Invalid Payment Method. Dumping req.body:');
+      console.log(data);
+      res.status(500).json({ message: 'Invalid payment method.' });
+      return;
   }
 
-  // 6. Try to save a new document with req.body
+  if (shouldCreateInvoice) {
+    // 7. Create an invoice in Vendus
+    try {
+      // 7.1. Format transaction into an invoice
+      const preparedInvoice = prepareInvoice(data);
+      // 7.2. Perform the HTTP request
+      const response = await fetch('https://www.vendus.pt/ws/v1.2/documents', {
+        method: 'POST',
+        body: JSON.stringify(preparedInvoice),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + Buffer.from(process.env.VENDUS_API_KEY).toString('base64'),
+        },
+      });
+      // 7.3. Parse the response into JSON
+      const invoice = await response.json();
+      // 7.4. Check status of response
+      if (response.status != 201) throw new Error(invoice.errors[0]?.message); // This is how Vendus API sends errors
+      // 7.5. If response is valid, update request data with new details
+      data.invoice = {
+        id: invoice.id,
+        type: invoice.type,
+        number: invoice.number,
+        date: invoice.date,
+        system_time: invoice.system_time,
+        local_time: invoice.local_time,
+        amount_gross: invoice.amount_gross,
+        amount_net: invoice.amount_net,
+        hash: invoice.hash,
+      };
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: err.message });
+      return;
+    }
+  }
+
+  if (shouldSaveToCheckingAccount) {
+    // 8. Save to the provided checking account
+  }
+
+  // 9. Try to save a new document with req.body
   try {
     await Transaction(data).save();
   } catch (err) {
@@ -84,7 +112,7 @@ export default async function transactions(req, res) {
     return;
   }
 
-  // 7. If we're here it's because everything worked.
+  // 10. If we're here it's because everything worked.
   res.status(201).json({ message: 'Transaction saved.' });
   return;
 }

@@ -121,7 +121,12 @@ module.exports =
         },
       ],
       payment: {
-        type: String,
+        is_paid: {
+          type: Boolean,
+        },
+        method: {
+          type: String,
+        },
       },
       invoice: {
         id: {

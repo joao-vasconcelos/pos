@@ -2,7 +2,7 @@ import { styled } from '@stitches/react';
 import useSWR from 'swr';
 import Pannel from '../../components/Pannel';
 import Animation from '../../components/Animation';
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useEffect, useCallback, useRef } from 'react';
 import { GlobalContext } from '../../services/context';
 import transactionManager from '../../utils/transactionManager';
 import PaymentResult from './PaymentResult';
@@ -56,6 +56,8 @@ const PaymentMethod = styled('div', {
 export default function PayByCard() {
   //
 
+  const alreadySentTransaction = useRef(false);
+
   const { currentOrder, overlay } = useContext(GlobalContext);
   const { data: device } = useSWR('/api/devices/A73HK2');
 
@@ -63,8 +65,7 @@ export default function PayByCard() {
 
   const initiatePayment = useCallback(async () => {
     try {
-      console.log(currentOrder.customer);
-      await transactionManager.create(currentOrder.items, currentOrder.customer, currentOrder.discounts, 'card', device);
+      await transactionManager.create(currentOrder.items, currentOrder.customer, currentOrder.discounts, { method: 'card' }, device);
       overlay.setComponent(<PaymentResult color={'success'} title={currentOrder.totals.total.toFixed(2) + '€'} subtitle={'Multibanco'} />);
       currentOrder.clear();
     } catch (err) {
@@ -74,7 +75,10 @@ export default function PayByCard() {
   }, [currentOrder, device, overlay]);
 
   useEffect(() => {
-    initiatePayment();
+    if (alreadySentTransaction.current === false) {
+      alreadySentTransaction.current = true;
+      initiatePayment();
+    }
   }, [initiatePayment]);
 
   return (
