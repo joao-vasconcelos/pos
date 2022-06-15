@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { GoX } from 'react-icons/go';
 import { useContext } from 'react';
-import { GlobalContext } from '../services/context';
+import { Appstate } from '../context/Appstate';
 
 /* * */
 /* PANNEL */
@@ -77,10 +77,10 @@ const InnerWrapper = styled('div', {
 export default function Pannel({ title, children }) {
   //
 
-  const { overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
   function handleClose() {
-    overlay.setComponent();
+    appstate.setOverlay();
   }
 
   return (

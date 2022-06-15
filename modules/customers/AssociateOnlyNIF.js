@@ -1,6 +1,7 @@
 import { styled } from '@stitches/react';
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
+import { CurrentOrder } from '../../context/CurrentOrder';
 import Pannel from '../../components/Pannel';
 import TextField from '../../components/TextField';
 import Button from '../../components/Button';
@@ -58,28 +59,29 @@ const NifNumberInput = styled(Input, {
 export default function AssociateOnlyNIF() {
   //
 
-  const { currentOrder, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   const [isValidNifCountry, setIsValidNifCountry] = useState(false);
-  const [nifCountry, setNifCountry] = useState(currentOrder?.customer?.tax?.country || '');
+  const [nifCountry, setNifCountry] = useState(currentOrder.customer?.tax?.country || '');
 
   const [isValidNifNumber, setIsValidNifNumber] = useState(false);
-  const [nifNumber, setNifNumber] = useState(currentOrder?.customer?.tax?.number || '');
+  const [nifNumber, setNifNumber] = useState(currentOrder.customer?.tax?.number || '');
 
   function handleAddNif() {
     currentOrder.setCustomer({
-      onlyNif: true,
+      isOnlyNif: true,
       tax: {
         country: nifCountry || 'PT',
         number: nifNumber,
       },
     });
-    overlay.setComponent();
+    appstate.setOverlay();
   }
 
   function handleRemoveNif() {
     currentOrder.setCustomer();
-    overlay.setComponent();
+    appstate.setOverlay();
   }
 
   function handleNifCountryChange({ target }) {
@@ -93,7 +95,7 @@ export default function AssociateOnlyNIF() {
   function validateNifCountry(target) {
     // Checks
     const length = target.value.length == target.maxLength;
-    const hasChanged = target.value != currentOrder?.customer?.tax?.country;
+    const hasChanged = target.value != currentOrder.customer?.tax?.country;
     // Result
     setIsValidNifCountry(length && hasChanged);
   }
@@ -109,7 +111,7 @@ export default function AssociateOnlyNIF() {
   function validateNifNumber(target) {
     // Checks
     const length = target.value.length == target.maxLength;
-    const hasChanged = target.value != currentOrder?.customer?.tax?.number;
+    const hasChanged = target.value != currentOrder.customer?.tax?.number;
     // Result
     setIsValidNifNumber(length && hasChanged);
   }

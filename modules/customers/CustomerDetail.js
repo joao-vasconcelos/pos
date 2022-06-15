@@ -2,7 +2,8 @@ import useSWR from 'swr';
 import { styled } from '@stitches/react';
 
 import { useContext, useState, useEffect } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
+import { CurrentOrder } from '../../context/CurrentOrder';
 
 import Pannel from '../../components/Pannel';
 import Button from '../../components/Button';
@@ -35,7 +36,8 @@ export default function CustomerDetail({ customer }) {
 
   const { data: customers, mutate } = useSWR('/api/customers/*');
 
-  const { currentOrder, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -60,7 +62,7 @@ export default function CustomerDetail({ customer }) {
 
   function handleAdd() {
     currentOrder.setCustomer(customer);
-    overlay.setComponent();
+    appstate.setOverlay();
   }
 
   function handleEdit() {
@@ -94,8 +96,6 @@ export default function CustomerDetail({ customer }) {
             currentOrder.setCustomer();
             currentOrder.setCustomer(updatedCustomer);
           }
-          console.log(updatedCustomer);
-          console.log(currentOrder.customer);
           const indexOfUpdatedCustomer = customers.findIndex((entries) => entries._id == customer._id);
           customers[indexOfUpdatedCustomer] = updatedCustomer;
           mutate(customers);
@@ -114,7 +114,7 @@ export default function CustomerDetail({ customer }) {
 
   function handleRemove() {
     currentOrder.setCustomer();
-    overlay.setComponent();
+    appstate.setOverlay();
   }
 
   return (

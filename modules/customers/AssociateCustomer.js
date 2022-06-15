@@ -1,7 +1,8 @@
 import useSWR from 'swr';
 import { styled } from '@stitches/react';
 import { useCallback, useEffect, useContext, useState } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
+import { CurrentOrder } from '../../context/CurrentOrder';
 import Button from '../../components/Button';
 import CustomerList from './CustomerList';
 import AssociateOnlyNIF from './AssociateOnlyNIF';
@@ -52,7 +53,8 @@ export default function AssociateCustomer() {
   //
 
   const { data: customers } = useSWR('/api/customers/*');
-  const { overlay, currentOrder } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
   const [cardReader, setCardReader] = useState('');
 
   // Card Reader
@@ -67,7 +69,7 @@ export default function AssociateCustomer() {
         setCardReader(cardReader + event.key);
       }
     },
-    [cardReader, currentOrder, customers]
+    [customers, currentOrder, cardReader]
   );
 
   useEffect(() => {
@@ -78,15 +80,15 @@ export default function AssociateCustomer() {
   // Handlers
 
   function handleAddCustomer() {
-    overlay.setComponent(<CustomerList />);
+    appstate.setOverlay(<CustomerList />);
   }
 
   function handleChangeNIF() {
-    overlay.setComponent(<AssociateOnlyNIF />);
+    appstate.setOverlay(<AssociateOnlyNIF />);
   }
 
   function handleChangeCustomer() {
-    overlay.setComponent(<CustomerDetail customer={currentOrder.customer} />);
+    appstate.setOverlay(<CustomerDetail customer={currentOrder.customer} />);
   }
 
   /* */
@@ -95,7 +97,7 @@ export default function AssociateCustomer() {
   return (
     <Container>
       {currentOrder.customer ? (
-        currentOrder.customer.onlyNif ? (
+        currentOrder.customer.isOnlyNif ? (
           <CustomerButton onClick={handleChangeNIF}>
             <Icon>
               <FaUserTimes />

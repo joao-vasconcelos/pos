@@ -1,7 +1,8 @@
 import styles from './VariationSelector.module.css';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
+import { CurrentOrder } from '../../../context/CurrentOrder';
 
 import Pannel from '../../../components/Pannel';
 import Button from '../../../components/Button';
@@ -10,7 +11,8 @@ import VariationButton from '../variationButton/VariationButton';
 
 export default function VariationSelector({ product, orderItem = null }) {
   //
-  const { currentOrder, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   const [selectedVariation, setSelectedVariation] = useState(orderItem ? orderItem.variation : null);
   const [selectedQuantity, setSelectedQuantity] = useState(orderItem ? orderItem.qty : 1);
@@ -37,18 +39,18 @@ export default function VariationSelector({ product, orderItem = null }) {
   }
 
   function handleAdd() {
-    currentOrder.add(product, selectedVariation, qty);
-    overlay.setComponent();
+    currentOrder.addItem(product, selectedVariation, qty);
+    appstate.setOverlay();
   }
 
   function handleChange() {
-    currentOrder.change(orderItem, selectedVariation, qty);
-    overlay.setComponent();
+    currentOrder.changeItem(orderItem, selectedVariation, qty);
+    appstate.setOverlay();
   }
 
   function handleRemove() {
-    currentOrder.remove(orderItem);
-    overlay.setComponent();
+    currentOrder.removeItem(orderItem);
+    appstate.setOverlay();
   }
 
   return (

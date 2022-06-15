@@ -1,17 +1,15 @@
 import cn from 'classnames';
 import styles from './UserUnlock.module.css';
-import useSWR from 'swr';
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
 
 import Pannel from '../../../components/Pannel';
 import { MdBackspace } from 'react-icons/md';
 
 export default function UserUnlock() {
   //
-  const { data: device } = useSWR('/api/devices/A73HK2');
 
-  const { lockStatus, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
   const [pwdInput, updatePwdInput] = useState([]);
   const [isError, setIsError] = useState();
 
@@ -24,12 +22,12 @@ export default function UserUnlock() {
     pwd.push(target.innerHTML);
     updatePwdInput(pwd);
     if (pwd.length > 3) {
-      const user = _.find(device.users, { pwd: pwd.join('').toString() });
+      const user = _.find(appstate.device.users, { pwd: pwd.join('').toString() });
       if (user) {
-        lockStatus.setCurrentUser(user);
-        overlay.setComponent();
+        appstate.setCurrentUser(user);
+        appstate.setOverlay();
         // setTimeout(() => {
-        //   lockStatus.setCurrentUser();
+        //   appstate.setCurrentUser();
         // }, 300000);
       } else {
         setIsError(true);

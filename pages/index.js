@@ -1,5 +1,7 @@
 import useSWR from 'swr';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useContext } from 'react';
+import { Appstate } from '../context/Appstate';
+import { CurrentOrder } from '../context/CurrentOrder';
 import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
 import Loading from '../components/Loading';
@@ -67,23 +69,26 @@ const InnerCheckoutWrapper = styled('div', {
 export default function PointOfSale() {
   //
 
+  const router = useRouter();
+  const { device_code } = router.query;
+
+  const { data: device } = useSWR('/api/devices/A73HK2'); // Replace later with device_code
+  const { data: customers } = useSWR('/api/customers/*');
+
+  const appstate = useContext(Appstate);
+
   const syncHeight = useCallback(() => {
     document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`);
   }, []);
 
   useEffect(() => {
     syncHeight();
+    appstate.setDevice(device);
     // window.addEventListener('resize', syncHeight);
-  }, [syncHeight]);
+  }, [appstate, device, syncHeight]);
 
   /* */
   /* LOGIC */
-
-  const router = useRouter();
-  const { device_code } = router.query;
-
-  const { data: device } = useSWR('/api/devices/A73HK2'); // Replace later with device_code
-  const { data: customers } = useSWR('/api/customers/*');
 
   /* */
   /* RENDER */

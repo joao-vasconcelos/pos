@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import { GlobalContext } from '../services/context';
+import { CurrentOrder } from '../context/CurrentOrder';
 import { styled } from '@stitches/react';
 import pjson from '../package.json';
 
@@ -20,15 +20,13 @@ const AppVersion = styled('div', {
 export default function Refresh() {
   const router = useRouter();
   const { data: version } = useSWR('/api/version');
-  const { currentOrder } = useContext(GlobalContext);
+  const currentOrder = useContext(CurrentOrder);
 
-  if (version) {
-    if (version.latest != pjson.version) {
-      if (!currentOrder.items.length) {
-        router.reload();
-      }
+  if (!currentOrder.hasItems && !currentOrder.hasCustomer) {
+    if (version && version.latest != pjson.version) {
+      router.reload();
     }
   }
 
-  return <AppVersion>Version {version ? version.latest : 'loading'}</AppVersion>;
+  return <AppVersion>Version {pjson.version}</AppVersion>;
 }

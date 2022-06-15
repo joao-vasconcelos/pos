@@ -13,7 +13,7 @@ module.exports =
   mongoose.model(
     'Device',
     new mongoose.Schema({
-      name: {
+      title: {
         type: String,
         maxlength: 30,
         required: true,
@@ -26,5 +26,7 @@ module.exports =
       location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
       users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
       layout: { type: mongoose.Schema.Types.ObjectId, ref: 'Layout' },
+      discounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Discount' }],
+      checking_accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CheckingAccount' }],
     })
   );

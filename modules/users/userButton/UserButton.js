@@ -2,18 +2,18 @@ import cn from 'classnames';
 import styles from './UserButton.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
 import UserUnlock from '../userUnlock/UserUnlock';
 import { BsFillLockFill, BsFillUnlockFill } from 'react-icons/bs';
 
 export default function UserButton() {
-  const { lockStatus, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
   function handleLockUnlock() {
-    if (lockStatus.currentUser) {
-      lockStatus.setCurrentUser();
+    if (appstate.hasCurrentUser) {
+      appstate.setCurrentUser();
     } else {
-      overlay.setComponent(<UserUnlock />);
+      appstate.setOverlay(<UserUnlock />);
     }
   }
 
@@ -22,14 +22,14 @@ export default function UserButton() {
       <div
         className={cn({
           [styles.button]: true,
-          [styles.locked]: !lockStatus.currentUser,
-          [styles.unlocked]: lockStatus.currentUser,
+          [styles.locked]: !appstate.hasCurrentUser,
+          [styles.unlocked]: appstate.hasCurrentUser,
         })}
       >
-        {lockStatus.currentUser ? (
+        {appstate.hasCurrentUser ? (
           <p className={styles.label}>
             <BsFillUnlockFill />
-            {lockStatus.currentUser.name}
+            {appstate.currentUser.name}
           </p>
         ) : (
           <p className={styles.label}>
@@ -38,7 +38,7 @@ export default function UserButton() {
           </p>
         )}
       </div>
-      {!lockStatus.currentUser ? <div className={styles.lockOverlay}></div> : ''}
+      {!appstate.currentUser ? <div className={styles.lockOverlay}></div> : ''}
     </div>
   );
 }

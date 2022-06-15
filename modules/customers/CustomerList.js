@@ -2,7 +2,8 @@ import useSWR from 'swr';
 import { styled } from '@stitches/react';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
+import { CurrentOrder } from '../../context/CurrentOrder';
 
 import { GoPlus, GoSearch } from 'react-icons/go';
 
@@ -101,7 +102,8 @@ export default function CustomerList() {
   //
   const { data: customers } = useSWR('/api/customers/*');
 
-  const { currentOrder, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
@@ -140,11 +142,11 @@ export default function CustomerList() {
 
   function handleAddCustomer() {
     currentOrder.setCustomer(selectedCustomer);
-    overlay.setComponent();
+    appstate.setOverlay();
   }
 
   function handleAddOnlyNIF() {
-    overlay.setComponent(<AddOnlyNIF />);
+    appstate.setOverlay(<AddOnlyNIF />);
   }
 
   /* */

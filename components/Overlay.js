@@ -1,6 +1,6 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
-import { GlobalContext } from '../services/context';
+import { Appstate } from '../context/Appstate';
 
 /* * */
 /* OVERLAY */
@@ -29,7 +29,7 @@ const Container = styled('div', {
 
 export default function Overlay() {
   //
-  const { overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
-  return overlay.component ? <Container>{overlay.component}</Container> : null;
+  return appstate.hasOverlay ? <Container>{appstate.overlay}</Container> : null;
 }

@@ -2,7 +2,7 @@ import { styled } from '@stitches/react';
 import Pannel from '../../components/Pannel';
 import Button from '../../components/Button';
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
 import ButtonBar from '../../components/ButtonBar';
 
 /* * */
@@ -57,13 +57,13 @@ const Subtitle = styled(Text, {
 export default function PaymentResult({ color, title, subtitle }) {
   //
 
-  const { overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
   useEffect(() => {
     if (color == 'success') {
-      setTimeout(() => overlay.setComponent(), 1000);
+      setTimeout(() => appstate.setOverlay(), 1000);
     }
-  }, [color, overlay]);
+  }, [appstate, color]);
 
   return (
     <Pannel>
@@ -74,7 +74,7 @@ export default function PaymentResult({ color, title, subtitle }) {
       </Container>
       {color == 'danger' && (
         <ButtonBar cols={1}>
-          <Button color={'secondary'} onClick={() => overlay.setComponent()}>
+          <Button color={'secondary'} onClick={() => appstate.setOverlay()}>
             OK
           </Button>
         </ButtonBar>

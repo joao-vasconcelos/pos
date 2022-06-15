@@ -4,14 +4,16 @@ import Button from '../../../components/Button';
 import styles from './OrderTotals.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
+import { CurrentOrder } from '../../../context/CurrentOrder';
 import Payment from '../../payment/Payment';
 
 export default function OrderTotals() {
-  const { currentOrder, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   function handleFinalize() {
-    overlay.setComponent(<Payment />);
+    appstate.setOverlay(<Payment />);
   }
 
   return (
@@ -31,8 +33,8 @@ export default function OrderTotals() {
           <p className={styles.discountsValue}>{currentOrder.totals ? currentOrder.totals.discounts.toFixed(2) : '0.00'}€</p>
         </div>
       </div>
-      <Button disabled={!currentOrder.items.length} onClick={handleFinalize}>
-        {currentOrder.items.length ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
+      <Button disabled={!currentOrder.hasItems} onClick={handleFinalize}>
+        {currentOrder.hasItems ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'No Items Yet'}
       </Button>
     </div>
   );

@@ -1,10 +1,10 @@
 import { styled } from '@stitches/react';
-import useSWR from 'swr';
 import Pannel from '../../components/Pannel';
 import Animation from '../../components/Animation';
-import { useContext, useEffect, useCallback, useRef } from 'react';
-import { GlobalContext } from '../../services/context';
-import transactionManager from '../../utils/transactionManager';
+import { useContext, useEffect, useRef, useCallback } from 'react';
+import { Appstate } from '../../context/Appstate';
+import { CurrentOrder } from '../../context/CurrentOrder';
+import transactionManager from '../../services/transactionManager';
 import PaymentResult from './PaymentResult';
 
 /* * */
@@ -53,39 +53,42 @@ const PaymentMethod = styled('div', {
 /* */
 /* LOGIC */
 
-export default function PayByCard() {
+export default function PaymentStart() {
   //
+
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   const alreadySentTransaction = useRef(false);
 
-  const { currentOrder, overlay } = useContext(GlobalContext);
-  const { data: device } = useSWR('/api/devices/A73HK2');
-
-  // Run on mount component
+  // Run on component mount
+  useEffect(() => {
+    // Check if transaction has been already processed:
+    // To learn more: https://github.com/reactwg/react-18/discussions/18
+    if (!alreadySentTransaction.current) {
+      initiatePayment();
+      alreadySentTransaction.current = true;
+    }
+  }, [initiatePayment]);
 
   const initiatePayment = useCallback(async () => {
     try {
-      await transactionManager.create(currentOrder.items, currentOrder.customer, currentOrder.discounts, { method: 'card' }, device);
-      overlay.setComponent(<PaymentResult color={'success'} title={currentOrder.totals.total.toFixed(2) + '€'} subtitle={'Multibanco'} />);
+      await transactionManager.create(appstate, currentOrder);
+      appstate.setOverlay(
+        <PaymentResult color={'success'} title={currentOrder.totals.total.toFixed(2) + '€'} subtitle={currentOrder.payment.method.label} />
+      );
       currentOrder.clear();
     } catch (err) {
       console.log(err);
-      overlay.setComponent(<PaymentResult color={'danger'} title={'Erro'} subtitle={'Tente novamente'} />);
+      appstate.setOverlay(<PaymentResult color={'danger'} title={'Erro'} subtitle={'Tente novamente'} error={err} />);
     }
-  }, [currentOrder, device, overlay]);
-
-  useEffect(() => {
-    if (alreadySentTransaction.current === false) {
-      alreadySentTransaction.current = true;
-      initiatePayment();
-    }
-  }, [initiatePayment]);
+  }, [appstate, currentOrder]);
 
   return (
     <Pannel>
       <Container>
         <OrderTotal>{currentOrder.totals.total.toFixed(2) + '€'}</OrderTotal>
-        <PaymentMethod>Multibanco</PaymentMethod>
+        <PaymentMethod>{currentOrder.payment.method.label}</PaymentMethod>
         <LoadingWrapper>
           <Animation name={'loading-dots'} />
         </LoadingWrapper>

@@ -4,11 +4,11 @@ import Pannel from '../../components/Pannel';
 import Button from '../../components/Button';
 
 import { useContext, useState } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
+import { CurrentOrder } from '../../context/CurrentOrder';
 import PaymentOption from './PaymentOption';
-import PaidByCash from './methods/cash/PaidByCash';
-import PayByCard from './PayByCard';
-import PaidByAccount from './methods/account/PaidByAccount';
+import PaymentStart from './PaymentStart';
+import SelectCheckingAccount from './SelectCheckingAccount';
 
 import { BsCreditCardFill, BsCashCoin, BsBookmarkCheckFill } from 'react-icons/bs';
 import ButtonBar from '../../components/ButtonBar';
@@ -51,26 +51,23 @@ const PaymentOptionsContainer = styled('div', {
 export default function Payment() {
   //
 
-  const { currentOrder, overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   const [selectedPaymentOption, setSelectedPaymentOption] = useState();
-  const [selectedOption, setSelectedOption] = useState();
 
-  function handleSelect(value) {
-    setSelectedPaymentOption(value);
-    setSelectedOption(value);
+  function handleSelect(method) {
+    setSelectedPaymentOption(method);
   }
 
   function handleInitiatePayment() {
-    switch (selectedPaymentOption) {
-      case 'card':
-        overlay.setComponent(<PayByCard />);
-        break;
-      case 'cash':
-        overlay.setComponent(<PaidByCash />);
+    switch (selectedPaymentOption.value) {
+      case 'card' || 'cash':
+        currentOrder.setPayment({ method: selectedPaymentOption });
+        appstate.setOverlay(<PaymentStart />);
         break;
       case 'checking_account':
-        overlay.setComponent(<PaidByAccount />);
+        appstate.setOverlay(<SelectCheckingAccount />);
         break;
       default:
         break;
@@ -105,7 +102,7 @@ export default function Payment() {
       </PaymentOptionsContainer>
       <ButtonBar cols={1}>
         <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
-          Finalizar Pagamento
+          {selectedPaymentOption?.value == 'checking_account' ? 'Selecionar Conta' : 'Finalizar Pagamento'}
         </Button>
       </ButtonBar>
     </Pannel>

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import database from '../../../services/database';
 import Transaction from '../../../models/Transaction';
 import Device from '../../../models/Device';
+import CheckingAccount from '../../../models/CheckingAccount';
 import moment from 'moment';
 
 export default async function transactions(req, res) {
@@ -28,7 +29,7 @@ export default async function transactions(req, res) {
 
   // 3. Verify validity of Device Code
   try {
-    const foundDevices = await Device.find({ code: data?.device?.code });
+    const foundDevices = await Device.find({ _id: data?.device?.device_id });
     if (!foundDevices.length) throw new Error('No valid devices found.');
   } catch (err) {
     console.log(err);
@@ -44,13 +45,13 @@ export default async function transactions(req, res) {
   let shouldSaveToCheckingAccount;
 
   // 6. Check payment method specificities
-  switch (data.payment?.method) {
+  switch (data.payment?.method.value) {
     case 'card' || 'cash':
       shouldCreateInvoice = true;
       shouldSaveToCheckingAccount = false;
       break;
 
-    case 'account':
+    case 'checking_account':
       shouldCreateInvoice = false;
       shouldSaveToCheckingAccount = true;
       break;

@@ -42,10 +42,14 @@ export default function PaymentOption({ value, icon, label, selectedPaymentOptio
   //
 
   let isThisPaymentOptionSelected = false;
-  if (selectedPaymentOption == value) isThisPaymentOptionSelected = true;
+  if (selectedPaymentOption?.value == value) isThisPaymentOptionSelected = true;
+
+  function handleClick() {
+    onSelect({ value: value, icon: icon, label: label });
+  }
 
   return (
-    <Container color={isThisPaymentOptionSelected ? 'primary' : 'secondary'} onClick={() => onSelect(value)}>
+    <Container color={isThisPaymentOptionSelected ? 'primary' : 'secondary'} onClick={handleClick}>
       <IconWrapper>{icon}</IconWrapper>
       <Label>{label}</Label>
     </Container>

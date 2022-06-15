@@ -3,14 +3,16 @@ import styles from './ProductSlot.module.css';
 import Image from 'next/image';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
+import { CurrentOrder } from '../../../context/CurrentOrder';
 import VariationSelector from '../variationSelector/VariationSelector';
 
 import placeholder from '/public/media/products/placeholder.jpg';
 
 export default function ProductSlot({ product }) {
   //
-  const { overlay, currentOrder } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
+  const currentOrder = useContext(CurrentOrder);
 
   // If no product is present
   if (!product) {
@@ -24,10 +26,10 @@ export default function ProductSlot({ product }) {
   function handleClick() {
     if (product.variations.length == 1) {
       // If product only has 1 variation, add it to the order imediatly
-      currentOrder.add(product, product.variations[0], 1);
+      currentOrder.addItem(product, product.variations[0], 1);
     } else {
       // Else, show the variations screen
-      overlay.setComponent(<VariationSelector product={product} />);
+      appstate.setOverlay(<VariationSelector product={product} />);
     }
   }
 

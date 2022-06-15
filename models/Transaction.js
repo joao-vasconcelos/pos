@@ -17,7 +17,25 @@ module.exports =
         type: String,
         maxlength: 30,
       },
+
+      // Device
+      device: {
+        device_id: {
+          type: String,
+          maxlength: 30,
+        },
+        title: {
+          type: String,
+          maxlength: 30,
+        },
+      },
+
+      // Location
       location: {
+        location_id: {
+          type: String,
+          maxlength: 30,
+        },
         title: {
           type: String,
           maxlength: 30,
@@ -29,6 +47,20 @@ module.exports =
           },
         },
       },
+
+      // Layout
+      layout: {
+        layout_id: {
+          type: String,
+          maxlength: 30,
+        },
+        title: {
+          type: String,
+          maxlength: 30,
+        },
+      },
+
+      // Customer
       customer: {
         customer_id: {
           type: String,
@@ -62,6 +94,8 @@ module.exports =
           },
         },
       },
+
+      // Items
       items: [
         {
           product_id: {
@@ -105,8 +139,14 @@ module.exports =
           },
         },
       ],
+
+      // Discounts
       discounts: [
         {
+          discount_id: {
+            type: String,
+            maxlength: 30,
+          },
           title: {
             type: String,
             maxlength: 30,
@@ -120,16 +160,61 @@ module.exports =
           },
         },
       ],
+
+      // Payment
       payment: {
         is_paid: {
           type: Boolean,
         },
         method: {
+          value: {
+            type: String,
+          },
+          label: {
+            type: String,
+          },
+        },
+        checking_account: {
+          checking_account_id: {
+            type: String,
+          },
+          title: {
+            type: String,
+          },
+          client: {
+            name: {
+              type: String,
+            },
+            tax: {
+              country: {
+                type: String,
+                minlength: 2,
+                maxlength: 2,
+                default: 'PT',
+              },
+              number: {
+                type: String,
+                minlength: 9,
+                maxlength: 9,
+              },
+            },
+          },
+        },
+      },
+
+      // User
+      user: {
+        user_id: {
+          type: String,
+        },
+        name: {
           type: String,
         },
       },
+
+      // Invoice
       invoice: {
-        id: {
+        invoice_id: {
           type: String,
         },
         type: {

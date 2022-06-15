@@ -2,21 +2,23 @@ import cn from 'classnames';
 import styles from './FolderButton.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
 
 export default function FolderButton({ folder }) {
-  const { currentFolder } = useContext(GlobalContext);
+  //
+
+  const appstate = useContext(Appstate);
 
   function handleClick() {
-    currentFolder.setId(folder._id);
+    appstate.setCurrentFolder(folder);
   }
 
   return (
     <div
       className={cn({
         [styles.categoryBtn]: true,
-        [styles.unselected]: folder._id != currentFolder._id,
-        [styles.selected]: folder._id == currentFolder._id,
+        [styles.unselected]: folder._id != appstate.currentFolder?._id,
+        [styles.selected]: folder._id == appstate.currentFolder?._id,
       })}
       onClick={handleClick}
     >

@@ -1,16 +1,16 @@
 import styles from './DiscountCard.module.css';
 
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
 import DiscountInfo from '../discountInfo/DiscountInfo';
 
 export default function DiscountCard({ discount }) {
   //
 
-  const { overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
   function showInfo() {
-    overlay.setComponent(<DiscountInfo discount={discount} />);
+    appstate.setOverlay(<DiscountInfo discount={discount} />);
   }
 
   return (

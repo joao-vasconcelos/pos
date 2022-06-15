@@ -1,6 +1,6 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
-import { GlobalContext } from '../../services/context';
+import { Appstate } from '../../context/Appstate';
 import CustomerDetail from './CustomerDetail';
 import { GoClippy } from 'react-icons/go';
 
@@ -137,13 +137,13 @@ const MoreDetailsIcon = styled('div', {
 export default function CustomersListRow({ customer, onSelect, selectedCustomer }) {
   //
 
-  const { overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
   let isThisCustomerSelected = false;
   if (selectedCustomer && selectedCustomer._id == customer._id) isThisCustomerSelected = true;
 
   function handleView() {
-    overlay.setComponent(<CustomerDetail customer={customer} />);
+    appstate.setOverlay(<CustomerDetail customer={customer} />);
   }
 
   return (

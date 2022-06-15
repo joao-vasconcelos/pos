@@ -1,13 +1,13 @@
 import styles from './OrderItem.module.css';
 import { useContext } from 'react';
-import { GlobalContext } from '../../../services/context';
+import { Appstate } from '../../../context/Appstate';
 import VariationSelector from '../../products/variationSelector/VariationSelector';
 
 export default function OrderItem({ item }) {
-  const { overlay } = useContext(GlobalContext);
+  const appstate = useContext(Appstate);
 
   function handleShow() {
-    overlay.setComponent(<VariationSelector product={item.product} orderItem={item} />);
+    appstate.setOverlay(<VariationSelector product={item.product} orderItem={item} />);
   }
 
   return (
