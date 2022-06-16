@@ -6,7 +6,6 @@ import Refresh from '../components/Refresh.js';
 
 // Styles
 import '../styles/globals.css';
-import '../styles/common/forms.css';
 
 export default function Kiosk({ Component, pageProps }) {
   return (
