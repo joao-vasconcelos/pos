@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
 import { CurrentOrder } from '../../context/CurrentOrder';
-import OrderItem from './orderItem/OrderItem';
+import OrderItem from './OrderItem';
 
 /* * */
 /* ORDER DETAILS */
