@@ -1,7 +1,6 @@
 import useSWR from 'swr';
 import { useCallback, useEffect, useContext } from 'react';
 import { Appstate } from '../context/Appstate';
-import { CurrentOrder } from '../context/CurrentOrder';
 import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
 import Loading from '../components/Loading';
@@ -11,7 +10,7 @@ import ProductGrid from '../modules/products/productGrid/ProductGrid';
 import AssociateCustomer from '../modules/customers/AssociateCustomer';
 import OrderDetails from '../modules/order/orderDetails/OrderDetails';
 import Totals from '../modules/order/orderTotals/OrderTotals';
-import UserLock from '../modules/users/userButton/UserButton';
+import UserButton from '../modules/users/UserButton';
 import Discounts from '../modules/discounts/container/Discounts';
 
 /* * */
@@ -100,7 +99,7 @@ export default function PointOfSale() {
         <ProductGrid />
       </ProductsContainer>
       <CheckoutPannel>
-        <UserLock />
+        <UserButton />
         <AssociateCustomer />
         <InnerCheckoutWrapper>
           <OrderDetails />
