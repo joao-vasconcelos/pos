@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
 import Loading from '../components/Loading';
 import Overlay from '../components/Overlay';
-import FolderGrid from '../modules/folders/folderGrid/FolderGrid';
+import FolderGrid from '../modules/folders/FolderGrid';
 import ProductGrid from '../modules/products/productGrid/ProductGrid';
 import AssociateCustomer from '../modules/customers/AssociateCustomer';
 import OrderDetails from '../modules/order/orderDetails/OrderDetails';
