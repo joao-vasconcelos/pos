@@ -9,7 +9,7 @@ import FolderGrid from '../modules/folders/FolderGrid';
 import ProductGrid from '../modules/products/ProductGrid';
 import AssociateCustomer from '../modules/customers/AssociateCustomer';
 import OrderDetails from '../modules/order/OrderDetails';
-import Totals from '../modules/order/orderTotals/OrderTotals';
+import OrderTotals from '../modules/order/OrderTotals';
 import UserButton from '../modules/users/UserButton';
 import Discounts from '../modules/discounts/container/Discounts';
 
@@ -105,7 +105,7 @@ export default function PointOfSale() {
           <OrderDetails />
           <Discounts />
         </InnerCheckoutWrapper>
-        <Totals />
+        <OrderTotals />
       </CheckoutPannel>
       <Overlay />
     </Container>
