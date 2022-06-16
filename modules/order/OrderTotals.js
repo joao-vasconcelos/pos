@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import Payment from '../payment/Payment';
 
 /* * */
-/* ORDER DETAILS */
+/* ORDER TOTALS */
 /* Explanation needed. */
 /* * */
 
