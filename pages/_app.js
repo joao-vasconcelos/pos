@@ -5,7 +5,7 @@ import BrowserConfig from '../components/BrowserConfig';
 import Refresh from '../components/Refresh.js';
 
 // Styles
-import '../styles/globals.css';
+import '../styles/reset.css';
 
 export default function Kiosk({ Component, pageProps }) {
   return (
