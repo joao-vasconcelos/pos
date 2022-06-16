@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
 import { Appstate } from '../../context/Appstate';
-import ProductSlot from './productSlot/ProductSlot';
+import ProductSlot from './ProductSlot';
 
 /* * */
 /* PRODUCT GRID */
