@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import database from '../../../services/database';
 import Customer from '../../../models/Customer';
 
