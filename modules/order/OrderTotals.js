@@ -96,8 +96,8 @@ export default function OrderTotals() {
           <SubtotalValue active={currentOrder.hasItems}>{currentOrder.totals ? currentOrder.totals.subtotal.toFixed(2) : '0.00'}€</SubtotalValue>
         </Row>
         <Row>
-          <DiscountsLabel active={currentOrder.totals && currentOrder.totals.discounts > 0}>Valor dos Descontos</DiscountsLabel>
-          <DiscountsValue active={currentOrder.totals && currentOrder.totals.discounts > 0}>
+          <DiscountsLabel active={currentOrder.hasDiscounts}>Valor dos Descontos</DiscountsLabel>
+          <DiscountsValue active={currentOrder.hasDiscounts}>
             {currentOrder.totals ? currentOrder.totals.discounts.toFixed(2) : '0.00'}€
           </DiscountsValue>
         </Row>

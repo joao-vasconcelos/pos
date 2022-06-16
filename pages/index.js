@@ -11,7 +11,7 @@ import AssociateCustomer from '../modules/customers/AssociateCustomer';
 import OrderDetails from '../modules/order/OrderDetails';
 import OrderTotals from '../modules/order/OrderTotals';
 import UserButton from '../modules/users/UserButton';
-import Discounts from '../modules/discounts/container/Discounts';
+import Discounts from '../modules/discounts/Discounts';
 
 /* * */
 /* POINT OF SALE */
