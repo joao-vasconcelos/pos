@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import Image from 'next/image';
-import VariationSelector from './variationSelector/VariationSelector';
+import VariationSelector from './VariationSelector';
 
 import placeholder from '/public/media/products/placeholder.jpg';
 

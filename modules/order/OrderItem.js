@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
 import { Appstate } from '../../context/Appstate';
-import VariationSelector from '../products/variationSelector/VariationSelector';
+import VariationSelector from '../products/VariationSelector';
 
 /* * */
 /* ORDER ITEM */
