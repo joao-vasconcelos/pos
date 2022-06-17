@@ -4,6 +4,8 @@ import Location from '../../../models/Location';
 import User from '../../../models/User';
 import Layout from '../../../models/Layout';
 import Product from '../../../models/Product';
+import Discount from '../../../models/Discount';
+import CheckingAccount from '../../../models/CheckingAccount';
 
 export default async function devices(req, res) {
   //
@@ -31,10 +33,9 @@ async function getDeviceWith(code) {
   const foundDevices = await Device.find({ code: code })
     .populate({ path: 'location' })
     .populate({ path: 'users' })
-    .populate({
-      path: 'layout',
-      populate: { path: 'folders.slots.product' },
-    });
+    .populate({ path: 'layout', populate: { path: 'folders.slots.product' } })
+    .populate({ path: 'discounts' })
+    .populate({ path: 'checking_accounts' });
 
   if (foundDevices.length > 0) {
     // If document with code exists
