@@ -45,15 +45,15 @@ export const { styled, getCssText } = createStitches({
       ocean9: '#001969',
 
       // DEFAULT
-      primary1: '$ocean1',
-      primary2: '$ocean2',
-      primary3: '$ocean3',
-      primary4: '$ocean4',
-      primary5: '$ocean5',
-      primary6: '$ocean6',
-      primary7: '$ocean7',
-      primary8: '$ocean8',
-      primary9: '$ocean9',
+      primary1: '$plum1',
+      primary2: '$plum2',
+      primary3: '$plum3',
+      primary4: '$plum4',
+      primary5: '$plum5',
+      primary6: '$plum6',
+      primary7: '$plum7',
+      primary8: '$plum8',
+      primary9: '$plum9',
 
       // ACCENTS
       gray0: '#ffffff',
