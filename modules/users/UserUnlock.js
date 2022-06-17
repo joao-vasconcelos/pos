@@ -1,7 +1,6 @@
 import { styled } from '@stitches/react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Appstate } from '../../context/Appstate';
-
 import Pannel from '../../components/Pannel';
 import { MdBackspace } from 'react-icons/md';
 
@@ -128,6 +127,16 @@ export default function UserUnlock() {
   const [pwdInput, setPwdInput] = useState([]);
   const [isError, setIsError] = useState(false);
 
+  useEffect(() => {
+    // Declare events to track user activity and store time in localStorage
+    document.addEventListener('mousemove', () => {
+      localStorage.setItem('lastActvity', new Date());
+    });
+    document.addEventListener('click', () => {
+      localStorage.setItem('lastActvity', new Date());
+    });
+  });
+
   function handleClick({ target }) {
     let pwd = Array.from(pwdInput);
     if (isError) {
@@ -137,13 +146,10 @@ export default function UserUnlock() {
     pwd.push(target.innerHTML);
     setPwdInput(pwd);
     if (pwd.length > 3) {
-      const user = _.find(appstate.device.users, { pwd: pwd.join('').toString() });
+      const user = appstate.device?.users.find((usr) => usr.pwd == pwd.join('').toString());
       if (user) {
-        appstate.setCurrentUser(user);
+        appstate.loginUser(user);
         appstate.setOverlay();
-        // setTimeout(() => {
-        //   appstate.setCurrentUser();
-        // }, 300000);
       } else {
         setIsError(true);
       }

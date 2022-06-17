@@ -21,6 +21,7 @@ export default function AppstateProvider({ children }) {
   // CURRENT USER
   // The user that is logged in the app at the moment.
   const [currentUser, setCurrentUser] = useState();
+  let userActivityInterval;
 
   // OVERLAY COMPONENT
   // The component that is in display at the moment.
@@ -37,13 +38,41 @@ export default function AppstateProvider({ children }) {
     hasCurrentFolder: !(currentFolder === null || currentFolder === undefined),
 
     currentUser: (() => deviceData?.users.find((user) => user._id === currentUser?._id))(),
-    setCurrentUser: setCurrentUser,
+    loginUser: loginUser,
+    logoutUser: logoutUser,
     hasCurrentUser: !(currentUser === null || currentUser === undefined),
 
     overlay: overlayComponent,
     setOverlay: setOverlayComponent,
     hasOverlay: !(overlayComponent === null || overlayComponent === undefined),
   };
+
+  // SUPPORT FUNCTIONS
+
+  function loginUser(usr) {
+    // Set logged in user
+    setCurrentUser(usr);
+    // Setup the interval to check for user activity
+    userActivityInterval = setInterval(() => {
+      // Check localStorage for the last time user has interacted with the app
+      const lastActivity = localStorage.getItem('lastActvity');
+      // Milliseconds between now & last activity
+      const elapsedMilliseconds = Math.abs(new Date(lastActivity) - new Date());
+      // Get timeout form device settings or default to 30 seconds
+      const inactivityTimeout = deviceData?.settings?.inactivity_timeout || 30000;
+      // If elapsed time is longer than timeout logout user
+      if (elapsedMilliseconds > inactivityTimeout) {
+        logoutUser();
+      }
+      // Check every second for inactivity
+    }, 1000);
+  }
+
+  function logoutUser() {
+    // Clear interval and unset user
+    clearInterval(userActivityInterval);
+    setCurrentUser();
+  }
 
   return <Appstate.Provider value={contextValue}>{children}</Appstate.Provider>;
 }
