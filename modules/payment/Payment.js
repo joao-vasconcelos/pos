@@ -56,17 +56,19 @@ export default function Payment() {
 
   const [selectedPaymentOption, setSelectedPaymentOption] = useState();
 
-  function handleSelect(method) {
-    setSelectedPaymentOption(method);
+  function handleSelect(payment) {
+    setSelectedPaymentOption(payment);
   }
 
   function handleInitiatePayment() {
-    switch (selectedPaymentOption.value) {
-      case 'card' || 'cash':
-        currentOrder.setPayment({ method: selectedPaymentOption });
+    switch (selectedPaymentOption.method_value) {
+      case 'card':
+      case 'cash':
+        currentOrder.setPayment(selectedPaymentOption);
         appstate.setOverlay(<PaymentStart />);
         break;
       case 'checking_account':
+        currentOrder.setPayment(selectedPaymentOption);
         appstate.setOverlay(<SelectCheckingAccount />);
         break;
       default:
@@ -80,22 +82,22 @@ export default function Payment() {
       <PaymentOptionsContainer>
         <PaymentOption
           value={'card'}
-          icon={<BsCreditCardFill />}
           label={'Multibanco'}
+          icon={<BsCreditCardFill />}
           selectedPaymentOption={selectedPaymentOption}
           onSelect={handleSelect}
         />
         <PaymentOption
           value={'cash'}
-          icon={<BsCashCoin />}
           label={'Numerário'}
+          icon={<BsCashCoin />}
           selectedPaymentOption={selectedPaymentOption}
           onSelect={handleSelect}
         />
         <PaymentOption
           value={'checking_account'}
-          icon={<BsBookmarkCheckFill />}
           label={'Conta Corrente'}
+          icon={<BsBookmarkCheckFill />}
           selectedPaymentOption={selectedPaymentOption}
           onSelect={handleSelect}
         />

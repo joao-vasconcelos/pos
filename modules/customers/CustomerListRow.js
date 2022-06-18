@@ -139,22 +139,21 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
 
   const appstate = useContext(Appstate);
 
-  let isThisCustomerSelected = false;
-  if (selectedCustomer && selectedCustomer._id == customer._id) isThisCustomerSelected = true;
+  let isThisCustomerSelected = selectedCustomer?._id == customer._id;
 
   function handleView() {
-    appstate.setOverlay(<CustomerDetail customer={customer} />);
+    appstate.setOverlay(<CustomerDetail customer_id={customer._id} />);
   }
 
   return (
     <RowContainer selected={isThisCustomerSelected}>
       <DetailsContainer selected={isThisCustomerSelected} onClick={() => onSelect(customer)}>
         <CustomerName selected={isThisCustomerSelected}>
-          {customer.name.first} {customer.name.last}
+          {customer.first_name} {customer.last_name}
         </CustomerName>
         <InfoContainer>
-          <CustomerInfo selected={isThisCustomerSelected}>{customer.email ? customer.email : '-'}</CustomerInfo>
-          <CustomerInfo selected={isThisCustomerSelected}>NIF: {customer.tax.number ? customer.tax.number : '-'}</CustomerInfo>
+          <CustomerInfo selected={isThisCustomerSelected}>Email: {customer.email || '-'}</CustomerInfo>
+          <CustomerInfo selected={isThisCustomerSelected}>NIF: {customer.tax_number || '-'}</CustomerInfo>
         </InfoContainer>
       </DetailsContainer>
       <MoreDetailsIcon selected={isThisCustomerSelected} onClick={handleView}>

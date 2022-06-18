@@ -24,41 +24,49 @@ const InputGrid = styled('div', {
   placeItems: 'stretch',
   placeContent: 'stretch',
   gridTemplateColumns: '1fr 1fr',
-  gap: '15px',
-  marginBottom: '15px',
+  gap: '$md',
+  marginBottom: '$md',
+});
+
+const ErrorNotice = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: '$md',
+  borderWidth: '$md',
+  borderStyle: 'solid',
+  padding: '$md',
+  borderRadius: '$md',
+  fontSize: '18px',
+  fontWeight: '$medium',
+  textTransform: 'uppercase',
+  backgroundColor: '$danger5',
+  borderColor: '$danger6',
+  color: '$gray0',
 });
 
 /* */
 /* LOGIC */
 
-export default function CustomerDetail({ customer }) {
+export default function CustomerDetail({ customer_id }) {
   //
-
-  const { data: customers, mutate } = useSWR('/api/customers/*');
 
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
 
-  const [editMode, setEditMode] = useState(false);
+  const { data: customers, mutate } = useSWR('/api/customers/*');
 
-  const [customerFirstName, setCustomerFirstName] = useState('');
-  const [customerLastName, setCustomerLastName] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerTaxCountry, setCustomerTaxCountry] = useState('');
-  const [customerTaxNumber, setCustomerTaxNumber] = useState('');
-  const [customerReference, setCustomerReference] = useState('');
-  const [customerBirthday, setCustomerBirthday] = useState('');
+  const [customer, setCustomer] = useState();
+
+  const [editMode, setEditMode] = useState(customer_id ? false : true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const c = customers.find((entries) => entries._id == customer._id);
-    setCustomerFirstName(c?.name?.first);
-    setCustomerLastName(c?.name?.last);
-    setCustomerEmail(c?.email);
-    setCustomerTaxCountry(c?.tax?.country);
-    setCustomerTaxNumber(c?.tax?.number);
-    setCustomerReference(c?.reference);
-    setCustomerBirthday(c?.birthday);
-  }, [customers, customer._id, editMode]);
+    if (!editMode) {
+      const c = customers.find((entries) => entries._id == (customer_id || customer._id));
+      setCustomer(c);
+    }
+  }, [customer, customer_id, customers, editMode]);
 
   function handleAdd() {
     currentOrder.setCustomer(customer);
@@ -70,42 +78,67 @@ export default function CustomerDetail({ customer }) {
   }
 
   async function handleSave() {
-    // Build the object
-    const updatedCustomer = {
-      ...customer,
-      name: {
-        first: customerFirstName,
-        last: customerLastName,
-      },
-      email: customerEmail,
-      tax: {
-        country: customerTaxCountry,
-        number: customerTaxNumber,
-      },
-      reference: customerReference,
-      birthday: customerBirthday,
-    };
-
-    await fetch('/api/customers/' + customer._id, {
-      method: 'PUT',
-      body: JSON.stringify(updatedCustomer),
-    })
-      .then((res) => {
-        if (res.ok) {
-          if (currentOrder.hasCustomer) {
-            currentOrder.setCustomer();
-            currentOrder.setCustomer(updatedCustomer);
-          }
-          const indexOfUpdatedCustomer = customers.findIndex((entries) => entries._id == customer._id);
-          customers[indexOfUpdatedCustomer] = updatedCustomer;
-          mutate(customers);
-          setEditMode(false);
-        } else throw new Error('Something went wrong but positive.');
-      })
-      .catch((err) => {
+    // Show loading screen and remove error
+    setIsLoading(true);
+    setIsError(false);
+    // Check if the current customer already has an _id
+    // If yes, update it. Otherwise it needs to be created.
+    if (customer._id) {
+      // Try to update the current customer
+      try {
+        // Send the request to the API
+        const response = await fetch('/api/customers/' + customer._id, {
+          method: 'PUT',
+          body: JSON.stringify(customer),
+        });
+        // Parse the response to JSON
+        const parsedResponse = await response.json();
+        // Throw an error if the response is not OK
+        if (!response.ok) throw new Error(parsedResponse.message);
+        // Find the index of the updated customer in the original list...
+        const indexOfUpdatedCustomer = customers.findIndex((entries) => entries._id == customer._id);
+        // ...and replace it with the response from the server...
+        customers[indexOfUpdatedCustomer] = customer;
+        // ...and mutate the SWR list, until the next update.
+        mutate(customers);
+        // Update the orderCustomer if it is set
+        if (currentOrder.hasCustomer) currentOrder.setCustomer(customer);
+        // Revert UI back to view-mode
+        setEditMode(false);
+        setIsLoading(false);
+        //
+      } catch (err) {
         console.log(err);
-        throw new Error('Something went wrong.');
-      });
+        setIsLoading(false);
+        setIsError(true);
+      }
+    } else {
+      // Try to create the current customer
+      try {
+        // Send the request to the API
+        const response = await fetch('/api/customers/new', {
+          method: 'POST',
+          body: JSON.stringify(customer),
+        });
+        // Parse the response to JSON
+        const parsedResponse = await response.json();
+        // Throw an error if the response is not OK
+        if (!response.ok) throw new Error(parsedResponse.message);
+        // Update the current customer with the response from the API
+        setCustomer(parsedResponse);
+        // as well as the original SWR list.
+        customers.push(parsedResponse);
+        mutate(customers);
+        // Revert UI back to view-mode
+        setEditMode(false);
+        setIsLoading(false);
+        //
+      } catch (err) {
+        console.log(err);
+        setIsLoading(false);
+        setIsError(true);
+      }
+    }
   }
 
   function handleCancel() {
@@ -118,15 +151,51 @@ export default function CustomerDetail({ customer }) {
   }
 
   return (
-    <Pannel title={customer.name.first}>
+    <Pannel title={customer?.first_name || 'Untitled'}>
+      {isError && <ErrorNotice>Ocorreu um erro - tente novamente</ErrorNotice>}
       <InputGrid>
-        <CustomerDetailInput label={'Nome'} value={customerFirstName} onChange={setCustomerFirstName} editMode={editMode} />
-        <CustomerDetailInput label={'Apelido'} value={customerLastName} onChange={setCustomerLastName} editMode={editMode} />
-        <CustomerDetailInput label={'Email'} value={customerEmail} onChange={setCustomerEmail} editMode={editMode} />
-        <CustomerDetailInput label={'Região Fiscal'} value={customerTaxCountry} onChange={setCustomerTaxCountry} editMode={editMode} />
-        <CustomerDetailInput label={'NIF'} value={customerTaxNumber} onChange={setCustomerTaxNumber} editMode={editMode} />
-        <CustomerDetailInput label={'Data de Nascimento'} value={customerBirthday} onChange={setCustomerBirthday} editMode={editMode} />
-        <CustomerDetailInput label={'Ref Cartão #'} value={customerReference} onChange={setCustomerReference} editMode={editMode} />
+        <CustomerDetailInput
+          label={'Nome'}
+          value={customer?.first_name}
+          onChange={({ target }) => setCustomer({ ...customer, first_name: target.value })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'Apelido'}
+          value={customer?.last_name}
+          onChange={({ target }) => setCustomer({ ...customer, last_name: target.value })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'Email'}
+          value={customer?.email}
+          onChange={({ target }) => setCustomer({ ...customer, email: target.value })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'Região Fiscal'}
+          value={customer?.tax_country}
+          onChange={({ target }) => setCustomer({ ...customer, tax_country: target.value })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'NIF'}
+          value={customer?.tax_number}
+          onChange={({ target }) => setCustomer({ ...customer, tax_number: target.value })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'Data de Nascimento'}
+          value={customer?.birthday}
+          onChange={({ target }) => setCustomer({ ...customer, birthday: target.value })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'Ref Cartão #'}
+          value={customer?.reference}
+          onChange={({ target }) => setCustomer({ ...customer, reference: target.value })}
+          editMode={editMode}
+        />
       </InputGrid>
       <ButtonBar>
         {editMode ? (

@@ -68,14 +68,10 @@ const EditInput = styled('input', {
 export default function CustomerDetailInput({ label, value = '', onChange, editMode }) {
   //
 
-  function handleChange(e) {
-    onChange(e.target.value);
-  }
-
   return editMode ? (
     <Container mode={'edit'}>
       <Label mode={'edit'}>{label}</Label>
-      <EditInput type='text' value={value} onChange={handleChange} />
+      <EditInput type='text' value={value} onChange={onChange} />
     </Container>
   ) : (
     <Container mode={'read'}>

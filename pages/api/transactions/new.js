@@ -9,22 +9,29 @@ export default async function transactions(req, res) {
 
   // 0. Refuse request if not POST
   if (req.method != 'POST') {
-    res.setHeader('Allow', ['GET', 'PUT']);
-    res.status(405).json({ message: `Method ${req.method} Not Allowed` });
+    await res.setHeader('Allow', ['POST']);
+    await res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     return;
   }
 
   // 1. Try to connect to the database
   try {
-    database.connect();
+    await database.connect();
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: 'Database connection error.' });
+    await res.status(500).json({ message: 'Database connection error.' });
     return;
   }
 
   // 2. Parse request body into JSON
-  const data = JSON.parse(req.body);
+  let data;
+  try {
+    data = JSON.parse(req.body);
+  } catch (err) {
+    console.log(err);
+    await res.status(500).json({ message: 'JSON parse error.' });
+    return;
+  }
 
   // 3. Verify validity of Device Code
   try {
@@ -32,7 +39,7 @@ export default async function transactions(req, res) {
     if (!foundDevices.length) throw new Error('No valid devices found.');
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: err });
+    await res.status(500).json({ message: err });
     return;
   }
 
@@ -44,8 +51,9 @@ export default async function transactions(req, res) {
   let shouldSaveToCheckingAccount;
 
   // 6. Check payment method specificities
-  switch (data.payment?.method.value) {
-    case 'card' || 'cash':
+  switch (data.payment?.method_value) {
+    case 'card':
+    case 'cash':
       shouldCreateInvoice = true;
       shouldSaveToCheckingAccount = false;
       break;
@@ -58,7 +66,7 @@ export default async function transactions(req, res) {
     default:
       console.log('Invalid Payment Method. Dumping req.body:');
       console.log(data);
-      res.status(500).json({ message: 'Invalid payment method.' });
+      await res.status(500).json({ message: 'Invalid payment method.' });
       return;
   }
 
@@ -94,27 +102,29 @@ export default async function transactions(req, res) {
       };
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: err.message });
+      await res.status(500).json({ message: err.message });
       return;
     }
   }
 
   if (shouldSaveToCheckingAccount) {
+    console.log('is checking account');
     // 8. Save to the provided checking account
   }
 
   // 9. Try to save a new document with req.body
+  //    and send the saved transaction back to the client.
   try {
-    await Transaction(data).save();
+    const transaction = await Transaction(data).save();
+    await res.status(201).json(transaction);
+    return;
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: 'Transaction creation error.' });
+    await res.status(500).json({ message: 'Transaction creation error.' });
     return;
   }
 
-  // 10. If we're here it's because everything worked.
-  res.status(201).json({ message: 'Transaction saved.' });
-  return;
+  // FINISH
 }
 
 /* * */
@@ -184,17 +194,11 @@ const setInvoiceDiscounts = (discounts) => {
 /* This includes Fiscal ID, Name and Email, as well as the option */
 /* to send digital invoices to the customer if not in test mode. */
 const setInvoiceClient = (customer) => {
-  //
-  console.log(customer);
-
-  const firstName = customer?.name && customer?.name?.first ? customer?.name?.first : '';
-  const lastName = customer?.name && customer?.name?.last ? customer?.name?.last : '';
-
   return {
-    name: firstName + ' ' + lastName,
-    country: customer?.tax?.country,
-    fiscal_id: customer?.tax?.number,
-    email: 'joao@chefpoint.pt',
+    name: customer?.first_name + ' ' + customer?.last_name,
+    country: customer?.tax_country,
+    fiscal_id: customer?.tax_number,
+    email: customer?.email,
     send_email: 'yes',
     address: '-',
   };

@@ -69,8 +69,9 @@ export default function AppstateProvider({ children }) {
   }
 
   function logoutUser() {
-    // Clear interval and unset user
+    // Clear interval, unset overlay and unset user
     clearInterval(userActivityInterval);
+    setOverlayComponent();
     setCurrentUser();
   }
 

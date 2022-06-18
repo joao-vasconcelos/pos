@@ -88,7 +88,7 @@ export default function AssociateCustomer() {
   }
 
   function handleChangeCustomer() {
-    appstate.setOverlay(<CustomerDetail customer={currentOrder.customer} />);
+    appstate.setOverlay(<CustomerDetail customer_id={currentOrder.customer._id} />);
   }
 
   /* */
@@ -96,20 +96,20 @@ export default function AssociateCustomer() {
 
   return (
     <Container>
-      {currentOrder.customer ? (
+      {currentOrder.hasCustomer ? (
         currentOrder.customer.isOnlyNif ? (
           <CustomerButton onClick={handleChangeNIF}>
             <Icon>
               <FaUserTimes />
             </Icon>
-            <Label>{currentOrder.customer.tax.country + currentOrder.customer.tax.number}</Label>
+            <Label>{currentOrder.customer.tax_country + currentOrder.customer.tax_number}</Label>
           </CustomerButton>
         ) : (
           <CustomerButton onClick={handleChangeCustomer}>
             <Icon>
               <FaUserCheck />
             </Icon>
-            <Label>{currentOrder.customer.name.first + ' ' + currentOrder.customer.name.last}</Label>
+            <Label>{currentOrder.customer.first_name + ' ' + currentOrder.customer.last_name}</Label>
           </CustomerButton>
         )
       ) : (

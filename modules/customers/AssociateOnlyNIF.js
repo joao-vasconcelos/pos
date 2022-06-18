@@ -71,10 +71,8 @@ export default function AssociateOnlyNIF() {
   function handleAddNif() {
     currentOrder.setCustomer({
       isOnlyNif: true,
-      tax: {
-        country: nifCountry || 'PT',
-        number: nifNumber,
-      },
+      tax_country: nifCountry || 'PT',
+      tax_number: nifNumber,
     });
     appstate.setOverlay();
   }
@@ -95,7 +93,7 @@ export default function AssociateOnlyNIF() {
   function validateNifCountry(target) {
     // Checks
     const length = target.value.length == target.maxLength;
-    const hasChanged = target.value != currentOrder.customer?.tax?.country;
+    const hasChanged = target.value != currentOrder.customer?.tax_country;
     // Result
     setIsValidNifCountry(length && hasChanged);
   }
@@ -111,7 +109,7 @@ export default function AssociateOnlyNIF() {
   function validateNifNumber(target) {
     // Checks
     const length = target.value.length == target.maxLength;
-    const hasChanged = target.value != currentOrder.customer?.tax?.number;
+    const hasChanged = target.value != currentOrder.customer?.tax_number;
     // Result
     setIsValidNifNumber(length && hasChanged);
   }
@@ -141,7 +139,7 @@ export default function AssociateOnlyNIF() {
             onChange={handleNifNumberChange}
           />
         </NifInputContainer>
-        {currentOrder.customer ? (
+        {currentOrder.hasCustomer ? (
           <Container>
             <Button onClick={handleAddNif} disabled={!isValidNifCountry && !isValidNifNumber}>
               Atualizar NIF
