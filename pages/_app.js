@@ -15,7 +15,7 @@ export default function Kiosk({ Component, pageProps }) {
           const res = await fetch(...args);
           return res.json();
         },
-        refreshInterval: 1000,
+        refreshInterval: 5000,
       }}
     >
       <AppstateProvider>
