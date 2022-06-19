@@ -55,7 +55,7 @@ export default function AppstateProvider({ children }) {
     // Setup the interval to check for user activity
     userActivityInterval = setInterval(() => {
       // Check localStorage for the last time user has interacted with the app
-      const lastActivity = localStorage.getItem('lastActvity');
+      const lastActivity = localStorage.getItem('user_actvity');
       // Milliseconds between now & last activity
       const elapsedMilliseconds = Math.abs(new Date(lastActivity) - new Date());
       // Get timeout form device settings or default to 30 seconds
@@ -64,8 +64,8 @@ export default function AppstateProvider({ children }) {
       if (elapsedMilliseconds > inactivityTimeout) {
         logoutUser();
       }
-      // Check every second for inactivity
-    }, 1000);
+      // Check for inactivity every 5 seconds
+    }, 5000);
   }
 
   function logoutUser() {

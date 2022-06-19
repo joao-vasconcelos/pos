@@ -129,11 +129,8 @@ export default function UserUnlock() {
 
   useEffect(() => {
     // Declare events to track user activity and store time in localStorage
-    document.addEventListener('mousemove', () => {
-      localStorage.setItem('lastActvity', new Date());
-    });
-    document.addEventListener('click', () => {
-      localStorage.setItem('lastActvity', new Date());
+    document.addEventListener('touchstart', () => {
+      localStorage.setItem('user_actvity', new Date());
     });
   });
 
