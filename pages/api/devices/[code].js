@@ -9,39 +9,38 @@ import CheckingAccount from '../../../models/CheckingAccount';
 
 export default async function devices(req, res) {
   //
-  // Connect to the Database
-  database.connect();
 
-  switch (req.method) {
-    //
-    case 'GET':
-      const getResult = await getDeviceWith(req.query.code);
-      await res.status(getResult.status).json(getResult.data);
-      break;
-    //
-    default:
-      res.setHeader('Allow', ['GET']);
-      res.status(405).end(`Method ${req.method} Not Allowed`);
-      break;
+  // 0. Refuse request if not GET
+  if (req.method != 'GET') {
+    await res.setHeader('Allow', ['GET']);
+    await res.status(405).json({ isError: true, message: `Method ${req.method} Not Allowed` });
+    return;
   }
-}
 
-/* * */
-/* REST: GET */
-async function getDeviceWith(code) {
-  // Fetch documents from the database that match the requested 'code'
-  const foundDevices = await Device.find({ code: code })
-    .populate({ path: 'location' })
-    .populate({ path: 'users' })
-    .populate({ path: 'layout', populate: { path: 'folders.slots.product' } })
-    .populate({ path: 'discounts' })
-    .populate({ path: 'checking_accounts' });
+  // 1. Try to connect to the database
+  try {
+    await database.connect();
+  } catch (err) {
+    console.log(err);
+    await res.status(500).json({ isError: true, message: 'Database connection error.' });
+    return;
+  }
 
-  if (foundDevices.length > 0) {
-    // If document with code exists
-    return { status: 200, data: foundDevices[0] };
-  } else {
-    // If document with code does not exist
-    return { status: 404, data: { message: `Device with code: ${code} not found.` } };
+  // 2. Try to fetch the device from the database
+  try {
+    const foundDevices = await Device.find({ code: req.query.code })
+      .populate({ path: 'location' })
+      .populate({ path: 'users' })
+      .populate({ path: 'layout', populate: { path: 'folders.slots.product' } })
+      .populate({ path: 'discounts' })
+      .populate({ path: 'checking_accounts' });
+    // Return the first found device to the client
+    if (foundDevices.length) await res.status(200).json(foundDevices[0]);
+    else throw new Error('No devices found with the requested code.');
+    //
+  } catch (err) {
+    console.log(err);
+    await res.status(404).json({ isError: true, message: 'Invalid Device Code.' });
+    return;
   }
 }

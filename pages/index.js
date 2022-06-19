@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { useCallback, useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { Appstate } from '../context/Appstate';
 import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
@@ -12,6 +12,7 @@ import OrderDetails from '../modules/order/OrderDetails';
 import OrderTotals from '../modules/order/OrderTotals';
 import UserButton from '../modules/users/UserButton';
 import Discounts from '../modules/discounts/Discounts';
+import ErrorOverlay from '../components/ErrorOverlay';
 
 /* * */
 /* POINT OF SALE */
@@ -70,15 +71,22 @@ export default function PointOfSale() {
   //
 
   const router = useRouter();
-  const { device_code } = router.query;
+  const { device_code = 'invalid_code' } = router.query;
 
   const { data: device } = useSWR('/api/devices/' + device_code);
   const { data: customers } = useSWR('/api/customers/*');
 
   const appstate = useContext(Appstate);
 
+  const [isError, setIsError] = useState();
+
   // Set device data in Appstate
-  useEffect(() => appstate.setDevice(device), [appstate, device]);
+  useEffect(() => {
+    if (device_code && !device?.isError) {
+      setIsError(false);
+      appstate.setDevice(device);
+    } else setIsError(true);
+  }, [appstate, device, device_code]);
 
   // Fix window height on component mount
   useEffect(() => document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`), []);
@@ -87,22 +95,26 @@ export default function PointOfSale() {
   /* RENDER */
 
   return device && customers ? (
-    <Container>
-      <ProductsContainer>
-        <FolderGrid />
-        <ProductGrid />
-      </ProductsContainer>
-      <CheckoutPannel>
-        <UserButton />
-        <AssociateCustomer />
-        <InnerCheckoutWrapper>
-          <OrderDetails />
-          <Discounts />
-        </InnerCheckoutWrapper>
-        <OrderTotals />
-      </CheckoutPannel>
-      <Overlay />
-    </Container>
+    isError ? (
+      <ErrorOverlay />
+    ) : (
+      <Container>
+        <ProductsContainer>
+          <FolderGrid />
+          <ProductGrid />
+        </ProductsContainer>
+        <CheckoutPannel>
+          <UserButton />
+          <AssociateCustomer />
+          <InnerCheckoutWrapper>
+            <OrderDetails />
+            <Discounts />
+          </InnerCheckoutWrapper>
+          <OrderTotals />
+        </CheckoutPannel>
+        <Overlay />
+      </Container>
+    )
   ) : (
     <Loading />
   );

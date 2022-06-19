@@ -14,22 +14,22 @@ export default async function transactions(req, res) {
     return;
   }
 
-  // 1. Try to connect to the database
-  try {
-    await database.connect();
-  } catch (err) {
-    console.log(err);
-    await res.status(500).json({ message: 'Database connection error.' });
-    return;
-  }
-
-  // 2. Parse request body into JSON
+  // 1. Parse request body into JSON
   let data;
   try {
     data = JSON.parse(req.body);
   } catch (err) {
     console.log(err);
     await res.status(500).json({ message: 'JSON parse error.' });
+    return;
+  }
+
+  // 2. Try to connect to the database
+  try {
+    await database.connect();
+  } catch (err) {
+    console.log(err);
+    await res.status(500).json({ message: 'Database connection error.' });
     return;
   }
 

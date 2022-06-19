@@ -22,6 +22,7 @@ module.exports =
         type: String,
         maxlength: 6,
         required: true,
+        unique: true,
       },
       location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
       users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],

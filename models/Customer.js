@@ -24,6 +24,7 @@ module.exports =
       email: {
         type: String,
         maxlength: 50,
+        unique: true,
       },
       tax_country: {
         type: String,
