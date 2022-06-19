@@ -29,7 +29,6 @@ module.exports =
         type: String,
         minlength: 2,
         maxlength: 2,
-        default: 'PT',
       },
       tax_number: {
         type: String,

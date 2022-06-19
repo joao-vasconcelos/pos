@@ -78,8 +78,7 @@ export default function CustomerDetail({ customer_id }) {
   }
 
   async function handleSave() {
-    // Show loading screen and remove error
-    setIsLoading(true);
+    // Remove error from UI
     setIsError(false);
     // Check if the current customer already has an _id
     // If yes, update it. Otherwise it needs to be created.
@@ -102,14 +101,15 @@ export default function CustomerDetail({ customer_id }) {
         // ...and mutate the SWR list, until the next update.
         mutate(customers);
         // Update the orderCustomer if it is set
-        if (currentOrder.hasCustomer) currentOrder.setCustomer(customer);
+        if (currentOrder.hasCustomer) {
+          currentOrder.setCustomer(); // Cycle to force state refresh
+          currentOrder.setCustomer(customer);
+        }
         // Revert UI back to view-mode
         setEditMode(false);
-        setIsLoading(false);
         //
       } catch (err) {
         console.log(err);
-        setIsLoading(false);
         setIsError(true);
       }
     } else {
@@ -131,11 +131,9 @@ export default function CustomerDetail({ customer_id }) {
         mutate(customers);
         // Revert UI back to view-mode
         setEditMode(false);
-        setIsLoading(false);
         //
       } catch (err) {
         console.log(err);
-        setIsLoading(false);
         setIsError(true);
       }
     }

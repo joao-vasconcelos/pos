@@ -109,7 +109,7 @@ export default function AssociateCustomer() {
             <Icon>
               <FaUserCheck />
             </Icon>
-            <Label>{currentOrder.customer.first_name + ' ' + currentOrder.customer.last_name}</Label>
+            <Label>{(currentOrder.customer?.first_name || '') + ' ' + (currentOrder.customer?.last_name || '')}</Label>
           </CustomerButton>
         )
       ) : (

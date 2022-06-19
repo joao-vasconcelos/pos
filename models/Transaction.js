@@ -74,6 +74,10 @@ module.exports =
           type: String,
           maxlength: 30,
         },
+        email: {
+          type: String,
+          maxlength: 30,
+        },
         reference: {
           type: String,
           maxlength: 30,
@@ -82,7 +86,6 @@ module.exports =
           type: String,
           minlength: 2,
           maxlength: 2,
-          default: 'PT',
         },
         tax_number: {
           type: String,
@@ -182,7 +185,6 @@ module.exports =
             type: String,
             minlength: 2,
             maxlength: 2,
-            default: 'PT',
           },
           tax_number: {
             type: String,

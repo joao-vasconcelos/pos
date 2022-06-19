@@ -52,6 +52,7 @@ async function create(appstate, order) {
         customer_id: order.customer._id,
         first_name: order.customer.first_name,
         last_name: order.customer.last_name,
+        email: order.customer.email,
         reference: order.customer.reference,
         tax_country: order.customer.tax_country,
         tax_number: order.customer.tax_number,
@@ -131,13 +132,10 @@ async function create(appstate, order) {
       body: JSON.stringify(transaction),
     });
     const parsedResponse = await res.json();
-    console.log(parsedResponse);
     if (!res.ok) throw new Error(parsedResponse.message);
     else return parsedResponse;
   } catch (err) {
-    console.log('here start');
     console.log(err);
-    console.log('here end');
     throw new Error(err);
   }
 

@@ -90,7 +90,7 @@ export default async function transactions(req, res) {
       if (response.status != 201) throw new Error(invoice.errors[0]?.message); // This is how Vendus API sends errors
       // 7.5. If response is valid, update request data with new details
       data.invoice = {
-        id: invoice.id,
+        invoice_id: invoice.id,
         type: invoice.type,
         number: invoice.number,
         date: invoice.date,
@@ -117,6 +117,7 @@ export default async function transactions(req, res) {
   try {
     const transaction = await Transaction(data).save();
     await res.status(201).json(transaction);
+    console.log('New transaction processed:', transaction);
     return;
   } catch (err) {
     console.log(err);
@@ -149,8 +150,9 @@ const prepareInvoice = (transaction) => {
   };
 
   // If transaction has customer NIF, add it to invoice
-  if (transaction?.customer?.tax?.number) {
+  if (transaction.customer?.tax_number) {
     invoice.client = setInvoiceClient(transaction.customer);
+    console.log(invoice);
   }
 
   return invoice;
@@ -199,7 +201,7 @@ const setInvoiceClient = (customer) => {
     country: customer?.tax_country,
     fiscal_id: customer?.tax_number,
     email: customer?.email,
-    send_email: 'yes',
+    send_email: customer?.email ? 'yes' : 'no',
     address: '-',
   };
 };

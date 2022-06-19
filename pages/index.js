@@ -32,6 +32,7 @@ const Container = styled('div', {
   justifyContent: 'stretch',
   minHeight: 'var(--window-inner-height)',
   width: '100%',
+  height: '100%',
   padding: '$sm',
   backgroundColor: '$gray0',
 });
@@ -76,18 +77,11 @@ export default function PointOfSale() {
 
   const appstate = useContext(Appstate);
 
-  const syncHeight = useCallback(() => {
-    document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`);
-  }, []);
+  // Set device data in Appstate
+  useEffect(() => appstate.setDevice(device), [appstate, device]);
 
-  useEffect(() => {
-    syncHeight();
-    appstate.setDevice(device);
-    // window.addEventListener('resize', syncHeight);
-  }, [appstate, device, syncHeight]);
-
-  /* */
-  /* LOGIC */
+  // Fix window height on component mount
+  useEffect(() => document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`), []);
 
   /* */
   /* RENDER */
