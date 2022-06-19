@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { Appstate } from '../../context/Appstate';
 import UserUnlock from './UserUnlock';
 import { BsFillLockFill, BsFillUnlockFill } from 'react-icons/bs';
+import { GoLock } from 'react-icons/go';
+import Image from 'next/image';
 
 /* * */
 /* USER BUTTON */
@@ -18,9 +20,21 @@ const LockOverlay = styled('div', {
   left: '0',
   width: '100%',
   height: '100%',
-  backgroundColor: '$gray0',
-  opacity: 0.5,
+  backgroundColor: 'rgba(255,255,255,0.95)',
+  // backgroundColor: '$gray0',
   zIndex: 100,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '50px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '$gray7',
+  fontSize: '200px',
+  // opacity: 0.9,
+  '&:active': {
+    color: '$gray9',
+    // backgroundColor: '$primary1',
+  },
 });
 
 const Container = styled('div', {
@@ -84,7 +98,12 @@ export default function UserButton() {
           </>
         )}
       </Container>
-      {!appstate.hasCurrentUser && <LockOverlay onClick={handleLockUnlock} />}
+      {!appstate.hasCurrentUser && (
+        <LockOverlay onClick={handleLockUnlock}>
+          <GoLock />
+          <Image src={'/brand/chefpoint-logo-light.svg'} width={250} height={50} alt={'Chef Point - Leading Food & Beverages Solutions'} />
+        </LockOverlay>
+      )}
     </>
   );
 }

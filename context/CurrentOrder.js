@@ -33,6 +33,7 @@ export default function CurrentOrderProvider({ children }) {
 
     // Current order total
     totals: totals,
+    // total_string: (value) => value.toFixed(2) + '€',
 
     // Current order payment
     payment: payment,
