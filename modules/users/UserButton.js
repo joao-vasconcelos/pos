@@ -21,7 +21,6 @@ const LockOverlay = styled('div', {
   width: '100%',
   height: '100%',
   backgroundColor: 'rgba(255,255,255,0.95)',
-  // backgroundColor: '$gray0',
   zIndex: 100,
   display: 'flex',
   flexDirection: 'column',
@@ -30,10 +29,8 @@ const LockOverlay = styled('div', {
   justifyContent: 'center',
   color: '$gray7',
   fontSize: '200px',
-  // opacity: 0.9,
   '&:active': {
     color: '$gray9',
-    // backgroundColor: '$primary1',
   },
 });
 
