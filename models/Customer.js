@@ -13,32 +13,27 @@ module.exports =
   mongoose.model(
     'Customer',
     new mongoose.Schema({
-      name: {
-        first: {
-          type: String,
-          maxlength: 30,
-        },
-        last: {
-          type: String,
-          maxlength: 30,
-        },
+      first_name: {
+        type: String,
+        maxlength: 30,
+      },
+      last_name: {
+        type: String,
+        maxlength: 30,
       },
       email: {
         type: String,
         maxlength: 50,
       },
-      tax: {
-        country: {
-          type: String,
-          minlength: 2,
-          maxlength: 2,
-          default: 'PT',
-        },
-        number: {
-          type: String,
-          minlength: 9,
-          maxlength: 9,
-        },
+      tax_country: {
+        type: String,
+        minlength: 2,
+        maxlength: 2,
+      },
+      tax_number: {
+        type: String,
+        minlength: 9,
+        maxlength: 9,
       },
       reference: {
         type: String,

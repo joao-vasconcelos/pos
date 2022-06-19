@@ -66,32 +66,31 @@ module.exports =
           type: String,
           maxlength: 30,
         },
-        name: {
-          first: {
-            type: String,
-            maxlength: 30,
-          },
-          last: {
-            type: String,
-            maxlength: 30,
-          },
+        first_name: {
+          type: String,
+          maxlength: 30,
+        },
+        last_name: {
+          type: String,
+          maxlength: 30,
+        },
+        email: {
+          type: String,
+          maxlength: 30,
         },
         reference: {
           type: String,
           maxlength: 30,
         },
-        tax: {
-          country: {
-            type: String,
-            minlength: 2,
-            maxlength: 2,
-            default: 'PT',
-          },
-          number: {
-            type: String,
-            minlength: 9,
-            maxlength: 9,
-          },
+        tax_country: {
+          type: String,
+          minlength: 2,
+          maxlength: 2,
+        },
+        tax_number: {
+          type: String,
+          minlength: 9,
+          maxlength: 9,
         },
       },
 
@@ -166,13 +165,11 @@ module.exports =
         is_paid: {
           type: Boolean,
         },
-        method: {
-          value: {
-            type: String,
-          },
-          label: {
-            type: String,
-          },
+        method_value: {
+          type: String,
+        },
+        method_label: {
+          type: String,
         },
         checking_account: {
           checking_account_id: {
@@ -181,23 +178,18 @@ module.exports =
           title: {
             type: String,
           },
-          client: {
-            name: {
-              type: String,
-            },
-            tax: {
-              country: {
-                type: String,
-                minlength: 2,
-                maxlength: 2,
-                default: 'PT',
-              },
-              number: {
-                type: String,
-                minlength: 9,
-                maxlength: 9,
-              },
-            },
+          client_name: {
+            type: String,
+          },
+          tax_country: {
+            type: String,
+            minlength: 2,
+            maxlength: 2,
+          },
+          tax_number: {
+            type: String,
+            minlength: 9,
+            maxlength: 9,
           },
         },
       },

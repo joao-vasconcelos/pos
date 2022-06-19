@@ -44,23 +44,18 @@ async function create(appstate, order) {
   if (order.hasCustomer) {
     if (order.customer.isOnlyNif) {
       transaction.customer = {
-        tax: {
-          country: order.customer.tax.country,
-          number: order.customer.tax.number,
-        },
+        tax_country: order.customer.tax_country,
+        tax_number: order.customer.tax_number,
       };
     } else {
       transaction.customer = {
         customer_id: order.customer._id,
-        name: {
-          first: order.customer.name.first,
-          last: order.customer.name.last,
-        },
+        first_name: order.customer.first_name,
+        last_name: order.customer.last_name,
+        email: order.customer.email,
         reference: order.customer.reference,
-        tax: {
-          country: order.customer.tax.country,
-          number: order.customer.tax.number,
-        },
+        tax_country: order.customer.tax_country,
+        tax_number: order.customer.tax_number,
       };
     }
   }
@@ -93,35 +88,28 @@ async function create(appstate, order) {
   }
 
   // 1.7. Payment
-  switch (order.payment.method.value) {
+  switch (order.payment.method_value) {
     // Payment › Card or Cash
-    case 'card' || 'cash':
+    case 'card':
+    case 'cash':
       transaction.payment = {
         is_paid: true,
-        method: {
-          value: order.payment.method.value,
-          label: order.payment.method.label,
-        },
+        method_value: order.payment.method_value,
+        method_label: order.payment.method_label,
       };
       break;
     // Payment › Checking Account
     case 'checking_account':
       transaction.payment = {
         is_paid: false,
-        method: {
-          value: order.payment.method.value,
-          label: order.payment.method.label,
-        },
+        method_value: order.payment.method_value,
+        method_label: order.payment.method_label,
         checking_account: {
           checking_account_id: order.payment.checking_account._id,
           title: order.payment.checking_account.title,
-          client: {
-            name: order.payment.checking_account.client.name,
-            tax: {
-              country: order.payment.checking_account.client.tax.country,
-              number: order.payment.checking_account.client.tax.number,
-            },
-          },
+          client_name: order.payment.checking_account.client_name,
+          tax_country: order.payment.checking_account.tax_country,
+          tax_number: order.payment.checking_account.tax_number,
         },
       };
       break;
@@ -139,20 +127,15 @@ async function create(appstate, order) {
   // 2. Now that the Transaction object is built,
   //    send it to the API for processing and storage.
   try {
-    console.log(transaction);
-    // return;
     const res = await fetch('/api/transactions/new', {
       method: 'POST',
       body: JSON.stringify(transaction),
     });
     const parsedResponse = await res.json();
-    console.log(parsedResponse);
     if (!res.ok) throw new Error(parsedResponse.message);
     else return parsedResponse;
   } catch (err) {
-    console.log('here start');
     console.log(err);
-    console.log('here end');
     throw new Error(err);
   }
 

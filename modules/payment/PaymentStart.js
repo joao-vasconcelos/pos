@@ -73,9 +73,13 @@ export default function PaymentStart() {
 
   const initiatePayment = useCallback(async () => {
     try {
-      await transactionManager.create(appstate, currentOrder);
+      const result = await transactionManager.create(appstate, currentOrder);
       appstate.setOverlay(
-        <PaymentResult color={'success'} title={currentOrder.totals.total.toFixed(2) + '€'} subtitle={currentOrder.payment.method.label} />
+        <PaymentResult
+          color={'success'}
+          title={currentOrder.totals.total.toFixed(2) + '€'}
+          subtitle={result.invoice?.number || result.payment?.method_label}
+        />
       );
       currentOrder.clear();
     } catch (err) {
@@ -88,7 +92,7 @@ export default function PaymentStart() {
     <Pannel>
       <Container>
         <OrderTotal>{currentOrder.totals.total.toFixed(2) + '€'}</OrderTotal>
-        <PaymentMethod>{currentOrder.payment.method.label}</PaymentMethod>
+        <PaymentMethod>{currentOrder.payment.method_label}</PaymentMethod>
         <LoadingWrapper>
           <Animation name={'loading-dots'} />
         </LoadingWrapper>

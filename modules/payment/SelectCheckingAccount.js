@@ -109,7 +109,7 @@ const CheckingAccountClient = styled('div', {
 /* */
 /* LOGIC */
 
-export default function SelectCheckingAccount({ method }) {
+export default function SelectCheckingAccount() {
   //
 
   const appstate = useContext(Appstate);
@@ -118,8 +118,10 @@ export default function SelectCheckingAccount({ method }) {
   const [selectedAccount, setSelectedAccount] = useState();
 
   function handleInitiatePayment() {
-    method.checkingAccount = selectedAccount;
-    appstate.setOverlay(<PaymentStart method={method} />);
+    const paymentMethod = currentOrder.payment;
+    paymentMethod.checking_account = selectedAccount;
+    currentOrder.setPayment(paymentMethod);
+    appstate.setOverlay(<PaymentStart />);
   }
 
   return (

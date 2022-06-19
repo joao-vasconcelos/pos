@@ -38,14 +38,13 @@ const Label = styled('div', {
 /* */
 /* LOGIC */
 
-export default function PaymentOption({ value, icon, label, selectedPaymentOption, onSelect }) {
+export default function PaymentOption({ value, label, icon, selectedPaymentOption, onSelect }) {
   //
 
-  let isThisPaymentOptionSelected = false;
-  if (selectedPaymentOption?.value == value) isThisPaymentOptionSelected = true;
+  let isThisPaymentOptionSelected = selectedPaymentOption?.method_value == value;
 
   function handleClick() {
-    onSelect({ value: value, icon: icon, label: label });
+    onSelect({ method_value: value, method_label: label });
   }
 
   return (

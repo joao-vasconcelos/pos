@@ -18,23 +18,19 @@ module.exports =
         maxlength: 30,
         required: true,
       },
-      client: {
-        name: {
-          type: String,
-        },
-        tax: {
-          country: {
-            type: String,
-            minlength: 2,
-            maxlength: 2,
-            default: 'PT',
-          },
-          number: {
-            type: String,
-            minlength: 9,
-            maxlength: 9,
-          },
-        },
+      client_name: {
+        type: String,
+      },
+      tax_country: {
+        type: String,
+        minlength: 2,
+        maxlength: 2,
+        default: 'PT',
+      },
+      tax_number: {
+        type: String,
+        minlength: 9,
+        maxlength: 9,
       },
     })
   );

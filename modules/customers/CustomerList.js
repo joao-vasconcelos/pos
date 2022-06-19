@@ -1,21 +1,21 @@
 import useSWR from 'swr';
 import { styled } from '@stitches/react';
 
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 
 import { GoPlus, GoSearch } from 'react-icons/go';
 
 import Pannel from '../../components/Pannel';
-import Animation from '../../components/Animation';
 import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 import ButtonBar from '../../components/ButtonBar';
-import AddOnlyNIF from './AssociateOnlyNIF';
+import AssociateOnlyNIF from './AssociateOnlyNIF';
 
 import CustomersListRow from './CustomerListRow';
 import Icon from '../../components/Icon';
+import CustomerDetail from './CustomerDetail';
 
 /* * */
 /* CUSTOMER LIST */
@@ -109,27 +109,14 @@ export default function CustomerList() {
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
   const [selectedCustomer, setSelectedCustomer] = useState();
 
-  function handleSelect(clickedCustomer) {
-    if (selectedCustomer && clickedCustomer._id == selectedCustomer._id) {
-      setSelectedCustomer();
-    } else {
-      setSelectedCustomer(clickedCustomer);
-    }
-  }
-
-  const handleSearchQueryChange = ({ target }) => {
-    //
-    const query = target.value.toLowerCase();
-
-    setSearchQuery(query);
-
-    if (query) {
+  useEffect(() => {
+    if (searchQuery) {
       const searchResult = customers.filter((customer) => {
-        const firstName = customer.name.first ? customer.name.first.toLowerCase().includes(query) : false;
-        const lastName = customer.name.last ? customer.name.last.toLowerCase().includes(query) : false;
-        const email = customer.email ? customer.email.toLowerCase().includes(query) : false;
-        const tax_id = customer.tax.number ? customer.tax.number.toString().toLowerCase().includes(query) : false;
-        const reference = customer.reference ? customer.reference.toLowerCase().includes(query) : false;
+        const firstName = customer.first_name?.toLowerCase().includes(searchQuery);
+        const lastName = customer.last_name?.toLowerCase().includes(searchQuery);
+        const email = customer.email?.toLowerCase().includes(searchQuery);
+        const tax_id = customer.tax_number?.toString().toLowerCase().includes(searchQuery);
+        const reference = customer.reference?.toLowerCase().includes(searchQuery);
         // Return true if any field contains query value
         return firstName || lastName || email || tax_id || reference;
       });
@@ -138,15 +125,32 @@ export default function CustomerList() {
     } else {
       setFilteredCustomers(customers);
     }
+  }, [customers, searchQuery]);
+
+  const handleSearchQueryChange = ({ target }) => {
+    const query = target.value.toLowerCase();
+    setSearchQuery(query);
   };
 
-  function handleAddCustomer() {
+  function handleSelect(clickedCustomer) {
+    if (selectedCustomer && clickedCustomer._id == selectedCustomer._id) {
+      setSelectedCustomer();
+    } else {
+      setSelectedCustomer(clickedCustomer);
+    }
+  }
+
+  function handleCreateCustomer() {
+    appstate.setOverlay(<CustomerDetail />);
+  }
+
+  function handleAssociateCustomer() {
     currentOrder.setCustomer(selectedCustomer);
     appstate.setOverlay();
   }
 
-  function handleAddOnlyNIF() {
-    appstate.setOverlay(<AddOnlyNIF />);
+  function handleAssociateOnlyNIF() {
+    appstate.setOverlay(<AssociateOnlyNIF />);
   }
 
   /* */
@@ -167,29 +171,25 @@ export default function CustomerList() {
             onChange={handleSearchQueryChange}
           />
         </SearchBar>
-        <Icon color={'secondary'}>
+        <Icon color={'secondary'} onClick={handleCreateCustomer}>
           <GoPlus />
         </Icon>
       </Toolbar>
       {/*  */}
       <ListContainer>
-        {filteredCustomers ? (
-          filteredCustomers.length ? (
-            filteredCustomers.map((customer) => (
-              <CustomersListRow key={customer._id} customer={customer} onSelect={handleSelect} selectedCustomer={selectedCustomer} />
-            ))
-          ) : (
-            <NoResultsMessage>Nenhum Resultado Encontrado</NoResultsMessage>
-          )
+        {filteredCustomers?.length ? (
+          filteredCustomers.map((customer) => (
+            <CustomersListRow key={customer._id} customer={customer} onSelect={handleSelect} selectedCustomer={selectedCustomer} />
+          ))
         ) : (
-          <Animation name={'loading-dots'} />
+          <NoResultsMessage>Nenhum Resultado Encontrado</NoResultsMessage>
         )}
       </ListContainer>
       <ButtonBar>
-        <Button disabled={!selectedCustomer} onClick={handleAddCustomer}>
+        <Button disabled={!selectedCustomer} onClick={handleAssociateCustomer}>
           Associar Cliente
         </Button>
-        <Button color={'secondary'} onClick={handleAddOnlyNIF}>
+        <Button color={'secondary'} onClick={handleAssociateOnlyNIF}>
           Apenas NIF
         </Button>
       </ButtonBar>
