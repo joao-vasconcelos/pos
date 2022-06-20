@@ -133,7 +133,7 @@ export default function SelectCheckingAccount() {
             appstate.device.checking_accounts.map((account) => (
               <CheckingAccountRow key={account._id} selected={selectedAccount?._id == account._id} onClick={() => setSelectedAccount(account)}>
                 <CheckingAccountTitle>{account.title}</CheckingAccountTitle>
-                <CheckingAccountClient>{account.client?.name}</CheckingAccountClient>
+                <CheckingAccountClient>{account.client_name}</CheckingAccountClient>
               </CheckingAccountRow>
             ))
           ) : (
