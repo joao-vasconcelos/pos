@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { styled } from '@stitches/react';
-import { useCallback, useEffect, useContext, useState } from 'react';
+import { useCallback, useEffect, useContext, useState, useRef } from 'react';
 import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import Button from '../../components/Button';
@@ -55,16 +55,29 @@ export default function AssociateCustomer() {
   const { data: customers } = useSWR('/api/customers/*');
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
-  const [cardReader, setCardReader] = useState('');
+  const [cardReader, setCardReader] = useState();
+  const clearCardReaderTimeout = useRef();
 
   // Card Reader
 
   const handleKeyPress = useCallback(
     (event) => {
+      // Check if a timeout is not already set && if cardReader is not empty, to avoid clearing an already empty variable.
+      if (!clearCardReaderTimeout.current && cardReader) {
+        // The card reader device is very fast at 'typing' the Card ID. But it is not possible to differentiate
+        // between the reader and regular key presses. Due to this, if keys are pressed in another context of the app,
+        // they will be inclued in the card reader variable. For this, a timeout is set to clear the variable
+        // 500 miliseconds after the first keypress.
+        clearCardReaderTimeout.current = setTimeout(() => setCardReader(), 500);
+      }
+      // The card reader 'types' the Card ID as if it was a regular keyboard,
+      // and finishes every read with the 'Enter' key. Pick on this cue to find the matching customer.
+      // Even though every Card ID has 10 digits, I don't know for sure if that is the case within my limited testing.
+      // For this reason, the solution above was chosen instead of slicing the last X characters of the string.
       if (event.key == 'Enter') {
         const matchedCustomer = customers.find((entries) => entries.reference == cardReader);
         if (matchedCustomer) currentOrder.setCustomer(matchedCustomer);
-        setCardReader('');
+        setCardReader();
       } else {
         setCardReader(cardReader + event.key);
       }
@@ -74,7 +87,7 @@ export default function AssociateCustomer() {
 
   useEffect(() => {
     if (!currentOrder.hasCustomer) document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
+    else document.removeEventListener('keydown', handleKeyPress);
   }, [handleKeyPress, currentOrder.hasCustomer]);
 
   // Handlers
