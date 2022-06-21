@@ -63,10 +63,10 @@ export default function AssociateOnlyNIF() {
   const currentOrder = useContext(CurrentOrder);
 
   const [isValidNifCountry, setIsValidNifCountry] = useState(false);
-  const [nifCountry, setNifCountry] = useState(currentOrder.customer?.tax?.country || '');
+  const [nifCountry, setNifCountry] = useState(currentOrder.customer?.tax_country || '');
 
   const [isValidNifNumber, setIsValidNifNumber] = useState(false);
-  const [nifNumber, setNifNumber] = useState(currentOrder.customer?.tax?.number || '');
+  const [nifNumber, setNifNumber] = useState(currentOrder.customer?.tax_number || '');
 
   function handleAddNif() {
     currentOrder.setCustomer({
