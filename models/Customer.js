@@ -39,6 +39,7 @@ module.exports =
       reference: {
         type: String,
         maxlength: 30,
+        unique: true,
       },
       birthday: {
         type: String,
