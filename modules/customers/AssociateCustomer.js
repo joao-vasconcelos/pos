@@ -53,41 +53,54 @@ export default function AssociateCustomer() {
   //
 
   const { data: customers } = useSWR('/api/customers/*');
+
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
-  const [cardReader, setCardReader] = useState();
-  const clearCardReaderTimeout = useRef();
+
+  const hasCardReaderEventListener = useRef(false);
+  const hasCardReaderTimeout = useRef(false);
+  const cardReader = useRef('');
 
   // Card Reader
 
   const handleKeyPress = useCallback(
     (event) => {
-      // Check if a timeout is not already set && if cardReader is not empty, to avoid clearing an already empty variable.
-      if (!clearCardReaderTimeout.current && cardReader) {
-        // The card reader device is very fast at 'typing' the Card ID. But it is not possible to differentiate
-        // between the reader and regular key presses. Due to this, if keys are pressed in another context of the app,
-        // they will be inclued in the card reader variable. For this, a timeout is set to clear the variable
-        // 500 miliseconds after the first keypress.
-        clearCardReaderTimeout.current = setTimeout(() => setCardReader(), 500);
-      }
       // The card reader 'types' the Card ID as if it was a regular keyboard,
       // and finishes every read with the 'Enter' key. Pick on this cue to find the matching customer.
-      // Even though every Card ID has 10 digits, I don't know for sure if that is the case within my limited testing.
-      // For this reason, the solution above was chosen instead of slicing the last X characters of the string.
-      if (event.key == 'Enter') {
-        const matchedCustomer = customers.find((entries) => entries.reference == cardReader);
-        if (matchedCustomer) currentOrder.setCustomer(matchedCustomer);
-        setCardReader();
-      } else {
-        setCardReader(cardReader + event.key);
+      // Even though every Card ID seems to have 10 digits, I don't know for sure if that is the case due to my limited testing abilities.
+      // For this reason, the solution below was chosen instead of slicing the last X characters of the string.
+      if (!currentOrder.hasCustomer) {
+        if (event.key == 'Enter') {
+          const matchedCustomer = customers.find((entries) => entries.reference === cardReader.current); // === is exact match
+          if (matchedCustomer) currentOrder.setCustomer(matchedCustomer);
+          else console.log('Customer Not Found.'); // Use this to display an error in the UI
+          cardReader.current = '';
+        } else {
+          if (!cardReader.current) cardReader.current = '';
+          cardReader.current += event.key;
+          // Check if a timeout is not already set && if cardReader is not empty, to avoid clearing an already empty variable.
+          if (!hasCardReaderTimeout.current && cardReader.current) {
+            // The card reader device is very fast at 'typing' the Card ID. But it is not possible to differentiate
+            // between the reader and regular key presses. Due to this, if keys are pressed in another context of the app,
+            // they will be inclued in the card reader variable. For this, a timeout is set to clear the variable
+            // 100 miliseconds after the first keypress.
+            hasCardReaderTimeout.current = true;
+            setTimeout(() => {
+              cardReader.current = '';
+              hasCardReaderTimeout.current = false;
+            }, 100);
+          }
+        }
       }
     },
     [customers, currentOrder, cardReader]
   );
 
   useEffect(() => {
-    if (!currentOrder.hasCustomer) document.addEventListener('keydown', handleKeyPress);
-    else document.removeEventListener('keydown', handleKeyPress);
+    if (!hasCardReaderEventListener.current) {
+      hasCardReaderEventListener.current = true;
+      document.addEventListener('keydown', handleKeyPress);
+    }
   }, [handleKeyPress, currentOrder.hasCustomer]);
 
   // Handlers
