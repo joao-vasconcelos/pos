@@ -28,5 +28,9 @@ export default function Refresh() {
     }
   }
 
-  return <AppVersion>Version {pjson.version}</AppVersion>;
+  return (
+    <AppVersion>
+      {pjson.name} - {pjson.version}
+    </AppVersion>
+  );
 }
