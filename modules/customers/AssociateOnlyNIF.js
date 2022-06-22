@@ -5,6 +5,7 @@ import { CurrentOrder } from '../../context/CurrentOrder';
 import Pannel from '../../components/Pannel';
 import TextField from '../../components/TextField';
 import Button from '../../components/Button';
+import CustomerDetailInput from './CustomerDetailInput';
 
 /* * */
 /* ASSOCIATE ONLY NIF */
@@ -139,6 +140,7 @@ export default function AssociateOnlyNIF() {
             onChange={handleNifNumberChange}
           />
         </NifInputContainer>
+        {/* <CustomerDetailInput label={'Email'} value={'yushiau'} type={'email'} onChange={({ target }) => console.log(target.value)} editMode={true} /> */}
         {currentOrder.hasCustomer ? (
           <Container>
             <Button onClick={handleAddNif} disabled={!isValidNifCountry && !isValidNifNumber}>

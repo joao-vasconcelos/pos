@@ -65,18 +65,18 @@ const EditInput = styled('input', {
 /* */
 /* LOGIC */
 
-export default function CustomerDetailInput({ label, value = '', onChange, editMode }) {
+export default function CustomerDetailInput({ label, value = '', type = 'text', required = false, onChange, editMode }) {
   //
 
   return editMode ? (
     <Container mode={'edit'}>
       <Label mode={'edit'}>{label}</Label>
-      <EditInput type='text' value={value} onChange={onChange} />
+      <EditInput type={type} value={value} required={required} onChange={onChange} />
     </Container>
   ) : (
     <Container mode={'read'}>
       <Label mode={'read'}>{label}</Label>
-      <ReadValue>{value}</ReadValue>
+      <ReadValue>{value || '-'}</ReadValue>
     </Container>
   );
 }

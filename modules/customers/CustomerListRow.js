@@ -152,7 +152,7 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
           {customer.first_name} {customer.last_name}
         </CustomerName>
         <InfoContainer>
-          <CustomerInfo selected={isThisCustomerSelected}>Email: {customer.email || '-'}</CustomerInfo>
+          <CustomerInfo selected={isThisCustomerSelected}>Email: {customer.contact_email || '-'}</CustomerInfo>
           <CustomerInfo selected={isThisCustomerSelected}>NIF: {customer.tax_number || '-'}</CustomerInfo>
         </InfoContainer>
       </DetailsContainer>

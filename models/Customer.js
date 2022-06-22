@@ -21,11 +21,6 @@ module.exports =
         type: String,
         maxlength: 30,
       },
-      email: {
-        type: String,
-        maxlength: 50,
-        unique: true,
-      },
       tax_country: {
         type: String,
         minlength: 2,
@@ -36,10 +31,17 @@ module.exports =
         minlength: 9,
         maxlength: 9,
       },
+      contact_email: {
+        type: String,
+        maxlength: 50,
+      },
+      send_invoices: {
+        type: Boolean,
+        default: true,
+      },
       reference: {
         type: String,
         maxlength: 30,
-        unique: true,
       },
       birthday: {
         type: String,

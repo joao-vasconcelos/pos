@@ -114,11 +114,11 @@ export default function CustomerList() {
       const searchResult = customers.filter((customer) => {
         const firstName = customer.first_name?.toLowerCase().includes(searchQuery);
         const lastName = customer.last_name?.toLowerCase().includes(searchQuery);
-        const email = customer.email?.toLowerCase().includes(searchQuery);
+        const contact_email = customer.contact_email?.toLowerCase().includes(searchQuery);
         const tax_id = customer.tax_number?.toString().toLowerCase().includes(searchQuery);
         const reference = customer.reference?.toLowerCase().includes(searchQuery);
         // Return true if any field contains query value
-        return firstName || lastName || email || tax_id || reference;
+        return firstName || lastName || contact_email || tax_id || reference;
       });
       setFilteredCustomers(searchResult);
       setSelectedCustomer();

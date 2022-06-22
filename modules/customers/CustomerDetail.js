@@ -59,11 +59,11 @@ export default function CustomerDetail({ customer_id }) {
   const [customer, setCustomer] = useState();
 
   const [editMode, setEditMode] = useState(customer_id ? false : true);
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (!editMode) {
-      const c = customers.find((entries) => entries._id == (customer_id || customer._id));
+      const c = customers.find((entries) => entries._id === (customer_id || customer._id));
       setCustomer(c);
     }
   }, [customer, customer_id, customers, editMode]);
@@ -77,9 +77,28 @@ export default function CustomerDetail({ customer_id }) {
     setEditMode(true);
   }
 
+  function validateInputFields() {
+    // Mandatory 'first_name'
+    if (!customer?.first_name) throw new Error('O primeiro nome é obrigatório');
+    // Validate 'contact_email'
+    if (customer?.contact_email) {
+      const re =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(customer.contact_email)) throw new Error('O email é inválido');
+    }
+  }
+
   async function handleSave() {
     // Remove error from UI
-    setIsError(false);
+    setErrorMessage();
+    // Validate the fields before save
+    try {
+      validateInputFields();
+    } catch (err) {
+      // And display the error message
+      setErrorMessage(err.message);
+      return;
+    }
     // Check if the current customer already has an _id
     // If yes, update it. Otherwise it needs to be created.
     if (customer._id) {
@@ -95,7 +114,7 @@ export default function CustomerDetail({ customer_id }) {
         // Throw an error if the response is not OK
         if (!response.ok) throw new Error(parsedResponse.message);
         // Find the index of the updated customer in the original list...
-        const indexOfUpdatedCustomer = customers.findIndex((entries) => entries._id == customer._id);
+        const indexOfUpdatedCustomer = customers.findIndex((entries) => entries._id === customer._id);
         // ...and replace it with the response from the server...
         customers[indexOfUpdatedCustomer] = customer;
         // ...and mutate the SWR list, until the next update.
@@ -110,7 +129,7 @@ export default function CustomerDetail({ customer_id }) {
         //
       } catch (err) {
         console.log(err);
-        setIsError(true);
+        setErrorMessage('Ocorreu um erro inesperado.');
       }
     } else {
       // Try to create the current customer
@@ -123,6 +142,7 @@ export default function CustomerDetail({ customer_id }) {
         // Parse the response to JSON
         const parsedResponse = await response.json();
         // Throw an error if the response is not OK
+        console.log(parsedResponse);
         if (!response.ok) throw new Error(parsedResponse.message);
         // Update the current customer with the response from the API
         setCustomer(parsedResponse);
@@ -133,8 +153,8 @@ export default function CustomerDetail({ customer_id }) {
         setEditMode(false);
         //
       } catch (err) {
-        console.log(err);
-        setIsError(true);
+        console.log(err.message);
+        setErrorMessage(err.message);
       }
     }
   }
@@ -149,8 +169,8 @@ export default function CustomerDetail({ customer_id }) {
   }
 
   return (
-    <Pannel title={customer?.first_name || 'Untitled'}>
-      {isError && <ErrorNotice>Ocorreu um erro - tente novamente</ErrorNotice>}
+    <Pannel title={customer?.first_name || 'Novo Cliente'}>
+      {errorMessage && <ErrorNotice>{errorMessage}</ErrorNotice>}
       <InputGrid>
         <CustomerDetailInput
           label={'Nome'}
@@ -165,26 +185,42 @@ export default function CustomerDetail({ customer_id }) {
           editMode={editMode}
         />
         <CustomerDetailInput
-          label={'Email'}
-          value={customer?.email}
-          onChange={({ target }) => setCustomer({ ...customer, email: target.value })}
-          editMode={editMode}
-        />
-        <CustomerDetailInput
           label={'Região Fiscal'}
           value={customer?.tax_country}
-          onChange={({ target }) => setCustomer({ ...customer, tax_country: target.value })}
+          onChange={({ target }) =>
+            setCustomer({
+              ...customer,
+              tax_country:
+                target.value
+                  .substring(0, 2)
+                  .toUpperCase()
+                  .match(/^[A-Za-z]+$/) || '', // Only alphabet letters
+            })
+          }
           editMode={editMode}
         />
         <CustomerDetailInput
           label={'NIF'}
           value={customer?.tax_number}
-          onChange={({ target }) => setCustomer({ ...customer, tax_number: target.value })}
+          onChange={({ target }) => setCustomer({ ...customer, tax_number: target.value.substring(0, 9).match(/^[0-9]*$/) || '' /* Only numbers */ })}
+          editMode={editMode}
+        />
+        <CustomerDetailInput
+          label={'Email'}
+          value={customer?.contact_email}
+          type={'email'}
+          onChange={({ target }) =>
+            setCustomer({
+              ...customer,
+              contact_email: target.value.toLowerCase() || '',
+            })
+          }
           editMode={editMode}
         />
         <CustomerDetailInput
           label={'Data de Nascimento'}
           value={customer?.birthday}
+          type={'date'}
           onChange={({ target }) => setCustomer({ ...customer, birthday: target.value })}
           editMode={editMode}
         />

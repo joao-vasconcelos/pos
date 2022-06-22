@@ -132,6 +132,12 @@ export default function UserUnlock() {
     document.addEventListener('touchstart', () => {
       localStorage.setItem('user_actvity', new Date());
     });
+    document.addEventListener('mousedown', () => {
+      localStorage.setItem('user_actvity', new Date());
+    });
+    document.addEventListener('mousemove', () => {
+      localStorage.setItem('user_actvity', new Date());
+    });
   });
 
   function handleClick({ target }) {
