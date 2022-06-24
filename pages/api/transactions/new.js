@@ -2,7 +2,7 @@ import database from '../../../services/database';
 import Transaction from '../../../models/Transaction';
 import Device from '../../../models/Device';
 import CheckingAccount from '../../../models/CheckingAccount';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 export default async function transactions(req, res) {
   //
@@ -140,7 +140,7 @@ const prepareInvoice = (transaction) => {
     // The type of document to emit
     type: 'FT',
     // The date of the transaction
-    date: moment(transaction.timestamp).format('YYYY[-]MM[-]DD'),
+    date: DateTime.fromISO(transaction.timestamp).toFormat('YYYY-MM-DD'),
     // Prepare final invoice items details
     items: setInvoiceItems(transaction.items),
     // Setup invoice discounts
