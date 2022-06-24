@@ -140,7 +140,7 @@ const prepareInvoice = (transaction) => {
     // The type of document to emit
     type: 'FT',
     // The date of the transaction
-    date: DateTime.fromISO(transaction.timestamp).toFormat('YYYY-MM-DD'),
+    date: DateTime.fromISO(transaction.timestamp).toFormat('yyyy-MM-dd'),
     // Prepare final invoice items details
     items: setInvoiceItems(transaction.items),
     // Setup invoice discounts
