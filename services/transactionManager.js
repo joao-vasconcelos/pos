@@ -96,6 +96,7 @@ async function create(appstate, order) {
         is_paid: true,
         method_value: order.payment.method_value,
         method_label: order.payment.method_label,
+        total_amount: order.totals.total.toFixed(2),
       };
       break;
     // Payment › Checking Account

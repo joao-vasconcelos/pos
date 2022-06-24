@@ -171,6 +171,9 @@ module.exports =
         method_label: {
           type: String,
         },
+        total_amount: {
+          type: Number,
+        },
         checking_account: {
           checking_account_id: {
             type: String,
