@@ -152,7 +152,6 @@ const prepareInvoice = (transaction) => {
   // If transaction has customer NIF, add it to invoice
   if (transaction.customer?.tax_number) {
     invoice.client = setInvoiceClient(transaction.customer);
-    console.log(invoice);
   }
 
   return invoice;
