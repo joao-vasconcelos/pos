@@ -187,22 +187,22 @@ export default function CustomerDetail({ customer_id }) {
         <CustomerDetailInput
           label={'Região Fiscal'}
           value={customer?.tax_country}
-          onChange={({ target }) =>
-            setCustomer({
-              ...customer,
-              tax_country:
-                target.value
-                  .substring(0, 2)
-                  .toUpperCase()
-                  .match(/^[A-Za-z]+$/) || '', // Only alphabet letters
-            })
-          }
+          onChange={({ target }) => {
+            const string = target.value
+              .substring(0, 2)
+              .toUpperCase()
+              .match(/^[A-Za-z]+$/); // Only alphabet letters
+            setCustomer({ ...customer, tax_country: string ? string[0] : '' });
+          }}
           editMode={editMode}
         />
         <CustomerDetailInput
           label={'NIF'}
           value={customer?.tax_number}
-          onChange={({ target }) => setCustomer({ ...customer, tax_number: target.value.substring(0, 9).match(/^[0-9]*$/) || '' /* Only numbers */ })}
+          onChange={({ target }) => {
+            const string = target.value.substring(0, 9).match(/^[0-9]*$/); // Only numbers
+            setCustomer({ ...customer, tax_number: string ? string[0] : '' });
+          }}
           editMode={editMode}
         />
         <CustomerDetailInput
