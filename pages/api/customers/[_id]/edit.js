@@ -2,16 +2,16 @@ import database from '../../../services/database';
 import Customer from '../../../models/Customer';
 
 /* * */
-/* CREATE CUSTOMER */
+/* EDIT CUSTOMER */
 /* Explanation needed. */
 /* * */
 
-export default async function createCustomer(req, res) {
+export default async function editCustomer(req, res) {
   //
 
-  // 0. Refuse request if not POST
-  if (req.method != 'POST') {
-    await res.setHeader('Allow', ['POST']);
+  // 0. Refuse request if not PUT
+  if (req.method != 'PUT') {
+    await res.setHeader('Allow', ['PUT']);
     await res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     return;
   }
@@ -43,8 +43,8 @@ export default async function createCustomer(req, res) {
     // that want to share the same NIF, but receive invoices in different emails.
     // This might be expanded in the future, if emails are necessary for account creation.
     if (req.body.reference) {
-      const existsReference = await Customer.exists({ reference: req.body.reference });
-      if (existsReference) throw new Error('Já existe um cliente com a mesma referência');
+      const foundReference = await Customer.findOne({ reference: req.body.reference });
+      if (foundReference._id != req.query._id) throw new Error('Já existe um cliente com a mesma referência');
     }
   } catch (err) {
     console.log(err);
@@ -52,14 +52,16 @@ export default async function createCustomer(req, res) {
     return;
   }
 
-  // 4. Try to save a new document with req.body
+  // 4. Try to update the document with req.body
   try {
-    const newCustomer = await Customer(req.body).save();
-    await res.status(201).json(newCustomer);
+    const editedCustomer = await Customer.findOneAndUpdate({ _id: req.query._id }, req.body, {
+      new: true, // Return the updated document
+    });
+    await res.status(200).json(editedCustomer);
     return;
   } catch (err) {
     console.log(err);
-    await res.status(500).json({ message: 'Customer creation error.' });
+    await res.status(500).json({ message: 'Could not edit Customer.' });
     return;
   }
 }
