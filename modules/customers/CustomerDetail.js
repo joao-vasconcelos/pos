@@ -135,7 +135,7 @@ export default function CustomerDetail({ customer_id }) {
       // Try to create the current customer
       try {
         // Send the request to the API
-        const response = await fetch('/api/customers/new', {
+        const response = await fetch('/api/customers/create', {
           method: 'POST',
           body: JSON.stringify(customer),
         });

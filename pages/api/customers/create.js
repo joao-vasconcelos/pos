@@ -1,7 +1,7 @@
 import database from '../../../services/database';
 import Customer from '../../../models/Customer';
 
-export default async function customers(req, res) {
+export default async function createCustomer(req, res) {
   //
 
   // 0. Refuse request if not POST
