@@ -1,8 +1,8 @@
-import useSWR from 'swr';
 import { useEffect, useContext, useState } from 'react';
 import { Appstate } from '../context/Appstate';
 import { useRouter } from 'next/router';
 import { styled } from '@stitches/react';
+import useSWR from 'swr';
 import Loading from '../components/Loading';
 import Overlay from '../components/Overlay';
 import FolderGrid from '../modules/folders/FolderGrid';
