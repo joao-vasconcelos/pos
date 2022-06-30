@@ -15,9 +15,8 @@ export default async function transactions(req, res) {
   }
 
   // 1. Parse request body into JSON
-  let data;
   try {
-    data = JSON.parse(req.body);
+    req.body = JSON.parse(req.body);
   } catch (err) {
     console.log(err);
     await res.status(500).json({ message: 'JSON parse error.' });
@@ -35,7 +34,7 @@ export default async function transactions(req, res) {
 
   // 3. Verify validity of Device Code
   try {
-    const foundDevices = await Device.find({ _id: data?.device?.device_id });
+    const foundDevices = await Device.find({ _id: req.body?.device?.device_id });
     if (!foundDevices.length) throw new Error('No valid devices found.');
   } catch (err) {
     console.log(err);
@@ -51,7 +50,7 @@ export default async function transactions(req, res) {
   let shouldSaveToCheckingAccount;
 
   // 6. Check payment method specificities
-  switch (data.payment?.method_value) {
+  switch (req.body.payment?.method_value) {
     case 'card':
     case 'cash':
       shouldCreateInvoice = true;
@@ -65,7 +64,7 @@ export default async function transactions(req, res) {
 
     default:
       console.log('Invalid Payment Method. Dumping req.body:');
-      console.log(data);
+      console.log(req.body);
       await res.status(500).json({ message: 'Invalid payment method.' });
       return;
   }
@@ -74,7 +73,7 @@ export default async function transactions(req, res) {
     // 7. Create an invoice in Vendus
     try {
       // 7.1. Format transaction into an invoice
-      const preparedInvoice = prepareInvoice(data);
+      const preparedInvoice = prepareInvoice(req.body);
       // 7.2. Perform the HTTP request
       const response = await fetch('https://www.vendus.pt/ws/v1.2/documents', {
         method: 'POST',
@@ -89,7 +88,7 @@ export default async function transactions(req, res) {
       // 7.4. Check status of response
       if (response.status != 201) throw new Error(invoice.errors[0]?.message); // This is how Vendus API sends errors
       // 7.5. If response is valid, update request data with new details
-      data.invoice = {
+      req.body.invoice = {
         invoice_id: invoice.id,
         type: invoice.type,
         number: invoice.number,
@@ -115,7 +114,7 @@ export default async function transactions(req, res) {
   // 9. Try to save a new document with req.body
   //    and send the saved transaction back to the client.
   try {
-    const transaction = await Transaction(data).save();
+    const transaction = await Transaction(req.body).save();
     await res.status(201).json(transaction);
     console.log('New transaction processed:', transaction);
     return;
