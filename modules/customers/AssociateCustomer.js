@@ -52,7 +52,7 @@ const Label = styled('p', {
 export default function AssociateCustomer() {
   //
 
-  const { data: customers } = useSWR('/api/customers/*');
+  const { data: customers } = useSWR('/api/customers/');
 
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);

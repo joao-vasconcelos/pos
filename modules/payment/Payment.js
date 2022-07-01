@@ -104,7 +104,7 @@ export default function Payment() {
       </PaymentOptionsContainer>
       <ButtonBar cols={1}>
         <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
-          {selectedPaymentOption?.value == 'checking_account' ? 'Selecionar Conta' : 'Finalizar Pagamento'}
+          {selectedPaymentOption?.method_value == 'checking_account' ? 'Selecionar Conta' : 'Finalizar Pagamento'}
         </Button>
       </ButtonBar>
     </Pannel>

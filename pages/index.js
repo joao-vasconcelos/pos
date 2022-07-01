@@ -74,7 +74,7 @@ export default function PointOfSale() {
   const { device_code } = router.query;
 
   const { data: device } = useSWR('/api/devices/' + (device_code || 'invalid_code'));
-  const { data: customers } = useSWR('/api/customers/*');
+  const { data: customers } = useSWR('/api/customers/');
 
   const appstate = useContext(Appstate);
 

@@ -100,7 +100,7 @@ const NoResultsMessage = styled('div', {
 
 export default function CustomerList() {
   //
-  const { data: customers } = useSWR('/api/customers/*');
+  const { data: customers } = useSWR('/api/customers/');
 
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
