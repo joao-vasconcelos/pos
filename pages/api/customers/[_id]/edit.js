@@ -1,5 +1,5 @@
-import database from '../../../services/database';
-import Customer from '../../../models/Customer';
+import database from '../../../../services/database';
+import Customer from '../../../../models/Customer';
 
 /* * */
 /* EDIT CUSTOMER */
