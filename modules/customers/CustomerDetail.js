@@ -54,7 +54,7 @@ export default function CustomerDetail({ customer_id }) {
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
 
-  const { data: customers, mutate } = useSWR('/api/customers/*');
+  const { data: customers, mutate } = useSWR('/api/customers/');
 
   const [customer, setCustomer] = useState();
 
@@ -105,7 +105,7 @@ export default function CustomerDetail({ customer_id }) {
       // Try to update the current customer
       try {
         // Send the request to the API
-        const response = await fetch('/api/customers/' + customer._id, {
+        const response = await fetch(`/api/customers/${customer._id}/edit`, {
           method: 'PUT',
           body: JSON.stringify(customer),
         });
