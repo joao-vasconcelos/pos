@@ -34,11 +34,11 @@ const Row = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginBottom: '3px',
+  marginBottom: '2px',
 });
 
 const ProductTitle = styled('p', {
-  fontSize: '15px',
+  fontSize: '17px',
   color: '$gray12',
   fontWeight: '$medium',
 });
@@ -49,10 +49,16 @@ const RowTotal = styled('p', {
   fontWeight: '$bold',
 });
 
-const VariationInfo = styled('p', {
-  fontSize: '12px',
+const VariationTitle = styled('p', {
+  fontSize: '15px',
   color: '$gray10',
   fontWeight: '$regular',
+});
+
+const QtyPrice = styled('p', {
+  fontSize: '15px',
+  color: '$gray11',
+  fontWeight: '$medium',
 });
 
 /* */
@@ -75,10 +81,10 @@ export default function OrderItem({ item }) {
           <RowTotal>{item.lineTotal.toFixed(2)}€</RowTotal>
         </Row>
         <Row>
-          <VariationInfo>{item.variation.title}</VariationInfo>
-          <VariationInfo>
+          <VariationTitle>{item.variation.title}</VariationTitle>
+          <QtyPrice>
             {item.qty} x {item.variation.price.toFixed(2)}€
-          </VariationInfo>
+          </QtyPrice>
         </Row>
       </InnerWrapper>
     </Container>
