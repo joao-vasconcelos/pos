@@ -72,6 +72,8 @@ export default function UserButton() {
 
   const appstate = useContext(Appstate);
 
+  const environment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? 'DEV' : false;
+
   function handleLockUnlock() {
     if (appstate.hasCurrentUser) {
       appstate.logoutUser();
@@ -99,6 +101,7 @@ export default function UserButton() {
         <LockOverlay onClick={handleLockUnlock}>
           <GoLock />
           <Image src={'/brand/chefpoint-logo-light.svg'} width={250} height={50} alt={'Chef Point - Leading Food & Beverages Solutions'} />
+          {environment && <p>{environment}</p>}
         </LockOverlay>
       )}
     </>
