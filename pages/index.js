@@ -1,8 +1,8 @@
 import { styled } from '@stitches/react';
 
 /* * */
-/* POINT OF SALE */
-/* Explanation needed. */
+/* IS ERROR */
+/* Displays when no 'device_code' is present. */
 /* * */
 
 /* */
@@ -28,6 +28,9 @@ const Subtitle = styled('p', {
   fontWeight: '$medium',
   textTransform: 'uppercase',
 });
+
+/* * */
+/* LOGIC */
 
 export default function IsError() {
   return (

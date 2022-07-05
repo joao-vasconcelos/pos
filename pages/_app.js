@@ -4,8 +4,18 @@ import CurrentOrderProvider from '../context/CurrentOrder';
 import BrowserConfig from '../components/BrowserConfig';
 import Refresh from '../components/Refresh.js';
 
-// Styles
+/* * */
+/* KIOSK */
+/* The app starting point. */
+/* * */
+
+/* * */
+/* STYLES */
+
 import '../styles/reset.css';
+
+/* * */
+/* LOGIC */
 
 export default function Kiosk({ Component, pageProps }) {
   return (
