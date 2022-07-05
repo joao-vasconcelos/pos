@@ -5,33 +5,65 @@ import _ from 'lodash';
 //   return currentOrderItems.splice(indexOfItem, 1);
 // }
 
+/**
+ * Add a product variation object to the provided orderItems array.
+ * @param  {Array}  currentOrderItems The array to be modified
+ * @param  {Object} product The product where the variation to be added belongs
+ * @param  {Object} variation The variation to be added to the array
+ * @return {Array}  The new currentOrderItems array with the new variation
+ */
 function addProductVariationToCurrentOrder(currentOrderItems, product, variation, qty) {
   //
+  // Combine the product and variation into the orderItem format
   const newOrderItem = {
-    product: product,
-    variation: variation,
+    // Product info
+    product_id: product._id,
+    product_title: product.title,
+    // Variation info
+    variation_id: variation._id,
+    variation_title: variation.title,
+    variation_price: variation.price,
+    // Order item info
     qty: qty,
     lineTotal: qty * variation.price,
+    // Might be removed
+    /**/ product: product,
+    /**/ variation: variation,
   };
 
-  const isDuplicate = _.findIndex(currentOrderItems, (item) => {
-    // Check if product and variation exists in the order already
-    if (item.product._id == product._id && item.variation._id == variation._id) return true;
+  // Check if this combination of product and variation already exists in the array
+  const indexOfDuplicateItem = currentOrderItems.findIndex((item) => {
+    // If the product is already present
+    const hasProduct = item.product_id == newOrderItem.product_id;
+    // If the variation is already present
+    const hasVariation = item.variation_id == newOrderItem.variation_id;
+    // If both are present
+    return hasProduct && hasVariation;
   });
 
-  if (isDuplicate < 0) {
-    // If it is not duplicate, then return the updated orderItems arrays
-    return _.concat(currentOrderItems, newOrderItem);
+  // If the product is not a duplicate, then index will be -1
+  if (indexOfDuplicateItem < 0) {
+    // If it is not duplicate, then push the newOrderItem to the array and return it
+    currentOrderItems.push(newOrderItem);
+    return currentOrderItems;
     //
   } else {
-    // If it is duplicate, then only update the quantity and line total for the duplicate line
-    let duplicateOrder = Array.from(currentOrderItems);
-    duplicateOrder[isDuplicate].qty += qty;
-    duplicateOrder[isDuplicate].lineTotal += newOrderItem.lineTotal;
-    return duplicateOrder;
+    // If it is duplicate, then only update the quantity and lineTotal for the duplicate line
+    const copyOfCurrentOrderItems = [...currentOrderItems];
+    copyOfCurrentOrderItems[indexOfDuplicateItem].qty += newOrderItem.qty;
+    copyOfCurrentOrderItems[indexOfDuplicateItem].lineTotal += newOrderItem.lineTotal;
+    return copyOfCurrentOrderItems;
   }
 }
 
+/**
+ * !!!! THIS SHOULD BE REVISED LAST !!!!
+ * Add a product variation object to the provided orderItems array.
+ * @param  {Array}  currentOrderItems The orderItems array to be modified
+ * @param  {Object} product The product where the variation to be added belongs
+ * @param  {Object} variation The variation to be added to the array
+ * @return {Array}  The new orderItems array with the new variation
+ */
 function updateProductVariationOfCurrentOrder(currentOrderItems, orderItemToChange, newVariation, newQty) {
   //
 
@@ -76,10 +108,34 @@ function updateProductVariationOfCurrentOrder(currentOrderItems, orderItemToChan
   return updatedOrder;
 }
 
-function removeItemFromCurrentOrder(currentOrderItems, item) {
-  return _.pull(currentOrderItems, item);
+/**
+ * Remove an item from the currentOrderItems array.
+ * @param  {Array}  currentOrderItems The array to be modified
+ * @param  {Object} orderItem The object to be removed from the array
+ * @return {Array}  The new currentOrderItems array without the item
+ */
+function removeItemFromCurrentOrder(currentOrderItems, orderItem) {
+  // Check if this combination of product and variation already exists in the array
+  const indexOfItemToRemove = currentOrderItems.findIndex((item) => {
+    // If the product is present
+    const hasProduct = item.product_id == orderItem.product_id;
+    // If the variation is present
+    const hasVariation = item.variation_id == orderItem.variation_id;
+    // If both are present
+    return hasProduct && hasVariation;
+  });
+  // Remove at index
+  currentOrderItems.splice(indexOfItemToRemove, 1);
+  // Return updated array
+  return currentOrderItems;
 }
 
+/**
+ * Calculate the totals for the provided currentOrderItems array.
+ * @param  {Array}  currentOrderItems The array of items to be added together
+ * @param  {Array}  orderItem The array of discounts to be subtracted from the total sum
+ * @return {Object} The several components for the order totals
+ */
 function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
   //
   // Subtotal
@@ -133,8 +189,8 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
             //
             // Check if the current variationId matches any of the order items
             const result = _.find(expandedOrderItems, (item) => {
-              console.log('item.variation._id', item.variation._id);
-              console.log('variationId', variationId);
+              // console.log('item.variation._id', item.variation._id);
+              // console.log('variationId', variationId);
               return item.variation._id == variationId;
             });
 
