@@ -114,7 +114,7 @@ export default function VariationSelector({ product, orderItem = null }) {
   }
 
   function handleChange() {
-    currentOrder.changeItem(orderItem, selectedVariation, qty);
+    currentOrder.changeItem(orderItem, product, selectedVariation, qty);
     appstate.setOverlay();
   }
 
