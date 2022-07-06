@@ -1,11 +1,7 @@
 import _ from 'lodash';
 
-// function removeItemFromCurrentOrder(currentOrderItems, item) {
-//   const indexOfItem = currentOrderItems.indexOf(item);
-//   return currentOrderItems.splice(indexOfItem, 1);
-// }
-
 /**
+ * ADD PRODUCT VARIATION TO CURRENT ORDER
  * Add a product variation object to the provided orderItems array.
  * @param  {Array}  currentOrderItems The array to be modified
  * @param  {Object} product The product where the variation to be added belongs
@@ -109,6 +105,7 @@ function updateProductVariationOfCurrentOrder(currentOrderItems, orderItemToChan
 }
 
 /**
+ * REMOVE ITEM FROM CURRENT ORDER
  * Remove an item from the currentOrderItems array.
  * @param  {Array}  currentOrderItems The array to be modified
  * @param  {Object} orderItem The object to be removed from the array
@@ -131,6 +128,7 @@ function removeItemFromCurrentOrder(currentOrderItems, orderItem) {
 }
 
 /**
+ * CALCULATE ORDER TOTALS
  * Calculate the totals for the provided currentOrderItems array.
  * @param  {Array}  currentOrderItems The array of items to be added together
  * @param  {Array}  orderItem The array of discounts to be subtracted from the total sum
@@ -146,9 +144,7 @@ function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
 
   // Check discounts
   let discounts = 0;
-  // console.log(currentOrderDiscounts);
   currentOrderDiscounts.forEach((discount) => {
-    // console.log(discount.amount);
     discounts += discount.amount;
   });
 
@@ -163,9 +159,19 @@ function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
   };
 }
 
-function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
+/**
+ * GET VALID DISCOUNTS FOR CURRENT ORDER
+ * Find out which discounts are valid based on the currentOrderItems array.
+ * @param  {Array} currentOrderItems The array of items
+ * @param  {Array} availableDiscounts The discounts available to this device
+ * @return {Array} The validDiscounts array
+ */
+function getValidDiscountsForCurrentOrder(currentOrderItems, availableDiscounts) {
   //
-
+  // Expand the currentOrderItems array to include each item per element.
+  // For example, if there are two items with the same 'variation_id',
+  // then it will result in an expanded array with two elements, while in the original
+  // currentOrderItems array it was just one element with 'qty' equal to two.
   let expandedOrderItems = [];
   currentOrderItems.forEach((line) => {
     for (let index = 0; index < line.qty; index++) {
@@ -173,56 +179,70 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, discounts) {
     }
   });
 
+  // Define an array to save the valid discounts outside of the loops
   let validDiscounts = [];
 
-  let loop = expandedOrderItems.length + 1;
-
-  while (loop) {
-    discounts.forEach((discount) => {
+  // Iterate through each orderItem to evaluate if there is
+  // any valid discount. Why is it necessary to go through all the items?
+  for (const orderItem of expandedOrderItems) {
+    // Inside each order item, evaluate each available discount
+    availableDiscounts.forEach((discount) => {
+      // If the discount has any rules
       if (discount.rules.length) {
-        //
-        let testResultsForEachANDRule = [];
-
-        discount.rules.forEach((setOfProductVariationsThisOrderMustContain) => {
-          let testResultsForEachORRule = [];
-          setOfProductVariationsThisOrderMustContain.forEach((variationId) => {
-            //
-            // Check if the current variationId matches any of the order items
-            const result = _.find(expandedOrderItems, (item) => {
-              // console.log('item.variation._id', item.variation._id);
-              // console.log('variationId', variationId);
-              return item.variation._id == variationId;
+        // Create a copy of the expandedOrderItems array.
+        // Everytime a variationId match is found, the matching item is deleted
+        // from this copy, so as to not double count the item between discounts.
+        let copyOfExpandedOrderItems = [...expandedOrderItems];
+        // Initiate an array to store the match results of each rule group
+        let matchResultsForEachRuleGroup = [];
+        // Iterate through each rule group
+        for (const ruleGroup of discount.rules) {
+          // Set a flag to save a positive variationId match
+          let hasVariationIdMatch = false;
+          // Iterate through each variationId from this ruleGroup
+          for (const variationId of ruleGroup) {
+            // Check if the current variationId matches
+            // any of the items currently in the order.
+            const indexOfMatchedItem = copyOfExpandedOrderItems.findIndex((item) => {
+              return item.variation_id === variationId;
             });
+            // If there is a match,
+            if (indexOfMatchedItem > -1) {
+              // Set the flag to true
+              hasVariationIdMatch = true;
+              // Remove the matched item from the copy array
+              copyOfExpandedOrderItems.splice(indexOfMatchedItem, 1);
+              // Get out of this loop, because only 1 match is needed
+              // inside each rule group for the discount to take effect.
+              break;
+            }
+          }
+          // Save the result of this rule group to the array.
+          matchResultsForEachRuleGroup.push(hasVariationIdMatch);
+        }
 
-            testResultsForEachORRule.push(result);
-          });
-          testResultsForEachANDRule.push(testResultsForEachORRule);
+        // The discount is only valid if there is at least one variationId match
+        // in each rule group. If every element of the array is true, then the discount
+        // is valid; otherwise there is a product still missing.
+        let isValidDiscount = matchResultsForEachRuleGroup.every((ruleGroupResult) => {
+          // Return true if every element of the array is true. Else return false.
+          return ruleGroupResult;
         });
 
-        // Return true if every element of array is true
-        let discountApplies = testResultsForEachANDRule.every((ANDrule) => {
-          return ANDrule.some((ORrule) => {
-            return ORrule;
-          });
-        });
-
-        if (discountApplies) {
-          testResultsForEachANDRule.forEach((ANDrule) => {
-            // Compact remove all falsy value from the array, so we get only the elements that matched order items
-            // Only remove one of the order elements. If an OR rule has 3 ids, we just want to remove one of them,
-            // even though the 3 might all be present in the order
-            const index = _.indexOf(expandedOrderItems, _.compact(ANDrule)[0]);
-            if (index > -1) expandedOrderItems.splice(index, 1); // 2nd parameter means remove one item only
-          });
+        // If the discount is valid,
+        if (isValidDiscount) {
+          // Set the expandedOrderItems array to be the equal to the copy.
+          // The items consumed in this discount do not become available
+          // to next one because they were deleted from the copy array.
+          expandedOrderItems = copyOfExpandedOrderItems;
+          // Save this discount to the validDiscounts array
+          // so it can be applied to the current order.
           validDiscounts.push(discount);
         }
-        //
       }
     });
-
-    loop--;
   }
-
+  // Return the validDiscounts array to the caller
   return validDiscounts;
 }
 
