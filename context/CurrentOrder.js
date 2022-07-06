@@ -49,8 +49,9 @@ export default function CurrentOrderProvider({ children }) {
       setTotals(updatedOrderTotals);
     },
 
-    changeItem: function (orderItem, variation, qty) {
-      const updatedOrderItems = orderManager.updateProductVariationOfCurrentOrder(items, orderItem, variation, qty);
+    changeItem: function (orderItem, product, variation, qty) {
+      let updatedOrderItems = orderManager.removeItemFromCurrentOrder(items, orderItem);
+      updatedOrderItems = orderManager.addProductVariationToCurrentOrder(updatedOrderItems, product, variation, qty);
       setItems(updatedOrderItems);
       const validDiscounts = orderManager.getValidDiscountsForCurrentOrder(updatedOrderItems, device.discounts);
       setDiscounts(validDiscounts);

@@ -12,27 +12,18 @@ function addProductVariationToCurrentOrder(currentOrderItems, product, variation
   //
   // Combine the product and variation into the orderItem format
   const newOrderItem = {
-    // Product info
-    product_id: product._id,
-    product_title: product.title,
-    // Variation info
-    variation_id: variation._id,
-    variation_title: variation.title,
-    variation_price: variation.price,
-    // Order item info
+    product: product,
+    variation: variation,
     qty: qty,
     lineTotal: qty * variation.price,
-    // Might be removed
-    /**/ product: product,
-    /**/ variation: variation,
   };
 
   // Check if this combination of product and variation already exists in the array
   const indexOfDuplicateItem = currentOrderItems.findIndex((item) => {
     // If the product is already present
-    const hasProduct = item.product_id == newOrderItem.product_id;
+    const hasProduct = item.product._id == newOrderItem.product._id;
     // If the variation is already present
-    const hasVariation = item.variation_id == newOrderItem.variation_id;
+    const hasVariation = item.variation._id == newOrderItem.variation._id;
     // If both are present
     return hasProduct && hasVariation;
   });
@@ -53,58 +44,6 @@ function addProductVariationToCurrentOrder(currentOrderItems, product, variation
 }
 
 /**
- * !!!! THIS SHOULD BE REVISED LAST !!!!
- * Add a product variation object to the provided orderItems array.
- * @param  {Array}  currentOrderItems The orderItems array to be modified
- * @param  {Object} product The product where the variation to be added belongs
- * @param  {Object} variation The variation to be added to the array
- * @return {Array}  The new orderItems array with the new variation
- */
-function updateProductVariationOfCurrentOrder(currentOrderItems, orderItemToChange, newVariation, newQty) {
-  //
-
-  const orderItemInArray = _.findIndex(currentOrderItems, (item) => {
-    // Check if product and variation exists in the order already
-    if (item.product._id == orderItemToChange.product._id && item.variation._id == orderItemToChange.variation._id) return true;
-  });
-
-  let updatedOrder = Array.from(currentOrderItems);
-  updatedOrder[orderItemInArray].variation = newVariation;
-  updatedOrder[orderItemInArray].qty = newQty;
-  updatedOrder[orderItemInArray].lineTotal = newQty * newVariation.price;
-
-  // AFTER CHANGING THE VARIATION OF A PRODUCT, IT MIGHT BE DUPLICATED IN THE ORDER ALREADY.
-  // THIS FUNCTION IS TO COMBINE BOTH ORDER ITEMS INTO JUST ONE (SUM OF QUANTITY AND LINE TOTAL)
-  // const duplicateItemInCurrentOrder = _.filter(
-  //   _.uniq(
-  //     _.map(currentOrderItems, function (item) {
-  //       if (
-  //         _.filter(currentOrderItems, (item) => {
-  //           // Check if product and variation exists in the order already
-  //           if (item.product._id == orderItemToChange.product._id && item.variation._id == orderItemToChange.variation._id) return true;
-  //         }).length > 1
-  //       ) {
-  //         return item;
-  //       }
-
-  //       return false;
-  //     })
-  //   ),
-  //   function (value) {
-  //     return value;
-  //   }
-  // );
-
-  // console.log(duplicateItemInCurrentOrder);
-
-  // if (duplicateItemInCurrentOrder.length) {
-  //   duplicateItemInCurrentOrder.forEach((duplicate) => {});
-  // }
-
-  return updatedOrder;
-}
-
-/**
  * REMOVE ITEM FROM CURRENT ORDER
  * Remove an item from the currentOrderItems array.
  * @param  {Array}  currentOrderItems The array to be modified
@@ -115,9 +54,9 @@ function removeItemFromCurrentOrder(currentOrderItems, orderItem) {
   // Check if this combination of product and variation already exists in the array
   const indexOfItemToRemove = currentOrderItems.findIndex((item) => {
     // If the product is present
-    const hasProduct = item.product_id == orderItem.product_id;
+    const hasProduct = item.product._id == orderItem.product._id;
     // If the variation is present
-    const hasVariation = item.variation_id == orderItem.variation_id;
+    const hasVariation = item.variation._id == orderItem.variation._id;
     // If both are present
     return hasProduct && hasVariation;
   });
@@ -138,8 +77,8 @@ function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
   //
   // Subtotal
   let subtotal = 0;
-  currentOrderItems.forEach((line) => {
-    subtotal += line.lineTotal;
+  currentOrderItems.forEach((item) => {
+    subtotal += item.lineTotal;
   });
 
   // Check discounts
@@ -169,7 +108,7 @@ function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
 function getValidDiscountsForCurrentOrder(currentOrderItems, availableDiscounts) {
   //
   // Expand the currentOrderItems array to include each item per element.
-  // For example, if there are two items with the same 'variation_id',
+  // For example, if there are two items with the same 'variation._id',
   // then it will result in an expanded array with two elements, while in the original
   // currentOrderItems array it was just one element with 'qty' equal to two.
   let expandedOrderItems = [];
@@ -204,7 +143,7 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, availableDiscounts)
             // Check if the current variationId matches
             // any of the items currently in the order.
             const indexOfMatchedItem = copyOfExpandedOrderItems.findIndex((item) => {
-              return item.variation_id === variationId;
+              return item.variation._id === variationId;
             });
             // If there is a match,
             if (indexOfMatchedItem > -1) {
@@ -231,9 +170,9 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, availableDiscounts)
 
         // If the discount is valid,
         if (isValidDiscount) {
-          // Set the expandedOrderItems array to be the equal to the copy.
+          // Set the expandedOrderItems array to be equal to the copy array.
           // The items consumed in this discount do not become available
-          // to next one because they were deleted from the copy array.
+          // to the next one because they were deleted from the copy array.
           expandedOrderItems = copyOfExpandedOrderItems;
           // Save this discount to the validDiscounts array
           // so it can be applied to the current order.
@@ -248,7 +187,6 @@ function getValidDiscountsForCurrentOrder(currentOrderItems, availableDiscounts)
 
 const orderManager = {
   addProductVariationToCurrentOrder,
-  updateProductVariationOfCurrentOrder,
   removeItemFromCurrentOrder,
   calculateOrderTotals,
   getValidDiscountsForCurrentOrder,
