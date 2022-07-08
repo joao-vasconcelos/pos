@@ -149,7 +149,7 @@ export default function UserUnlock() {
     pwd.push(target.innerHTML);
     setPwdInput(pwd);
     if (pwd.length > 3) {
-      const user = appstate.device?.users.find((usr) => usr.pwd == pwd.join('').toString());
+      const user = appstate.device?.users.find((usr) => String(usr.pwd) == pwd.join('').toString());
       if (user) {
         appstate.loginUser(user);
         appstate.setOverlay();
