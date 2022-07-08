@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /**
  * ADD PRODUCT VARIATION TO CURRENT ORDER
  * Add a product variation object to the provided orderItems array.
