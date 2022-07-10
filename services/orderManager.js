@@ -68,24 +68,24 @@ function removeItemFromCurrentOrder(currentOrderItems, orderItem) {
  * CALCULATE ORDER TOTALS
  * Calculate the totals for the provided currentOrderItems array.
  * @param  {Array}  currentOrderItems The array of items to be added together
- * @param  {Array}  orderItem The array of discounts to be subtracted from the total sum
+ * @param  {Array}  currentOrderDiscounts The array of discounts to be subtracted from the total sum
  * @return {Object} The several components for the order totals
  */
 function calculateOrderTotals(currentOrderItems, currentOrderDiscounts) {
   //
-  // Subtotal
+  // Calculate Subtotal Amount
   let subtotal = 0;
   currentOrderItems.forEach((item) => {
     subtotal += item.lineTotal;
   });
 
-  // Check discounts
+  // Calculate Discounts Amount
   let discounts = 0;
   currentOrderDiscounts.forEach((discount) => {
     discounts += discount.amount;
   });
 
-  // Calculate Final Amount
+  // Calculate Total Amount
   let total = subtotal - discounts;
   if (total < 0) total = 0;
 
