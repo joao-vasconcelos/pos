@@ -13,14 +13,17 @@ module.exports =
   mongoose.model(
     'Transaction',
     new mongoose.Schema({
+      //
+      // GENERAL
       timestamp: {
         type: String,
         maxlength: 30,
       },
 
-      // Device
+      // DEVICE
+      // In which device was this transaction closed.
       device: {
-        device_id: {
+        _id: {
           type: String,
           maxlength: 30,
         },
@@ -30,9 +33,10 @@ module.exports =
         },
       },
 
-      // Location
+      // LOCATION
+      // Which location is this transaction associated with.
       location: {
-        location_id: {
+        _id: {
           type: String,
           maxlength: 30,
         },
@@ -40,17 +44,29 @@ module.exports =
           type: String,
           maxlength: 30,
         },
-        apicbase: {
-          outlet_id: {
-            type: String,
-            maxlength: 30,
-          },
+      },
+
+      // USER
+      // Which user closed this transaction.
+      user: {
+        _id: {
+          type: String,
+          maxlength: 30,
+        },
+        name: {
+          type: String,
+          maxlength: 30,
+        },
+        role: {
+          type: String,
+          maxlength: 30,
         },
       },
 
-      // Layout
+      // LAYOUT
+      // What was the layout used at the moment.
       layout: {
-        layout_id: {
+        _id: {
           type: String,
           maxlength: 30,
         },
@@ -60,41 +76,8 @@ module.exports =
         },
       },
 
-      // Customer
-      customer: {
-        customer_id: {
-          type: String,
-          maxlength: 30,
-        },
-        first_name: {
-          type: String,
-          maxlength: 30,
-        },
-        last_name: {
-          type: String,
-          maxlength: 30,
-        },
-        email: {
-          type: String,
-          maxlength: 30,
-        },
-        reference: {
-          type: String,
-          maxlength: 30,
-        },
-        tax_country: {
-          type: String,
-          minlength: 2,
-          maxlength: 2,
-        },
-        tax_number: {
-          type: String,
-          minlength: 9,
-          maxlength: 9,
-        },
-      },
-
-      // Items
+      // ITEMS
+      // The list of products transacted.
       items: [
         {
           product_id: {
@@ -117,6 +100,9 @@ module.exports =
             type: String,
             maxlength: 50,
           },
+          qty: {
+            type: Number,
+          },
           price: {
             type: Number,
           },
@@ -127,22 +113,17 @@ module.exports =
           tax_percentage: {
             type: Number,
           },
-          qty: {
+          tax_amount: {
             type: Number,
-          },
-          apicbase: {
-            recipe_id: {
-              type: String,
-              maxlength: 30,
-            },
           },
         },
       ],
 
-      // Discounts
+      // DISCOUNTS
+      // The discounts applied in this transaction.
       discounts: [
         {
-          discount_id: {
+          _id: {
             type: String,
             maxlength: 30,
           },
@@ -154,87 +135,137 @@ module.exports =
             type: String,
             maxlength: 50,
           },
+          description: {
+            type: String,
+            maxlength: 250,
+          },
           amount: {
             type: Number,
           },
         },
       ],
 
-      // Payment
+      // PAYMENT
+      // How was this transaction paid, the amounts involved
+      // and the associated tax details.
       payment: {
         is_paid: {
           type: Boolean,
         },
         method_value: {
           type: String,
+          maxlength: 30,
         },
         method_label: {
           type: String,
+          maxlength: 30,
         },
-        total_amount: {
+        amount_base: {
           type: Number,
         },
-        checking_account: {
-          checking_account_id: {
-            type: String,
-          },
-          title: {
-            type: String,
-          },
-          client_name: {
-            type: String,
-          },
-          tax_country: {
-            type: String,
-            minlength: 2,
-            maxlength: 2,
-          },
-          tax_number: {
-            type: String,
-            minlength: 9,
-            maxlength: 9,
-          },
+        amount_tax: {
+          type: Number,
+        },
+        amount_total: {
+          type: Number,
+        },
+        tax_region: {
+          type: String,
+          maxlength: 2,
+        },
+        tax_number: {
+          type: String,
+          maxlength: 9,
+        },
+        contact_email: {
+          type: String,
+          maxlength: 50,
+        },
+        send_invoice: {
+          type: Boolean,
+          default: false,
         },
       },
 
-      // User
-      user: {
-        user_id: {
+      // CUSTOMER (Optional)
+      // The customer associated with this transaction.
+      customer: {
+        _id: {
           type: String,
+          maxlength: 30,
         },
-        name: {
+        first_name: {
           type: String,
+          maxlength: 30,
+        },
+        last_name: {
+          type: String,
+          maxlength: 30,
+        },
+        reference: {
+          type: String,
+          maxlength: 30,
         },
       },
 
-      // Invoice
+      // CHECKING ACCOUNT (Optional)
+      // The checking account associated with this transaction.
+      // In this mode, it is frequent the transaction is unpaid
+      checking_account: {
+        _id: {
+          type: String,
+          maxlength: 30,
+        },
+        title: {
+          type: String,
+          maxlength: 30,
+        },
+        client_name: {
+          type: String,
+          maxlength: 30,
+        },
+      },
+
+      // INVOICE (Optional)
+      // The invoice details generated by Vendus.
+      // This is optional because transactions paid by checking_account
+      // are not invoiced immediately but monthly, usually.
       invoice: {
-        invoice_id: {
+        _id: {
           type: String,
+          maxlength: 30,
         },
         type: {
           type: String,
+          maxlength: 30,
         },
         number: {
           type: String,
+          maxlength: 30,
         },
         date: {
           type: String,
+          maxlength: 30,
         },
         system_time: {
           type: String,
+          maxlength: 30,
         },
         local_time: {
           type: String,
+          maxlength: 30,
         },
         amount_gross: {
           type: String,
+          maxlength: 30,
         },
         amount_net: {
           type: String,
+          maxlength: 30,
         },
         hash: {
           type: String,
+          maxlength: 30,
         },
       },
     })
