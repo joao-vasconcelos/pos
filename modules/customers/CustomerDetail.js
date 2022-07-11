@@ -186,13 +186,13 @@ export default function CustomerDetail({ customer_id }) {
         />
         <CustomerDetailInput
           label={'Região Fiscal'}
-          value={customer?.tax_country}
+          value={customer?.tax_region}
           onChange={({ target }) => {
             const string = target.value
               .substring(0, 2)
               .toUpperCase()
               .match(/^[A-Za-z]+$/); // Only alphabet letters
-            setCustomer({ ...customer, tax_country: string ? string[0] : '' });
+            setCustomer({ ...customer, tax_region: string ? string[0] : '' });
           }}
           editMode={editMode}
         />
