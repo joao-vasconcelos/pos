@@ -28,8 +28,8 @@ export default function CurrentOrderProvider({ children }) {
 
     // Current order customer
     customer: customer,
-    setCustomer: setCustomer,
     hasCustomer: !(customer === null || customer === undefined),
+    setCustomer: setCustomer,
 
     // Current order total
     totals: totals,

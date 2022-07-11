@@ -8,7 +8,7 @@ import transactionManager from '../../services/transactionManager';
 import PaymentResult from './PaymentResult';
 
 /* * */
-/* PAY BY CARD */
+/* PAYMENT START */
 /* Explanation needed. */
 /* * */
 
@@ -64,7 +64,7 @@ export default function PaymentStart() {
   // Run on component mount
   useEffect(() => {
     // Check if transaction has been already processed:
-    // To learn more: https://github.com/reactwg/react-18/discussions/18
+    // Learn more: https://github.com/reactwg/react-18/discussions/18
     if (!alreadySentTransaction.current) {
       initiatePayment();
       alreadySentTransaction.current = true;
