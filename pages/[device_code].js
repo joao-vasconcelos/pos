@@ -12,6 +12,7 @@ import OrderDetails from '../modules/order/OrderDetails';
 import OrderTotals from '../modules/order/OrderTotals';
 import UserButton from '../modules/users/UserButton';
 import Discounts from '../modules/discounts/Discounts';
+import StatusBar from '../modules/status/StatusBar';
 
 /* * */
 /* POINT OF SALE */
@@ -26,11 +27,22 @@ const Container = styled('div', {
   top: '0',
   left: '0',
   display: 'flex',
+  flexDirection: 'column',
+  gap: '$xs',
+  alignItems: 'stretch',
+  justifyContent: 'stretch',
+  minHeight: 'var(--window-inner-height)',
+  width: '100%',
+  height: '100%',
+  backgroundColor: '$gray0',
+});
+
+const RegisterWrapper = styled('div', {
+  display: 'flex',
   flexDirection: 'row',
   gap: '$md',
   alignItems: 'stretch',
   justifyContent: 'stretch',
-  minHeight: 'var(--window-inner-height)',
   width: '100%',
   height: '100%',
   padding: '$sm',
@@ -93,19 +105,22 @@ export default function PointOfSale() {
 
   return device && customers ? (
     <Container>
-      <ProductsContainer>
-        <FolderGrid />
-        <ProductGrid />
-      </ProductsContainer>
-      <CheckoutPannel>
-        <UserButton />
-        <AssociateCustomer />
-        <InnerCheckoutWrapper>
-          <OrderDetails />
-          <Discounts />
-        </InnerCheckoutWrapper>
-        <OrderTotals />
-      </CheckoutPannel>
+      <RegisterWrapper>
+        <ProductsContainer>
+          <FolderGrid />
+          <ProductGrid />
+        </ProductsContainer>
+        <CheckoutPannel>
+          {/* <UserButton /> */}
+          <AssociateCustomer />
+          <InnerCheckoutWrapper>
+            <OrderDetails />
+            <Discounts />
+          </InnerCheckoutWrapper>
+          <OrderTotals />
+        </CheckoutPannel>
+      </RegisterWrapper>
+      <StatusBar />
       <Overlay />
     </Container>
   ) : (
