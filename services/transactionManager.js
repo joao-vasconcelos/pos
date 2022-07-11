@@ -111,9 +111,9 @@ async function create(appstate, order) {
   transaction.payment = {
     method_value: order.payment.method_value,
     method_label: order.payment.method_label,
-    amount_subtotal: order.totals.subtotal,
-    amount_discounts: order.totals.discounts,
-    amount_total: order.totals.total,
+    amount_subtotal: order.totals.subtotal.toFixed(2),
+    amount_discounts: order.totals.discounts.toFixed(2),
+    amount_total: order.totals.total.toFixed(2),
   };
 
   // 1.8.1. Payment › Specific Properties
@@ -193,14 +193,17 @@ function getTaxPercentageFromTaxId(taxId) {
 
 function calculateLineItemBaseAmount(qty, unitPrice, taxId) {
   const taxPercentage = getTaxPercentageFromTaxId(taxId);
-  return (qty * unitPrice) / (1 + taxPercentage);
+  const baseAmount = (qty * unitPrice) / (1 + taxPercentage);
+  return baseAmount.toFixed(2);
 }
 
 function calculateLineItemTaxAmount(qty, unitPrice, taxId) {
   const taxPercentage = getTaxPercentageFromTaxId(taxId);
-  return qty * unitPrice * taxPercentage;
+  const taxAmount = qty * unitPrice * taxPercentage;
+  return taxAmount.toFixed(2);
 }
 
 function calculateLineItemTotalAmount(qty, unitPrice) {
-  return qty * unitPrice;
+  const totalAmount = qty * unitPrice;
+  return totalAmount.toFixed(2);
 }
