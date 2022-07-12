@@ -12,7 +12,7 @@ import OrderDetails from '../modules/order/OrderDetails';
 import OrderTotals from '../modules/order/OrderTotals';
 import UserButton from '../modules/users/UserButton';
 import Discounts from '../modules/discounts/Discounts';
-import StatusBar from '../modules/status/StatusBar';
+import StatusBar from '../modules/reports/StatusBar';
 
 /* * */
 /* POINT OF SALE */
@@ -28,12 +28,13 @@ const Container = styled('div', {
   left: '0',
   display: 'flex',
   flexDirection: 'column',
-  gap: '$xs',
+  gap: '$md',
   alignItems: 'stretch',
   justifyContent: 'stretch',
   minHeight: 'var(--window-inner-height)',
   width: '100%',
   height: '100%',
+  padding: '$sm',
   backgroundColor: '$gray0',
 });
 
@@ -45,7 +46,6 @@ const RegisterWrapper = styled('div', {
   justifyContent: 'stretch',
   width: '100%',
   height: '100%',
-  padding: '$sm',
   backgroundColor: '$gray0',
 });
 
@@ -111,7 +111,7 @@ export default function PointOfSale() {
           <ProductGrid />
         </ProductsContainer>
         <CheckoutPannel>
-          {/* <UserButton /> */}
+          <UserButton />
           <AssociateCustomer />
           <InnerCheckoutWrapper>
             <OrderDetails />
