@@ -16,7 +16,7 @@ import StatusBar from '../modules/reports/StatusBar';
 
 /* * */
 /* POINT OF SALE */
-/* Explanation needed. */
+/* The starting point of the app. */
 /* * */
 
 /* */
