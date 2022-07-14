@@ -4,7 +4,7 @@ import Device from '../../../models/Device';
 import CheckingAccount from '../../../models/CheckingAccount';
 import { DateTime } from 'luxon';
 
-export default async function transactions(req, res) {
+export default async function createTransaction(req, res) {
   //
 
   // 0. Refuse request if not POST
