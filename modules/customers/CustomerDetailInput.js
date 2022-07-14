@@ -65,7 +65,14 @@ const EditInput = styled('input', {
 /* */
 /* LOGIC */
 
-export default function CustomerDetailInput({ label, value = '', type = 'text', required = false, onChange, editMode }) {
+export default function CustomerDetailInput({
+  label,
+  value = '',
+  type = 'text',
+  required = false,
+  onChange,
+  editMode,
+}) {
   //
 
   return editMode ? (
