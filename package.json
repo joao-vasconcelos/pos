@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.12",
+    "@mantine/dates": "^4.2.12",
+    "@mantine/form": "^4.2.12",
+    "@mantine/hooks": "^4.2.12",
+    "@mantine/next": "^4.2.12",
     "@stitches/react": "^1.2.8",
+    "dayjs": "^1.11.3",
     "lottie-web": "^5.9.6",
     "luxon": "^3.0.1",
     "mongoose": "^6.4.4",
@@ -17,7 +23,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "swr": "^1.3.0"
+    "swr": "^1.3.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
