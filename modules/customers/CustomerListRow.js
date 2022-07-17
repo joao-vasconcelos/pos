@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react';
 import { useContext } from 'react';
 import { Appstate } from '../../context/Appstate';
-import CustomerDetail from './CustomerDetail';
+import CustomerView from './CustomerView';
 import { GoClippy } from 'react-icons/go';
 
 /* * */
@@ -142,7 +142,7 @@ export default function CustomersListRow({ customer, onSelect, selectedCustomer 
   let isThisCustomerSelected = selectedCustomer?._id == customer._id;
 
   function handleView() {
-    appstate.setOverlay(<CustomerDetail customer_id={customer._id} />);
+    appstate.setOverlay(<CustomerView customer_id={customer._id} />);
   }
 
   return (

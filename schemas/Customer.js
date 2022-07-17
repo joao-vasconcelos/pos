@@ -11,20 +11,20 @@ import * as yup from 'yup';
 export default yup.object({
   first_name: yup
     .string()
-    .min(2, 'First Name must have at least ${min} characters')
-    .max(30, 'First Name must be no longer than ${max} characters')
-    .required('First Name is a required field'),
-  last_name: yup.string().max(30, 'Last Name must be no longer than ${max} characters'),
+    .min(2, 'Primeiro Nome deve ter pelo menos ${min} caracteres')
+    .max(30, 'Primeiro Nome não deve ter mais do que ${max} caracteres')
+    .required('Primeiro Nome é obrigatório'),
+  last_name: yup.string().max(30, 'Apelido não deve ter mais do que ${max} caracteres'),
   tax_region: yup
     .string()
-    .matches(/^$|^[a-zA-Z]{2}$/, 'Tax Region must be exactly 2 letters (ex: PT, NL)')
+    .matches(/^$|^[a-zA-Z]{2}$/, 'Região Fiscal são duas letras (ex: PT, NL)')
     .uppercase(),
   tax_number: yup
     .string()
-    .matches(/^$|^[0-9]{9}$/, 'Tax Number must be exactly 9 numbers (ex: 125 321 978)')
+    .matches(/^$|^[0-9]{9}$/, 'Número de Contribuinte são 9 números (ex: 125 321 978)')
     .transform((value) => value.replace(/\s+/g, '')),
   contact_email: yup.string().email(),
   send_invoices: yup.boolean().default(false),
-  reference: yup.string('Reference must be a string').max(30, 'Reference must be no longer than 30 characters'),
+  reference: yup.string().max(30, 'Nr. do Cartão TP não deve ter mais do que ${max} caracteres'),
   birthday: yup.string().ensure(),
 });

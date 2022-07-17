@@ -5,7 +5,6 @@ import { CurrentOrder } from '../../context/CurrentOrder';
 import Pannel from '../../components/Pannel';
 import TextField from '../../components/TextField';
 import Button from '../../components/Button';
-import CustomerDetailInput from './CustomerDetailInput';
 
 /* * */
 /* ASSOCIATE ONLY NIF */
