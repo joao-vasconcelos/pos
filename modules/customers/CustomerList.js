@@ -12,10 +12,10 @@ import Button from '../../components/Button';
 import TextField from '../../components/TextField';
 import ButtonBar from '../../components/ButtonBar';
 import AssociateOnlyNIF from './AssociateOnlyNIF';
+import CustomerCreateOrEdit from './CustomerCreateOrEdit';
 
 import CustomersListRow from './CustomerListRow';
 import Icon from '../../components/Icon';
-import CustomerDetail from './CustomerDetail';
 
 /* * */
 /* CUSTOMER LIST */
@@ -141,7 +141,7 @@ export default function CustomerList() {
   }
 
   function handleCreateCustomer() {
-    appstate.setOverlay(<CustomerDetail />);
+    appstate.setOverlay(<CustomerCreateOrEdit />);
   }
 
   function handleAssociateCustomer() {
@@ -179,7 +179,12 @@ export default function CustomerList() {
       <ListContainer>
         {filteredCustomers?.length ? (
           filteredCustomers.map((customer) => (
-            <CustomersListRow key={customer._id} customer={customer} onSelect={handleSelect} selectedCustomer={selectedCustomer} />
+            <CustomersListRow
+              key={customer._id}
+              customer={customer}
+              onSelect={handleSelect}
+              selectedCustomer={selectedCustomer}
+            />
           ))
         ) : (
           <NoResultsMessage>Nenhum Resultado Encontrado</NoResultsMessage>

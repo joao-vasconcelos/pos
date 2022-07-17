@@ -111,7 +111,7 @@ export default function PointOfSale() {
           <ProductGrid />
         </ProductsContainer>
         <CheckoutPannel>
-          <UserButton />
+          {/* <UserButton /> */}
           <AssociateCustomer />
           <InnerCheckoutWrapper>
             <OrderDetails />

@@ -44,12 +44,13 @@ export default async function editCustomer(req, res) {
     // This might be expanded in the future, if emails are necessary for account creation.
     if (req.body.reference) {
       const foundReference = await Customer.findOne({ reference: req.body.reference });
-      if (foundReference._id != req.query._id) throw new Error('Já existe um cliente com a mesma referência');
+      if (foundReference && foundReference._id != req.query._id) {
+        throw new Error('Já existe um cliente com a mesma referência');
+      }
     }
   } catch (err) {
     console.log(err);
-    await res.status(409).json({ message: err.message });
-    return;
+    return await res.status(409).json({ message: err.message });
   }
 
   // 4. Try to update the document with req.body

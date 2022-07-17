@@ -5,8 +5,8 @@ import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import Button from '../../components/Button';
 import CustomerList from './CustomerList';
+import CustomerView from './CustomerView';
 import AssociateOnlyNIF from './AssociateOnlyNIF';
-import CustomerDetail from './CustomerDetail';
 import { FaUserPlus, FaUserCheck, FaUserTimes } from 'react-icons/fa';
 
 /* * */
@@ -44,6 +44,7 @@ const Label = styled('p', {
   fontSize: '18px',
   fontWeight: '$medium',
   textTransform: 'uppercase',
+  textAlign: 'center',
 });
 
 /* */
@@ -114,7 +115,7 @@ export default function AssociateCustomer() {
   }
 
   function handleChangeCustomer() {
-    appstate.setOverlay(<CustomerDetail customer_id={currentOrder.customer._id} />);
+    appstate.setOverlay(<CustomerView customer_id={currentOrder.customer._id} />);
   }
 
   /* */
