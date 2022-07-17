@@ -11,7 +11,7 @@ import CustomerCreateOrEdit from './CustomerCreateOrEdit';
 import { DateTime } from 'luxon';
 
 /* * */
-/* CUSTOMER DETAIL */
+/* CUSTOMER VIEW */
 /* Explanation needed. */
 /* * */
 
