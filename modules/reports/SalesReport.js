@@ -58,9 +58,9 @@ export default function SalesReport() {
       // Check if it has invoice
       if (transaction.invoice) {
         // Check if transaction matches selected date
-        const matchesYear = new Date(transaction.timestamp).getFullYear() === selectedDate.getFullYear();
-        const matchesMonth = new Date(transaction.timestamp).getMonth() === selectedDate.getMonth();
-        const matchesDay = new Date(transaction.timestamp).getDate() === selectedDate.getDate();
+        const matchesYear = new Date(transaction.timestamp).getFullYear() === selectedDate?.getFullYear();
+        const matchesMonth = new Date(transaction.timestamp).getMonth() === selectedDate?.getMonth();
+        const matchesDay = new Date(transaction.timestamp).getDate() === selectedDate?.getDate();
         // Check if transaction matches selected date
         if (matchesYear && matchesMonth && matchesDay) {
           totalSoldAmount += Number(transaction.invoice.amount_net);
@@ -85,9 +85,9 @@ export default function SalesReport() {
     // Loop through all transactions
     for (const transaction of transactions) {
       // Check if transaction matches selected date
-      const matchesYear = new Date(transaction.timestamp).getFullYear() === selectedDate.getFullYear();
-      const matchesMonth = new Date(transaction.timestamp).getMonth() === selectedDate.getMonth();
-      const matchesDay = new Date(transaction.timestamp).getDate() === selectedDate.getDate();
+      const matchesYear = new Date(transaction.timestamp).getFullYear() === selectedDate?.getFullYear();
+      const matchesMonth = new Date(transaction.timestamp).getMonth() === selectedDate?.getMonth();
+      const matchesDay = new Date(transaction.timestamp).getDate() === selectedDate?.getDate();
       // Check if transaction matches selected date
       if (matchesYear && matchesMonth && matchesDay) {
         // If it matches, loop through each item in each transaction
