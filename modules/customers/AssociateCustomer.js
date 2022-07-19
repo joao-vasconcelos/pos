@@ -58,11 +58,8 @@ export default function AssociateCustomer() {
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
 
-  const hasCardReaderEventListener = useRef(false);
   const hasCardReaderTimeout = useRef(false);
   const cardReader = useRef('');
-
-  const [oldState, updateOldState] = useState(0); // Flag to force state update
 
   const handleKeyPress = useCallback(
     (event) => {
@@ -93,20 +90,18 @@ export default function AssociateCustomer() {
           }
         }
       }
-      // Force EventListener and React State refresh to include the most recent data
-      hasCardReaderEventListener.current = false;
-      document.removeEventListener('keydown', handleKeyPress);
-      updateOldState(oldState + 1);
     },
-    [currentOrder, customers, oldState]
+    [currentOrder, customers]
   );
 
   // // Card Reader
   useEffect(() => {
-    if (!hasCardReaderEventListener.current) {
-      document.addEventListener('keydown', handleKeyPress);
-      hasCardReaderEventListener.current = true;
-    }
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      // Cleanup on component unmount (before next re-render)
+      // Read more: https://stackoverflow.com/a/56800795
+      document.removeEventListener('keydown', handleKeyPress);
+    };
   }, [appstate, currentOrder, handleKeyPress]);
 
   // Handlers
