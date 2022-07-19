@@ -8,6 +8,7 @@ import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import PaymentOption from './PaymentOption';
 import PaymentStart from './PaymentStart';
+import ChangeCalculator from './ChangeCalculator';
 import SelectCheckingAccount from './SelectCheckingAccount';
 
 import { BsCreditCardFill, BsCashCoin, BsBookmarkCheckFill } from 'react-icons/bs';
@@ -63,9 +64,12 @@ export default function Payment() {
   function handleInitiatePayment() {
     switch (selectedPaymentOption.method_value) {
       case 'card':
-      case 'cash':
         currentOrder.setPayment(selectedPaymentOption);
         appstate.setOverlay(<PaymentStart />);
+        break;
+      case 'cash':
+        currentOrder.setPayment(selectedPaymentOption);
+        appstate.setOverlay(<ChangeCalculator />);
         break;
       case 'checking_account':
         currentOrder.setPayment(selectedPaymentOption);
