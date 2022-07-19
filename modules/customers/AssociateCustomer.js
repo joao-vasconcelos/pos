@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { styled } from '@stitches/react';
-import { useCallback, useEffect, useContext, useState, useRef } from 'react';
+import useSWR from 'swr';
+import { useEffect, useContext, useRef, useCallback, useState } from 'react';
 import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import Button from '../../components/Button';
@@ -58,11 +58,8 @@ export default function AssociateCustomer() {
   const appstate = useContext(Appstate);
   const currentOrder = useContext(CurrentOrder);
 
-  const hasCardReaderEventListener = useRef(false);
   const hasCardReaderTimeout = useRef(false);
   const cardReader = useRef('');
-
-  // Card Reader
 
   const handleKeyPress = useCallback(
     (event) => {
@@ -89,20 +86,23 @@ export default function AssociateCustomer() {
             setTimeout(() => {
               cardReader.current = '';
               hasCardReaderTimeout.current = false;
-            }, 100);
+            }, 500);
           }
         }
       }
     },
-    [customers, currentOrder, cardReader]
+    [currentOrder, customers]
   );
 
+  // // Card Reader
   useEffect(() => {
-    if (!hasCardReaderEventListener.current) {
-      hasCardReaderEventListener.current = true;
-      document.addEventListener('keydown', handleKeyPress);
-    }
-  }, [handleKeyPress, currentOrder.hasCustomer]);
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      // Cleanup on component unmount (before next re-render)
+      // Read more: https://stackoverflow.com/a/56800795
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [appstate, currentOrder, handleKeyPress]);
 
   // Handlers
 

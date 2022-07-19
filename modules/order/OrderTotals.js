@@ -85,7 +85,9 @@ export default function OrderTotals() {
   const currentOrder = useContext(CurrentOrder);
 
   function handleFinalize() {
-    appstate.setOverlay(<Payment />);
+    if (currentOrder.hasItems) {
+      appstate.setOverlay(<Payment />);
+    }
   }
 
   return (
@@ -93,7 +95,9 @@ export default function OrderTotals() {
       <InnerWrapper>
         <Row>
           <SubtotalLabel active={currentOrder.hasItems}>Subtotal</SubtotalLabel>
-          <SubtotalValue active={currentOrder.hasItems}>{currentOrder.totals ? currentOrder.totals.subtotal.toFixed(2) : '0.00'}€</SubtotalValue>
+          <SubtotalValue active={currentOrder.hasItems}>
+            {currentOrder.totals ? currentOrder.totals.subtotal.toFixed(2) : '0.00'}€
+          </SubtotalValue>
         </Row>
         <Row>
           <DiscountsLabel active={currentOrder.hasDiscounts}>Valor dos Descontos</DiscountsLabel>

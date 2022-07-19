@@ -1,5 +1,5 @@
 import { styled } from '@stitches/react';
-
+import useSWR from 'swr';
 import { useContext, useState, useEffect, useRef } from 'react';
 import { Appstate } from '../../context/Appstate';
 import API from '../../services/API';
@@ -55,6 +55,8 @@ const ErrorNotice = styled('div', {
 export default function CustomerCreateOrEdit({ customer }) {
   //
 
+  const { data: customers, mutate } = useSWR('/api/customers/');
+
   const appstate = useContext(Appstate);
 
   const hasUpdatedFields = useRef(false);
@@ -103,7 +105,6 @@ export default function CustomerCreateOrEdit({ customer }) {
       setIsError(false);
       setIsLoading(true);
       if (customer) {
-        console.log(customer);
         // Update existing customer
         await API({ service: 'customers', operation: 'edit', resourceId: customer._id, method: 'PUT', body: values });
         appstate.setOverlay(<CustomerView customer_id={customer._id} />);
@@ -112,6 +113,7 @@ export default function CustomerCreateOrEdit({ customer }) {
         const response = await API({ service: 'customers', operation: 'create', method: 'POST', body: values });
         appstate.setOverlay(<CustomerView customer_id={response._id} />);
       }
+      mutate();
       setIsLoading(false);
     } catch (err) {
       console.log(err);
