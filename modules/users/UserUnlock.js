@@ -2,7 +2,7 @@ import { styled } from '@stitches/react';
 import { useContext, useState, useEffect } from 'react';
 import { Appstate } from '../../context/Appstate';
 import Pannel from '../../components/Pannel';
-import { MdBackspace } from 'react-icons/md';
+import Keypad from '../../components/Keypad';
 
 /* * */
 /* USER UNLOCK */
@@ -81,41 +81,6 @@ const InputSlot = styled('div', {
   ],
 });
 
-const KeyboardContainer = styled('div', {
-  display: 'grid',
-  placeItems: 'stretch',
-  placeContent: 'stretch',
-  gridTemplateColumns: 'repeat(4, 80px)',
-  gridTemplateRows: 'repeat(3, 80px)',
-  gap: '$md',
-});
-
-const KeyboardKey = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '$gray3',
-  borderWidth: '$md',
-  borderStyle: 'solid',
-  borderColor: '$gray6',
-  color: '$gray10',
-  borderRadius: '$md',
-  fontSize: '30px',
-  fontWeight: '$bold',
-  cursor: 'pointer',
-  '&:hover': {
-    color: '$gray11',
-    backgroundColor: '$gray4',
-    borderColor: '$gray7',
-  },
-  '&:active': {
-    color: '$gray0',
-    backgroundColor: '$primary5',
-    borderColor: '$primary7',
-    boxShadow: '$md',
-  },
-});
-
 /* */
 /* LOGIC */
 
@@ -140,13 +105,13 @@ export default function UserUnlock() {
     });
   });
 
-  function handleClick({ target }) {
+  function handleClick(value) {
     let pwd = Array.from(pwdInput);
     if (isError) {
       pwd = [];
       setIsError(false);
     }
-    pwd.push(target.innerHTML);
+    pwd.push(value);
     setPwdInput(pwd);
     if (pwd.length > 3) {
       const user = appstate.device?.users.find((usr) => String(usr.pwd) == pwd.join('').toString());
@@ -175,24 +140,7 @@ export default function UserUnlock() {
           <InputSlot empty={!pwdInput[2]} isError={isError} />
           <InputSlot empty={!pwdInput[3]} isError={isError} />
         </InputContainer>
-
-        <KeyboardContainer>
-          <KeyboardKey onClick={handleClick}>7</KeyboardKey>
-          <KeyboardKey onClick={handleClick}>8</KeyboardKey>
-          <KeyboardKey onClick={handleClick}>9</KeyboardKey>
-          <KeyboardKey onClick={handleDeleteValue}>
-            <MdBackspace />
-          </KeyboardKey>
-          <KeyboardKey onClick={handleClick}>4</KeyboardKey>
-          <KeyboardKey onClick={handleClick}>5</KeyboardKey>
-          <KeyboardKey onClick={handleClick}>6</KeyboardKey>
-          <KeyboardKey onClick={handleClick} css={{ gridRowEnd: 'span 2' }}>
-            0
-          </KeyboardKey>
-          <KeyboardKey onClick={handleClick}>1</KeyboardKey>
-          <KeyboardKey onClick={handleClick}>2</KeyboardKey>
-          <KeyboardKey onClick={handleClick}>3</KeyboardKey>
-        </KeyboardContainer>
+        <Keypad onClick={handleClick} onDelete={handleDeleteValue} />
       </Container>
     </Pannel>
   );
