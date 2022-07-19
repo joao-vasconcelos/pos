@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { styled } from '@stitches/react';
-import { useCallback, useEffect, useContext, useState, useRef } from 'react';
+import useSWR from 'swr';
+import { useEffect, useContext, useRef, useCallback, useState } from 'react';
 import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import Button from '../../components/Button';
@@ -62,7 +62,7 @@ export default function AssociateCustomer() {
   const hasCardReaderTimeout = useRef(false);
   const cardReader = useRef('');
 
-  // Card Reader
+  const [oldState, updateOldState] = useState(0); // Flag to force state update
 
   const handleKeyPress = useCallback(
     (event) => {
@@ -89,20 +89,25 @@ export default function AssociateCustomer() {
             setTimeout(() => {
               cardReader.current = '';
               hasCardReaderTimeout.current = false;
-            }, 100);
+            }, 500);
           }
         }
       }
+      // Force EventListener and React State refresh to include the most recent data
+      hasCardReaderEventListener.current = false;
+      document.removeEventListener('keydown', handleKeyPress);
+      updateOldState(oldState + 1);
     },
-    [customers, currentOrder, cardReader]
+    [currentOrder, customers, oldState]
   );
 
+  // // Card Reader
   useEffect(() => {
     if (!hasCardReaderEventListener.current) {
-      hasCardReaderEventListener.current = true;
       document.addEventListener('keydown', handleKeyPress);
+      hasCardReaderEventListener.current = true;
     }
-  }, [handleKeyPress, currentOrder.hasCustomer]);
+  }, [appstate, currentOrder, handleKeyPress]);
 
   // Handlers
 
