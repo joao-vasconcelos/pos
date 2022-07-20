@@ -121,10 +121,11 @@ async function create(appstate, order) {
   // depending on the Payment Method used.
   switch (transaction.payment.method_value) {
     //
-    // Payment › Card or Cash
+    // Payment › Card, Cash or Free
     case 'card':
     case 'cash':
-      // For Card or Cash payments,
+    case 'free':
+      // For Card, Cash or Free payments,
       // transactions are paid immediately.
       transaction.payment.is_paid = true;
       break;
