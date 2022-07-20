@@ -34,6 +34,9 @@ export default function FolderGrid() {
   });
 
   return (
-    <Container>{appstate.hasDevice && appstate.device.layout.folders.map((folder) => <FolderButton key={folder._id} folder={folder} />)}</Container>
+    <Container>
+      {appstate.hasDevice &&
+        appstate.device.layout.folders.map((folder) => <FolderButton key={folder._id} folder={folder} />)}
+    </Container>
   );
 }

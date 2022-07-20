@@ -8,6 +8,7 @@ import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import PaymentOption from './PaymentOption';
 import PaymentStart from './PaymentStart';
+import ChangeCalculator from './ChangeCalculator';
 import SelectCheckingAccount from './SelectCheckingAccount';
 
 import { BsCreditCardFill, BsCashCoin, BsBookmarkCheckFill } from 'react-icons/bs';
@@ -60,12 +61,28 @@ export default function Payment() {
     setSelectedPaymentOption(payment);
   }
 
+  function getButtonLabel() {
+    switch (selectedPaymentOption?.method_value) {
+      case 'card':
+        return 'Finalizar Pagamento';
+      case 'cash':
+        return 'Calcular Troco';
+      case 'checking_account':
+        return 'Selecionar Conta';
+      default:
+        return 'Escolha um método de pagamento';
+    }
+  }
+
   function handleInitiatePayment() {
     switch (selectedPaymentOption.method_value) {
       case 'card':
-      case 'cash':
         currentOrder.setPayment(selectedPaymentOption);
         appstate.setOverlay(<PaymentStart />);
+        break;
+      case 'cash':
+        currentOrder.setPayment(selectedPaymentOption);
+        appstate.setOverlay(<ChangeCalculator />);
         break;
       case 'checking_account':
         currentOrder.setPayment(selectedPaymentOption);
@@ -104,7 +121,7 @@ export default function Payment() {
       </PaymentOptionsContainer>
       <ButtonBar cols={1}>
         <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
-          {selectedPaymentOption?.method_value == 'checking_account' ? 'Selecionar Conta' : 'Finalizar Pagamento'}
+          {getButtonLabel()}
         </Button>
       </ButtonBar>
     </Pannel>
