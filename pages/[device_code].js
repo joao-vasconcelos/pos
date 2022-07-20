@@ -97,9 +97,6 @@ export default function PointOfSale() {
     }
   }, [appstate, device, device_code, router]);
 
-  // Fix window height on component mount
-  useEffect(() => document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`), []);
-
   /* */
   /* RENDER */
 

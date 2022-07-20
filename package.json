@@ -1,6 +1,6 @@
 {
   "name": "@chefpoint/pos",
-  "version": "2022.7.6",
+  "version": "2022.7.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,7 +15,7 @@
     "@mantine/hooks": "^4.2.12",
     "@mantine/next": "^4.2.12",
     "@stitches/react": "^1.2.8",
-    "dayjs": "^1.11.3",
+    "dayjs": "^1.11.4",
     "lottie-web": "^5.9.6",
     "luxon": "^3.0.1",
     "mongoose": "^6.4.5",
