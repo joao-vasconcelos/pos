@@ -61,6 +61,19 @@ export default function Payment() {
     setSelectedPaymentOption(payment);
   }
 
+  function getButtonLabel() {
+    switch (selectedPaymentOption?.method_value) {
+      case 'card':
+        return 'Finalizar Pagamento';
+      case 'cash':
+        return 'Calcular Troco';
+      case 'checking_account':
+        return 'Selecionar Conta';
+      default:
+        return 'Escolha um método de pagamento';
+    }
+  }
+
   function handleInitiatePayment() {
     switch (selectedPaymentOption.method_value) {
       case 'card':
@@ -108,7 +121,7 @@ export default function Payment() {
       </PaymentOptionsContainer>
       <ButtonBar cols={1}>
         <Button disabled={!selectedPaymentOption} onClick={handleInitiatePayment}>
-          {selectedPaymentOption?.method_value == 'checking_account' ? 'Selecionar Conta' : 'Finalizar Pagamento'}
+          {getButtonLabel()}
         </Button>
       </ButtonBar>
     </Pannel>
