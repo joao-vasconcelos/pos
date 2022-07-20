@@ -4,6 +4,7 @@ import { Appstate } from '../../context/Appstate';
 import { CurrentOrder } from '../../context/CurrentOrder';
 import Button from '../../components/Button';
 import Payment from '../payment/Payment';
+import PaymentStart from '../payment/PaymentStart';
 
 /* * */
 /* ORDER TOTALS */
@@ -85,8 +86,15 @@ export default function OrderTotals() {
   const currentOrder = useContext(CurrentOrder);
 
   function handleFinalize() {
+    // Only proceed if currentOrder has items
     if (currentOrder.hasItems) {
-      appstate.setOverlay(<Payment />);
+      // If curent order has an amount (is not FREE), the show payment
+      if (currentOrder.totals.total > 0) appstate.setOverlay(<Payment />);
+      // Else, finalize immediately
+      else {
+        currentOrder.setPayment({ method_value: 'free', method_label: 'Free' });
+        appstate.setOverlay(<PaymentStart />);
+      }
     }
   }
 
@@ -107,7 +115,7 @@ export default function OrderTotals() {
         </Row>
       </InnerWrapper>
       <Button disabled={!currentOrder.hasItems} onClick={handleFinalize}>
-        {currentOrder.hasItems ? 'Total = ' + currentOrder.totals.total.toFixed(2) + '€' : 'Pedido Vazio'}
+        {currentOrder.hasItems ? `Total = ${currentOrder.totals.total.toFixed(2)}€` : 'Pedido Vazio'}
       </Button>
     </Container>
   );
